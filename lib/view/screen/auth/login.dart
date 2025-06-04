@@ -15,7 +15,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginControllerImp controller = Get.put(LoginControllerImp());
+     Get.put(LoginControllerImp());
 
     return Scaffold(
       appBar: AppBar(

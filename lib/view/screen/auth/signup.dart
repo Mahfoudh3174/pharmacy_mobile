@@ -57,9 +57,6 @@ class SignUp extends StatelessWidget {
                   valid: (val) {
                     if (val!.isEmpty) {
                       return "27".tr;
-                    }else if (!RegExp(
-                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(val)) {
-                      return "32".tr;
                     }
                     return null;
                   },

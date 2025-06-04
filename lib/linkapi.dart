@@ -5,4 +5,7 @@ class AppLinks{
   static const String login = "$baseUrl/login";
   static const String register = "$baseUrl/register";
   static const String test="$baseUrl/test";
+
+  // =============pharmacies=========
+  static const String pharmacies = "$baseUrl/pharmacies";
 }

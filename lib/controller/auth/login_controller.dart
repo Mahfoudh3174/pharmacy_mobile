@@ -2,7 +2,7 @@ import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/data/datasource/remote/auth/login_data.dart';
 import 'package:ecommerce/routes.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -13,6 +13,7 @@ abstract class LoginController extends GetxController {
   goToSignUp();
   togglePassword();
   goToForgetPassword();
+  goToHome();
 }
 
 class LoginControllerImp extends LoginController {
@@ -43,7 +44,8 @@ class LoginControllerImp extends LoginController {
       if (statusRequest == StatusRequest.success) {
         storage.sharedPreferences.setString("token", response['token']);
         debugPrint("Token==========: ${response['token']}");
-      }else{
+        goToHome();
+      } else {
         Fluttertoast.showToast(
           msg: "44".tr,
           toastLength: Toast.LENGTH_SHORT,
@@ -51,12 +53,17 @@ class LoginControllerImp extends LoginController {
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0
+          fontSize: 16.0,
         );
       }
     } else {
       debugPrint("Not Valid");
     }
+  }
+
+  @override
+  goToHome() {
+    Get.offNamed(Routes.home);
   }
 
   @override

@@ -12,6 +12,10 @@ class LoginData {
     var response=await crud.postData(AppLinks.login, {
       "credential": credential,
       "password": password,
+    },
+    {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json",
     });
     debugPrint("Response status:====Logindata================ ${response.toString()}");
     return response.fold((l) => l, (r) => r);

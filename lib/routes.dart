@@ -7,8 +7,12 @@ import 'package:ecommerce/view/screen/auth/signup.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/verifycode.dart';
 import 'package:ecommerce/view/screen/auth/success_signup.dart';
 import 'package:ecommerce/view/screen/auth/verifycodesignup.dart';
+import 'package:ecommerce/view/screen/home.dart';
+
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/on_boarding.dart';
+import 'package:ecommerce/view/screen/pharmacie_view.dart';
+
 
 import 'package:get/get.dart';
 
@@ -26,6 +30,9 @@ class Routes {
   static const String resetPassword = '/resetPassword';
   static const String successResetPassword = '/successResetPassword';
 
+  static const String home = '/home';
+  static const String medications="/medications";
+
 
 
   static List<GetPage> routes = [
@@ -39,6 +46,8 @@ class Routes {
     GetPage(name: resetPassword, page: () => const ResetPassword()),
     GetPage(name: successResetPassword, page: () => const SuccessResetPassword()),
     GetPage(name: successSignUp, page: () => const SuccessSignUp()),
+    GetPage(name: home, page: () => const PharmacieView()), 
+    GetPage(name: medications, page: () => const MedicationsView()),
 
 
   ];

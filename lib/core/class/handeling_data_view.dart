@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class HandlingDataView extends StatelessWidget {
-  final StatusRequest? statusRequest;
+  final StatusRequest statusRequest;
   final Widget widget;
   const HandlingDataView(
       {super.key, required this.statusRequest, required this.widget});

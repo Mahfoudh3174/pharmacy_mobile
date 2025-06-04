@@ -19,10 +19,6 @@ class VerifyCodeSignUpControllerImp extends VerifyCodeSignUpController {
     Get.offNamed(Routes.successSignUp);
   }
 
-  @override
-  void onInit() {  
-    super.onInit();
-  }
 
  
 }

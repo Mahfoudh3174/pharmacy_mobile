@@ -48,10 +48,12 @@ class AllTranslations extends Translations {
           "42":"المستخدم موجود بالفعل",
           "43":"يمكنك تسجيل الدخول الآن",
           "44":"هذه البيانات غير صالحة",
+          "45":"قائمة الصيدليات",
           
           
         },
         "en": {
+          "45":"Pharmacies List",
           "44":"These credential are not valid",
           "42":"User Already exist",
           "43":"You can Login Now",
