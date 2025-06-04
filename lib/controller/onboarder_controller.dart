@@ -1,4 +1,6 @@
+import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/datasource/static.dart';
+import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,7 @@ abstract class OnboarderController extends GetxController {
 class OnboarderControllerImp extends OnboarderController {
   int currentPage = 0;
   late PageController pageController;
+  Myservice storage = Get.find();
 
   @override
   void onInit() {
@@ -27,7 +30,8 @@ class OnboarderControllerImp extends OnboarderController {
       update();
     } else {
     debugPrint("Next Page: $currentPage");
-      Get.offAllNamed('/login');
+      storage.sharedPreferences.setBool("onBoarding", true);
+      Get.offAllNamed(Routes.signUp);
     }
     debugPrint("Next Page: $currentPage");
 

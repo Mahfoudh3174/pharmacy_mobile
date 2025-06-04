@@ -5,18 +5,18 @@ import 'package:get/utils.dart';
 List <OnBoardingModel> onBoardingData = [
   OnBoardingModel(
     imageUrl: Imageasset.onBording1,
-    title: 'chose_product'.tr,
-    body: 'chose_product_body'.tr,
+    title: '3'.tr,
+    body: '4'.tr,
   ),
   OnBoardingModel(
     imageUrl: Imageasset.onBording2,
-    title: 'exclusive_deals'.tr,
-    body: 'exclusive_deals_body'.tr,
+    title: '5'.tr,
+    body: '6'.tr,
   ),
   OnBoardingModel(
     imageUrl: Imageasset.onBording3,
-    title: 'fast_elivery'.tr,
-    body: 'fast_elivery_body'.tr,
+    title: '7'.tr,
+    body: '8'.tr,
   ),
   
 

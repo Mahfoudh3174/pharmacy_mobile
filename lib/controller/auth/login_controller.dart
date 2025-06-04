@@ -1,24 +1,67 @@
-
+import 'package:ecommerce/core/class/status_request.dart';
+import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/data/datasource/remote/auth/login_data.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:ecommerce/core/services/services.dart';
 
 abstract class LoginController extends GetxController {
   login();
   goToSignUp();
+  togglePassword();
   goToForgetPassword();
 }
 
 class LoginControllerImp extends LoginController {
+  GlobalKey<FormState> formstate = GlobalKey<FormState>();
+
   late TextEditingController email;
   late TextEditingController password;
+  bool isPasswordVisible = true;
+  StatusRequest statusRequest = StatusRequest.none;
+  Myservice storage = Get.find();
+  LoginData loginData = LoginData(Get.find());
 
   @override
-  login() {}
+  togglePassword() {
+    isPasswordVisible = !isPasswordVisible;
+    update();
+  }
+
+  @override
+  login() async {
+    var formdata = formstate.currentState;
+    if (formdata!.validate()) {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await loginData.getData(email.text, password.text);
+      statusRequest = handlingData(response);
+      update();
+      if (statusRequest == StatusRequest.success) {
+        storage.sharedPreferences.setString("token", response['token']);
+        debugPrint("Token==========: ${response['token']}");
+      }else{
+        Fluttertoast.showToast(
+          msg: "44".tr,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+      }
+    } else {
+      debugPrint("Not Valid");
+    }
+  }
 
   @override
   goToSignUp() {
-    Get.toNamed(Routes.getSignUp());
+    Get.offNamed(Routes.signUp);
   }
 
   @override

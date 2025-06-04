@@ -1,22 +1,19 @@
- 
-import 'package:ecommerce/controller/auth/forgetpassword_controller.dart';
-import 'package:ecommerce/controller/auth/verify_controller.dart';
+
+import 'package:ecommerce/controller/auth/verifycodesignupcontroller.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/view/widget/auth/custombuttonauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextbodyauth.dart';
-import 'package:ecommerce/view/widget/auth/customtextformauth.dart';
 import 'package:ecommerce/view/widget/auth/customtexttitleauth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 
-class VerfiyCode extends StatelessWidget {
-  const VerfiyCode({super.key});
+class VerfiyCodeSignUp extends StatelessWidget {
+  const VerfiyCodeSignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    VerifyCodeControllerImp controller =
-        Get.put(VerifyCodeControllerImp());
+    VerifyCodeSignUpControllerImp controller =
+        Get.put(VerifyCodeSignUpControllerImp());
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -35,22 +32,24 @@ class VerfiyCode extends StatelessWidget {
           const CustomTextTitleAuth(text: "Check code"),
           const SizedBox(height: 10),
           const CustomTextBodyAuth(
-              text:
-                  "Enter The Code Sent To Your Email To Verify Your Account"),
+              text: "Please Enter The Digit Code Sent To Your email"),
           const SizedBox(height: 15),
           OtpTextField(
-        numberOfFields: 5,
-        borderColor: Color(0xFF512DA8),
-        //set to true to show as box or false to show as dash
-        showFieldAsBox: true, 
-        //runs when a code is typed in
-        onCodeChanged: (String code) {
-            //handle validation or checks here           
-        },
-        //runs when every textfield is filled
-        onSubmit: (String verificationCode){
-          }, // end onSubmit
-    ),
+            fieldWidth: 50.0,
+            borderRadius: BorderRadius.circular(20),
+            numberOfFields: 5,
+            borderColor: const Color(0xFF512DA8),
+            //set to true to show as box or false to show as dash
+            showFieldAsBox: true,
+            //runs when a code is typed in
+            onCodeChanged: (String code) {
+              //handle validation or checks here
+            },
+            //runs when every textfield is filled
+            onSubmit: (String verificationCode) {
+              controller.goToSuccessSignUp();
+            }, // end onSubmit
+          ),
           const SizedBox(height: 40),
         ]),
       ),

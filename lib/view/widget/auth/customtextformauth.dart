@@ -5,20 +5,35 @@ class CustonTextFormAuth extends StatelessWidget {
   final String labeltext;
   final IconData iconData;
   final TextEditingController? mycontroller;
+  final String? Function(String?) valid;
+  final bool isNumber;
+  final bool? obscureText;
+  final void Function()? onTapIcon;
+
 
   const CustonTextFormAuth(
       {super.key,
+      this.obscureText = false,
+      this.onTapIcon,
       required this.hinttext,
       required this.labeltext,
       required this.iconData,
-      this.mycontroller});
+      required this.mycontroller,
+      required this.valid,
+      required this.isNumber});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: TextFormField(
+        keyboardType: isNumber
+            ? const TextInputType.numberWithOptions(decimal: true)
+            : TextInputType.text,
+       maxLength: isNumber ? 8 : null,
+        validator: valid,
         controller: mycontroller,
+        obscureText: obscureText == null || obscureText == false  ? false : true,
         decoration: InputDecoration(
             hintText: hinttext,
             hintStyle: const TextStyle(fontSize: 14),
@@ -28,7 +43,8 @@ class CustonTextFormAuth extends StatelessWidget {
             label: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 9),
                 child: Text(labeltext)),
-            suffixIcon: Icon(iconData),
+            suffixIcon: InkWell(onTap: onTapIcon, child: Icon(iconData)),
+
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
       ),

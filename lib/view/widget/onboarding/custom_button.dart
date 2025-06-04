@@ -22,8 +22,8 @@ class CustomButtonOnBoarding extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             ),
-            child: controller.currentPage == onBoardingData.length-1 ? Text('get_started'.tr,style: TextStyle(color: Colors.white, fontSize: 16),) : Text(
-              'next'.tr,
+            child: controller.currentPage == onBoardingData.length-1 ? Text('2'.tr,style: TextStyle(color: Colors.white, fontSize: 16),) : Text(
+              '1'.tr,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           );

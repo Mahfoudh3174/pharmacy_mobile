@@ -1,6 +1,7 @@
 
 import 'package:ecommerce/controller/auth/reset_password_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
+import 'package:ecommerce/core/functions/validinput.dart';
 import 'package:ecommerce/view/widget/auth/custombuttonauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextbodyauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextformauth.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart'; 
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+  const ResetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +38,29 @@ class ResetPassword extends StatelessWidget {
                   "Please Enter new Password"),
           const SizedBox(height: 15),
             CustonTextFormAuth(
+            isNumber: false,
+            valid: (val) {
+              return validInput(val!, 3, 30, "password");
+            },
             mycontroller: controller.password,
             hinttext: "Enter Your Password",
             iconData: Icons.lock_outline,
             labeltext: "Password",
             // mycontroller: ,
           ),   CustonTextFormAuth(
+            isNumber: false,
+            valid: (val) {
+              return validInput(val!, 3, 30, "password");
+            },
             mycontroller: controller.password,
             hinttext: "Re Enter Your Password",
             iconData: Icons.lock_outline,
             labeltext: "Password",
             // mycontroller: ,
           ),
-          CustomButtomAuth(text: "save", onPressed: () {}),
+          CustomButtomAuth(text: "save", onPressed: () {
+            controller.goToSuccessResetPassword();
+          }),
           const SizedBox(height: 40),
         ]),
       ),

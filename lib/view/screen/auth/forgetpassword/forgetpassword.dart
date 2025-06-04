@@ -1,6 +1,7 @@
 
 import 'package:ecommerce/controller/auth/forgetpassword_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
+import 'package:ecommerce/core/functions/validinput.dart';
 import 'package:ecommerce/view/widget/auth/custombuttonauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextbodyauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextformauth.dart';
@@ -37,6 +38,10 @@ class ForgetPassword extends StatelessWidget {
                   "Enter Your Email To Receive A Link To Create A New Password"),
           const SizedBox(height: 15),
           CustonTextFormAuth(
+            isNumber: false,
+            valid: (val) {
+              return validInput(val!, 3, 30, "email");
+            },
             mycontroller: controller.email,
             hinttext: "Enter Your Email",
             iconData: Icons.email_outlined,
