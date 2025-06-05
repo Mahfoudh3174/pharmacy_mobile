@@ -9,6 +9,7 @@ import 'package:ecommerce/data/model/category_model.dart';
 abstract class MedicationsController extends GetxController {
   getMedications() {}
   getCategories() {}
+  filterMedicationsByCategory(int categoryId) {}
 }
 
 class MedicationsControllerImp extends MedicationsController {
@@ -17,6 +18,8 @@ class MedicationsControllerImp extends MedicationsController {
   int? id;
   List<Category> categories = [];
   List<Medication> medications = [];
+  List<Medication> allMedications = [];
+  int? selectedCategoryId;
   Pharmacy? pharmacy;
 
   String? token;
@@ -38,18 +41,31 @@ class MedicationsControllerImp extends MedicationsController {
   }
 
   Future<void> getData() async {}
-
   @override
   getMedications() {
     statusRequest = StatusRequest.loading;
     update();
+    medications.clear();
+    allMedications.clear();
     for(var medication in pharmacy?.medications ?? []) {
-
       medications.add(medication);
+      allMedications.add(medication);
     }
     statusRequest = StatusRequest.success;
     update();
-    
+  }
+
+  @override
+  filterMedicationsByCategory(int categoryId) {
+    if (selectedCategoryId == categoryId) {
+      // If clicking the same category again, show all medications
+      selectedCategoryId = null;
+      medications = List.from(allMedications);
+    } else {
+      selectedCategoryId = categoryId;
+      medications = allMedications.where((med) => med.category?.id == categoryId).toList();
+    }
+    update();
   }
   @override
   getCategories() {

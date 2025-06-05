@@ -13,21 +13,19 @@ class Language extends GetView<Localcontroller> {
       body:  SafeArea(
         minimum: const EdgeInsets.all(20),
         child: Column(
-            children: [
-              Text(
-                'choose_language'.tr,
+            children: [              Text(
+                "46".tr,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: 20),
-              CustomLangButton(
-                title: 'English',
+              const SizedBox(height: 20),              CustomLangButton(
+                title: "47".tr,
                 onTap: () {
                   controller.changeLang('en');
                 },
               ),
               SizedBox(height: 10),
               CustomLangButton(
-                title: 'العربية',
+                title: "48".tr,
                 onTap: () {
                   controller.changeLang('ar');
                 },

@@ -24,18 +24,17 @@ class MedicationsView extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: ListView(
-                    children: [
-                      CustomAppBar(title: "Find Medications",onPressedIcon: () {
+                    children: [                      CustomAppBar(title: "53".tr,onPressedIcon: () {
                         
-                        Get.snackbar("Notification", "This feature is under development");
+                        Get.snackbar("50".tr, "51".tr);
                       },
                       onPressedSearch: () {
-                        Get.snackbar("Search", "This feature is under development");
+                        Get.snackbar("52".tr, "51".tr);
                       }
                       ),
                        SizedBox(height: 20),
-                      const Text(
-                        "Categories",
+                      Text(
+                        "54".tr,
                         style: TextStyle(
                           fontSize: 20,
                           color: AppColor.primary,
@@ -46,10 +45,9 @@ class MedicationsView extends StatelessWidget {
                       CategoriesList(
                         controller: controller,
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        "Medications",
-                        style: TextStyle(
+                      const SizedBox(height: 10),                      Text(
+                        "55".tr,
+                        style: const TextStyle(
                           fontSize: 20,
                           color: AppColor.primary,
                           fontWeight: FontWeight.bold,

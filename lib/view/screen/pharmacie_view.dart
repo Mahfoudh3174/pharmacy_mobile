@@ -32,19 +32,18 @@ class PharmacieView extends StatelessWidget {
                 ),
               ),
               child: Column(
-                children: [
-                  CustomAppBar(
-                    title: "Find Pharmacies".tr,
+                children: [                  CustomAppBar(
+                    title: "49".tr,
                     onPressedIcon: () {
                       Get.snackbar(
-                        "Notification",
-                        "This feature is under development",
+                        "50".tr,
+                        "51".tr,
                       );
                     },
                     onPressedSearch: () {
                       Get.snackbar(
-                        "Search",
-                        "This feature is under development",
+                        "52".tr,
+                        "51".tr,
                       );
                     },
                   ),

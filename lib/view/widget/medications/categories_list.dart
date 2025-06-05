@@ -12,39 +12,49 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-                        height: 100,
-                        child: ListView.separated(
+                        height: 100,                        child: ListView.separated(
                           separatorBuilder:
                               (context, index) => const SizedBox(width: 10),
                           itemCount: controller.categories.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(0, 255, 251, 251),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                            final category = controller.categories[index];
+                            final isSelected = controller.selectedCategoryId == category.id;
+                            return InkWell(
+                              onTap: () => controller.filterMedicationsByCategory(category.id!),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: isSelected ? AppColor.primary.withOpacity(0.1) : const Color.fromARGB(0, 255, 251, 251),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: isSelected ? AppColor.primary : Colors.transparent,
+                                      ),
+                                    ),
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 10,
                                   ),
                                   height: 70,
                                   width: 70,
-                                  child: SvgPicture.asset(
+                                   child: SvgPicture.asset(
                                     "assets/images/medicine-bottle-svgrepo-com.svg",
-                                  
+                                    colorFilter: ColorFilter.mode(
+                                      isSelected ? AppColor.primary : AppColor.grey,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ),
                                 Text(
                                   controller.categories[index].name.toString(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 13,
-                                    color: AppColor.grey,
+                                    color: isSelected ? AppColor.primary : AppColor.grey,
+                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                   ),
                                 ),
                               ],
-                            );
+                            ));
                           },
                         ),
     )

@@ -2,8 +2,18 @@ import 'package:get/get.dart';
 
 class AllTranslations extends Translations {
   @override
-  Map<String, Map<String, String>> get keys => {
-        "ar": {
+  Map<String, Map<String, String>> get keys => {        "ar": {
+          "46": "اختر اللغة",
+          "47": "الإنجليزية",
+          "48": "العربية",
+          "49": "البحث عن الصيدليات",
+          "53": "البحث عن الأدوية",
+          "54": "الفئات",
+          "55": "الأدوية",
+          "56": " إلى السلة",
+          "50": "تنبيه",
+          "51": "هذه الميزة قيد التطوير",
+          "52": "بحث",
           "1": "التالي",
           "2": "ابدأ الآن",
           "3": "اختر المنتج",
@@ -51,8 +61,18 @@ class AllTranslations extends Translations {
           "45":"قائمة الصيدليات",
           
           
-        },
-        "en": {
+        },        "en": {
+          "46": "Choose Language",
+          "47": "English",
+          "48": "Arabic",
+          "49": "Find Pharmacies",
+          "53": "Find Medications",
+          "54": "Categories",
+          "55": "Medications",
+          "56": "Add to Cart",
+          "50": "Notification",
+          "51": "This feature is under development",
+          "52": "Search",
           "45":"Pharmacies List",
           "44":"These credential are not valid",
           "42":"User Already exist",

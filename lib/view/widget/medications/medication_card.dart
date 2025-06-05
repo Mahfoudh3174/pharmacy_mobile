@@ -2,6 +2,7 @@ import 'package:ecommerce/controller/medication_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class MedicationCard extends StatelessWidget {
   final String imagePath;
@@ -90,8 +91,8 @@ class MedicationCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    "Add to Cart",
+                  child: Text(
+                    "56".tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,  // Reduced text size
