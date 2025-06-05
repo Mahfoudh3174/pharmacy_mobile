@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 abstract class PharmacyController extends GetxController {
   void getPharmacies();
-  void goToMedications(int id);
+  void goToMedications(Pharmacy pharmacy);
 }
 
 
@@ -50,8 +50,8 @@ onInit() {
   }
 
   @override
-  void goToMedications(int id) {
-    Get.toNamed(Routes.medications, arguments: {'pharmacyId': id});
+  void goToMedications(Pharmacy pharmacy) {
+    Get.toNamed(Routes.medications, arguments: {'pharmacy': pharmacy});
   }
   @override
   void onClose() {

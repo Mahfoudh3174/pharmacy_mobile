@@ -34,7 +34,7 @@ class PharmacyCard extends StatelessWidget {
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
-          pharmacyController.goToMedications(pharmacy.id as int);
+          pharmacyController.goToMedications(pharmacy );
         },
       ),
     );
