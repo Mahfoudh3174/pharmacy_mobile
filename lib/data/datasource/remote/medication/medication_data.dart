@@ -8,10 +8,13 @@ class MedicationData {
 
   MedicationData(this.crud);
   Myservice storage = Get.find();
-
-  getData(int id) async {
+  getData(int id, {int? categoryId}) async {
     String? token=storage.sharedPreferences.getString("token");
-    var response = await crud.getData("${AppLinks.pharmacies}/$id", {
+    String url = "${AppLinks.pharmacies}/$id";
+    if (categoryId != null) {
+      url += "?category_id=$categoryId";
+    }
+    var response = await crud.getData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
       "Accept": "application/json",

@@ -69,7 +69,6 @@ class MedicationsControllerImp extends MedicationsController {
 
     update(); // Only one update call
   }
-
   @override
   Future<void> getMedications() async {
     statusRequest = StatusRequest.loading;
@@ -79,13 +78,20 @@ class MedicationsControllerImp extends MedicationsController {
     allMedications.clear();
 
     try {
-      final response = await medicationData.getData(pharmacy!.id!);
+      final response = await medicationData.getData(
+        pharmacy!.id!, 
+        categoryId: selectedCategoryId
+      );
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
         List meds = response["medications"];
-        allMedications = meds.map((e) => Medication.fromJson(e)).toList();
-        medications = List.from(allMedications);
+        medications = meds.map((e) => Medication.fromJson(e)).toList();
+        
+        // Only update allMedications if no category filter is active
+        if (selectedCategoryId == null) {
+          allMedications = List.from(medications);
+        }
 
         if (medications.isEmpty) {
           statusRequest = StatusRequest.failure;
@@ -99,24 +105,40 @@ class MedicationsControllerImp extends MedicationsController {
 
     update(); // Single update after data and status are set
   }
-
   @override
-  void filterMedicationsByCategory(int categoryId) {
+  void filterMedicationsByCategory(int categoryId) async {
     if (selectedCategoryId == categoryId) {
       selectedCategoryId = null;
-      medications = List.from(allMedications);
+      await getMedications(); // Fetch all medications
     } else {
       selectedCategoryId = categoryId;
-      medications = allMedications
-          .where((med) => med.category?.id == categoryId)
-          .toList();
+      statusRequest = StatusRequest.loading;
+      update();
+      
+      try {
+        final response = await medicationData.getData(pharmacy!.id!, categoryId: categoryId);
+        statusRequest = handlingData(response);
+
+        if (statusRequest == StatusRequest.success) {
+          List meds = response["medications"];
+          medications = meds.map((e) => Medication.fromJson(e)).toList();
+          
+          if (medications.isEmpty) {
+            statusRequest = StatusRequest.failure;
+          }
+        } else {
+          statusRequest = StatusRequest.serverFailure;
+        }
+      } catch (e) {
+        statusRequest = StatusRequest.serverException;
+      }
     }
 
-    // Apply search again in case search is active
+    // Apply search if there's an active search query
     if (searchController.text.isNotEmpty) {
       searchMedications(searchController.text);
     } else {
-      update(); // Only update if not calling search
+      update();
     }
   }
 
