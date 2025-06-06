@@ -10,9 +10,6 @@ class HomeScreenControllerImp extends HomeScreenController {
   int currentIndex = 0;
   List<Widget> pages = [
     const PharmacieView(),
-    const Center(child: Text("Profile Page")),
-    const Center(child: Text("Search Page")),
-    const Center(child: Text("Cart Page")),
     const Center(child: Text("Settings Page")),
   ];
   @override
