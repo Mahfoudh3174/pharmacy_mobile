@@ -1,5 +1,7 @@
 import 'package:ecommerce/core/class/status_request.dart';
+import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/core/services/services.dart';
+import 'package:ecommerce/data/datasource/remote/medication/medication_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
@@ -22,15 +24,11 @@ class MedicationsControllerImp extends MedicationsController {
   int? selectedCategoryId;
   Pharmacy? pharmacy;
 
-  String? token;
-
-  initialData() {
-    token = storage.sharedPreferences.getString("token");
-  }
+  MedicationData medicationData = MedicationData(Get.find());
 
   @override
   void onInit() {
-    initialData();
+
     
     pharmacy = Get.arguments['pharmacy'];
     debugPrint("Pharmacy======: $pharmacy");
@@ -40,19 +38,28 @@ class MedicationsControllerImp extends MedicationsController {
     super.onInit();
   }
 
-  Future<void> getData() async {}
+
   @override
-  getMedications() {
-    statusRequest = StatusRequest.loading;
-    update();
-    medications.clear();
-    allMedications.clear();
-    for(var medication in pharmacy?.medications ?? []) {
-      medications.add(medication);
-      allMedications.add(medication);
+  getMedications()async {
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      medications.clear();
+      final response=await medicationData.getData(pharmacy!.id!);
+      statusRequest = handlingData(response);
+      
+      if (statusRequest == StatusRequest.success) {
+        for(var medication in response["medications"]) {
+          medications.add(Medication.fromJson(medication));
+          allMedications.add(Medication.fromJson(medication));
+        }
+        update();
+      }
+      
+    } catch (e) {
+      statusRequest = StatusRequest.serverFailure;
+      update();
     }
-    statusRequest = StatusRequest.success;
-    update();
   }
 
   @override
