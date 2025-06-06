@@ -20,7 +20,7 @@ class Language extends GetView<Localcontroller> {
               const SizedBox(height: 20),              CustomLangButton(
                 title: "47".tr,
                 onTap: () {
-                  controller.changeLang('en');
+                  controller.changeLang('fr');
                 },
               ),
               SizedBox(height: 10),

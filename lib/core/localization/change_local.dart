@@ -14,8 +14,8 @@ class Localcontroller extends GetxController {
 
     if (currentLang == "ar") {
       lang = const Locale('ar');
-    } else if (currentLang == "en") {
-      lang = const Locale('en');
+    } else if (currentLang == "fr") {
+      lang = const Locale('fr');
     } else {
       lang = Locale(Get.deviceLocale!.languageCode);
     }
