@@ -18,4 +18,7 @@ class Imageasset {
     static const String server="$lottiePath/server.json";
     static const String loading="$lottiePath/loading.json";
     static const String offline="$lottiePath/offline.json";
+    static const String nodata="$lottiePath/nodata.json";
+
+
 }

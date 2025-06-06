@@ -12,8 +12,8 @@ abstract class MedicationsController extends GetxController {
   getMedications() {}
   getCategories() {}
   filterMedicationsByCategory(int categoryId) {}
+  searchMedications(String query) {}
 }
-
 class MedicationsControllerImp extends MedicationsController {
   Myservice storage = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
@@ -23,62 +23,106 @@ class MedicationsControllerImp extends MedicationsController {
   List<Medication> allMedications = [];
   int? selectedCategoryId;
   Pharmacy? pharmacy;
+  TextEditingController searchController = TextEditingController();
 
   MedicationData medicationData = MedicationData(Get.find());
 
   @override
   void onInit() {
-
-    
     pharmacy = Get.arguments['pharmacy'];
-    debugPrint("Pharmacy======: $pharmacy");
-    debugPrint("Pharmacy ID: ${pharmacy?.id}");
+    searchController.addListener(() {
+      searchMedications(searchController.text);
+    });
     getCategories();
     getMedications();
     super.onInit();
   }
 
-
   @override
-  getMedications()async {
-    try {
-      statusRequest = StatusRequest.loading;
-      update();
-      medications.clear();
-      final response=await medicationData.getData(pharmacy!.id!);
-      statusRequest = handlingData(response);
-      
-      if (statusRequest == StatusRequest.success) {
-        for(var medication in response["medications"]) {
-          medications.add(Medication.fromJson(medication));
-          allMedications.add(Medication.fromJson(medication));
-        }
-        update();
-      }
-      
-    } catch (e) {
-      statusRequest = StatusRequest.serverFailure;
-      update();
-    }
+  void onClose() {
+    searchController.dispose();
+    super.onClose();
   }
 
   @override
-  filterMedicationsByCategory(int categoryId) {
+  void searchMedications(String query) {
+    if (query.isEmpty) {
+      medications = selectedCategoryId != null
+          ? allMedications
+              .where((med) => med.category?.id == selectedCategoryId)
+              .toList()
+          : List.from(allMedications);
+
+      statusRequest = StatusRequest.none;
+    } else {
+      medications = allMedications.where((med) {
+        final matchesQuery =
+            med.name!.toLowerCase().contains(query.toLowerCase());
+        final matchesCategory = selectedCategoryId == null ||
+            med.category?.id == selectedCategoryId;
+        return matchesQuery && matchesCategory;
+      }).toList();
+
+      statusRequest =
+          medications.isEmpty ? StatusRequest.failure : StatusRequest.none;
+    }
+
+    update(); // Only one update call
+  }
+
+  @override
+  Future<void> getMedications() async {
+    statusRequest = StatusRequest.loading;
+    update();
+
+    medications.clear();
+    allMedications.clear();
+
+    try {
+      final response = await medicationData.getData(pharmacy!.id!);
+      statusRequest = handlingData(response);
+
+      if (statusRequest == StatusRequest.success) {
+        List meds = response["medications"];
+        allMedications = meds.map((e) => Medication.fromJson(e)).toList();
+        medications = List.from(allMedications);
+
+        if (medications.isEmpty) {
+          statusRequest = StatusRequest.failure;
+        }
+      } else {
+        statusRequest = StatusRequest.serverFailure;
+      }
+    } catch (e) {
+      statusRequest = StatusRequest.serverException;
+    }
+
+    update(); // Single update after data and status are set
+  }
+
+  @override
+  void filterMedicationsByCategory(int categoryId) {
     if (selectedCategoryId == categoryId) {
-      // If clicking the same category again, show all medications
       selectedCategoryId = null;
       medications = List.from(allMedications);
     } else {
       selectedCategoryId = categoryId;
-      medications = allMedications.where((med) => med.category?.id == categoryId).toList();
+      medications = allMedications
+          .where((med) => med.category?.id == categoryId)
+          .toList();
     }
-    update();
+
+    // Apply search again in case search is active
+    if (searchController.text.isNotEmpty) {
+      searchMedications(searchController.text);
+    } else {
+      update(); // Only update if not calling search
+    }
   }
+
   @override
-  getCategories() {
-    for(var category in pharmacy?.categories ?? []) {
-      categories.add(category);
-    }
+  void getCategories() {
+    categories = List.from(pharmacy?.categories ?? []);
   }
-  
 }
+

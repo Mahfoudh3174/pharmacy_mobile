@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
   final void Function()? onPressedSearch;
- final  void Function()? onPressedIcon;
-  const CustomAppBar({super.key, required this.title,required this.onPressedIcon, required this.onPressedSearch});
+  final void Function()? onPressedIcon;
+  final TextEditingController? searchController;
+  const CustomAppBar({
+    super.key, 
+    required this.title,
+    required this.onPressedIcon, 
+    required this.onPressedSearch,
+    this.searchController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +19,14 @@ class CustomAppBar extends StatelessWidget {
       margin: EdgeInsets.only(top: 10),
       child: Row(
         children: [
-          Expanded(
-            child: TextFormField(
-              
+          Expanded(          child: TextFormField(
+              controller: searchController,
+              onChanged: (value) => onPressedSearch?.call(),
               decoration: InputDecoration(
-                prefixIcon: IconButton(onPressed: onPressedSearch, icon: Icon(Icons.search_off_outlined)),
+                prefixIcon: IconButton(
+                  onPressed: onPressedSearch, 
+                  icon: Icon(Icons.search_outlined)
+                ),
                 hintText: title,
                 hintStyle: TextStyle(fontSize: 18),
                 border: OutlineInputBorder(

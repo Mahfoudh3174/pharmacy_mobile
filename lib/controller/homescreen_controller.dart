@@ -13,10 +13,7 @@ class HomeScreenControllerImp extends HomeScreenController {
     const Center(child: Text("Settings Page")),
   ];
   @override
-  void onInit() {
-    super.onInit();
-    
-  }
+
 
   @override
   void changePage(int index) {

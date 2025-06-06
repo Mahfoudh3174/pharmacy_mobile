@@ -26,7 +26,7 @@ class CategoriesList extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: isSelected ? AppColor.primary.withOpacity(0.1) : const Color.fromARGB(0, 255, 251, 251),
+                                      color: isSelected ? AppColor.primary.withValues(alpha: 0.1): const Color.fromARGB(0, 255, 251, 251),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: isSelected ? AppColor.primary : Colors.transparent,

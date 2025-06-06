@@ -18,19 +18,19 @@ class MedicationsView extends StatelessWidget {
     Get.put(MedicationsControllerImp());
     return Scaffold(
       body: GetBuilder<MedicationsControllerImp>(
-        builder: (controller) => HandlingDataView(
-              statusRequest: controller.statusRequest,
-              widget: SafeArea(
+        builder: (controller) => SafeArea(
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView(
-                    children: [                      CustomAppBar(title: "53".tr,onPressedIcon: () {
-                        
-                        Get.snackbar("50".tr, "51".tr);
-                      },
-                      onPressedSearch: () {
-                        Get.snackbar("52".tr, "51".tr);
-                      }
+                  child: ListView(                    children: [
+                      CustomAppBar(
+                        title: "53".tr,
+                        onPressedIcon: () {
+                          Get.snackbar("50".tr, "51".tr);
+                        },
+                        searchController: controller.searchController,
+                        onPressedSearch: () {
+                          controller.searchMedications(controller.searchController.text);
+                        }
                       ),
                        SizedBox(height: 20),
                       Text(
@@ -54,7 +54,9 @@ class MedicationsView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      GridView.builder(
+                       HandlingDataView(
+              statusRequest: controller.statusRequest,
+              widget:GridView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -76,12 +78,13 @@ class MedicationsView extends StatelessWidget {
                           );
                         },
                       ),
+                       )
                     ],
                   ),
                 ),
               ),
             ),
-      ),
+      
     );
   }
 }
