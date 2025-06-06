@@ -2,6 +2,7 @@ import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/datasource/remote/medication/medication_data.dart';
+import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
@@ -13,7 +14,9 @@ abstract class MedicationsController extends GetxController {
   getCategories() {}
   filterMedicationsByCategory(int categoryId) {}
   searchMedications(String query) {}
+  goToDetails(Medication medication) {}
 }
+
 class MedicationsControllerImp extends MedicationsController {
   Myservice storage = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
@@ -145,6 +148,11 @@ class MedicationsControllerImp extends MedicationsController {
   @override
   void getCategories() {
     categories = List.from(pharmacy?.categories ?? []);
+  }
+
+  @override
+  void goToDetails(Medication medication) {
+    Get.toNamed(Routes.medicationDetails, arguments: {'medication': medication});
   }
 }
 

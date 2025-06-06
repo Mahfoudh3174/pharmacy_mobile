@@ -1,6 +1,6 @@
 
 
-import 'package:ecommerce/controller/medication_controller.dart';
+import 'package:ecommerce/controller/medication/medication_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

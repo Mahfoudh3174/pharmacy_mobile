@@ -1,5 +1,8 @@
+
 import 'package:ecommerce/view/screen/pharmacie_view.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce/view/screen/setting/setting_view.dart';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class HomeScreenController extends GetxController {
@@ -10,9 +13,16 @@ class HomeScreenControllerImp extends HomeScreenController {
   int currentIndex = 0;
   List<Widget> pages = [
     const PharmacieView(),
-    const Center(child: Text("Settings Page")),
+    const SettingView(),
   ];
-  @override
+  List<Map<String,IconData>> bottomItems = [
+    {
+      "icon": Icons.home_outlined,
+    },
+    {
+      "icon": Icons.settings_outlined,
+    },
+  ];
 
 
   @override

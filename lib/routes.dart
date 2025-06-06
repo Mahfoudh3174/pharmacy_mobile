@@ -8,7 +8,8 @@ import 'package:ecommerce/view/screen/auth/forgetpassword/verifycode.dart';
 import 'package:ecommerce/view/screen/auth/success_signup.dart';
 import 'package:ecommerce/view/screen/auth/verifycodesignup.dart';
 import 'package:ecommerce/view/screen/home_screen.dart';
-import 'package:ecommerce/view/screen/medication_view.dart';
+import 'package:ecommerce/view/screen/medication/medication_datails_view.dart';
+import 'package:ecommerce/view/screen/medication/medication_view.dart';
 
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/on_boarding.dart';
@@ -33,6 +34,7 @@ class Routes {
 
   static const String home = '/home';
   static const String medications="/medications";
+  static const String medicationDetails="/medicationDetails";
   static const String pharmacies = '/pharmacies';
 
 
@@ -50,6 +52,7 @@ class Routes {
     GetPage(name: successSignUp, page: () => const SuccessSignUp()),
     GetPage(name: home, page: () => const HomeScreen()), 
     GetPage(name: medications, page: () => const MedicationsView()),
+    GetPage(name: medicationDetails, page: () => const MedicationDatailsView()),
     GetPage(name: pharmacies, page: () => const PharmacieView()),
 
 

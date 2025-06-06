@@ -6,4 +6,10 @@ translateDb(columnar,columnfr) {
 
   Myservice storage =Get.find();
 
+  if(storage.sharedPreferences.getString("lang") == 'ar'){
+    return columnar;
+  }else{
+    return columnfr;
+  }
+
 }

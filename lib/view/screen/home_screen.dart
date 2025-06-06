@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     controller.changePage(index);
                   },
-                  icon: Icons.home_outlined,
-                  color: controller.currentIndex == index ? AppColor.primary :Colors.black,
+                  icon: controller.bottomItems[index]['icon']!,
+                  color: controller.currentIndex == index ? AppColor.background :Colors.black,
                 ),
                 ),
 
