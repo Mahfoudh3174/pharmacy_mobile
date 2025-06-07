@@ -42,16 +42,16 @@ class CustomItemsCartList extends StatelessWidget {
         Expanded(
             child: Column(
           children: [
-            Container(
+            SizedBox(
                 height: 35,
                 child: IconButton(onPressed: onAdd, icon: Icon(Icons.add))),
-            Container(
+            SizedBox(
                 height: 30,
                 child: Text(
                   count,
                   style: TextStyle(fontFamily: "sans"),
                 )),
-            Container(
+            SizedBox(
                 height: 25,
                 child: IconButton(onPressed: onRemove, icon: Icon(Icons.remove)))
           ],

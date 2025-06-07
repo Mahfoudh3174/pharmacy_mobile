@@ -41,14 +41,14 @@ class CartView extends StatelessWidget {
                             cartController.cardItems.length,
                             (index) => CustomItemsCartList(
                                 onAdd: () async {
-                                  // await cartController
-                                  //     .addMedicationToCart(cartController.cardItems[index].medication.id!);
+                                  await cartController
+                                      .addMedicationToCart(cartController.cardItems[index].medication.id!);
                                   // cartController.refreshPage();
                                 },
                                 onRemove: () async  {
-                                //  await cartController.delete(
-                                //       cartController.data[index].itemsId!);
-                                //   cartController.refreshPage();
+                                 await cartController.deleteMedicationFromCart(
+                                      cartController.cardItems[index].medication.id!);
+                                  cartController.refreshData();
                                 },
                                 imagename:
                                     "${cartController.cardItems[index].medication.imageUrl}",
