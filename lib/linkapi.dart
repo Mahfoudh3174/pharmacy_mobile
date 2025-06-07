@@ -5,8 +5,11 @@ class AppLinks{
   // ==========auth================
   static const String login = "$baseUrl/login";
   static const String register = "$baseUrl/register";
-  static const String test="$baseUrl/test";
-
+  static const String logout="$baseUrl/logout";
+  
   // =============pharmacies=========
   static const String pharmacies = "$baseUrl/pharmacies";
+
+  //========cart=========
+  static const String cart = "$baseUrl/cart";
 }

@@ -1,3 +1,4 @@
+
 import 'package:ecommerce/core/middleware/regitred_middleware.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/forgetpassword.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/success_reset_password.dart';
@@ -7,10 +8,10 @@ import 'package:ecommerce/view/screen/auth/signup.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/verifycode.dart';
 import 'package:ecommerce/view/screen/auth/success_signup.dart';
 import 'package:ecommerce/view/screen/auth/verifycodesignup.dart';
+import 'package:ecommerce/view/screen/cart_view.dart';
 import 'package:ecommerce/view/screen/home_screen.dart';
 import 'package:ecommerce/view/screen/medication/medication_datails_view.dart';
 import 'package:ecommerce/view/screen/medication/medication_view.dart';
-
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/on_boarding.dart';
 import 'package:ecommerce/view/screen/pharmacie_view.dart';
@@ -37,6 +38,8 @@ class Routes {
   static const String medicationDetails="/medicationDetails";
   static const String pharmacies = '/pharmacies';
 
+  static const String cart = '/cart';
+
 
 
   static List<GetPage> routes = [
@@ -54,6 +57,7 @@ class Routes {
     GetPage(name: medications, page: () => const MedicationsView()),
     GetPage(name: medicationDetails, page: () => const MedicationDatailsView()),
     GetPage(name: pharmacies, page: () => const PharmacieView()),
+    GetPage(name: cart, page: () => const CartView()),
 
 
   ];

@@ -57,10 +57,14 @@ class AllTranslations extends Translations {
           "40":"نجاح",
           "41":"تسجيل الدخول الآن",
           "42":"المستخدم موجود بالفعل",
-          "43":"يمكنك تسجيل الدخول الآن",
-          "44":"هذه البيانات غير صالحة",
+          "43":"يمكنك تسجيل الدخول الآن",          "44":"هذه البيانات غير صالحة",
           "45":"قائمة الصيدليات",
-          
+          "57": "الوضع المظلم",
+          "58": "العنوان",
+          "59": "من نحن",
+          "60": "اتصل بنا",
+          "61": "تسجيل الخروج",
+          "62": "الإعدادات"
             },        
             "fr": {
           "46": "Choisir la langue",
@@ -117,8 +121,12 @@ class AllTranslations extends Translations {
           "37": "Type invalide spécifié",
           "38": "L'entrée doit être un email ou un numéro de téléphone valide",
           "39": "Inscription réussie",
-          "40": "Succès",
-          "41": "Se connecter maintenant",
-          
+          "40": "Succès",          "41": "Se connecter maintenant",
+          "57": "Mode sombre",
+          "58": "Adresse",
+          "59": "À propos de nous",
+          "60": "Contactez-nous",
+          "61": "Déconnexion",
+          "62": "Paramètres"
         },};
 }

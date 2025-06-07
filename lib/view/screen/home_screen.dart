@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColor.primary,
             onPressed: () {
-              // Action for the floating action button
+              controller.goToCart();
             },
             child: const Icon(Icons.shopping_cart_checkout_outlined,color: AppColor.background,),
           ),

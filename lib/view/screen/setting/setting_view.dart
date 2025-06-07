@@ -7,8 +7,7 @@ import 'package:get/get.dart';
 class SettingView extends StatelessWidget {
   const SettingView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  @override  Widget build(BuildContext context) {
     SettingsController controller = Get.put(SettingsController());
     return ListView(
       children: [
@@ -42,29 +41,24 @@ class SettingView extends StatelessWidget {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 // onTap: () {},  
-                trailing:  Switch(onChanged: (val){} ,value: true ),
-                title: Text("Dark Mode"),
-              ),
-              ListTile(
-                onTap: () {},
-                trailing: Icon(Icons.location_on_outlined),
-                title: Text("Address"),
+                trailing: Switch(onChanged: (val){} ,value: true ),
+                title: Text("57".tr), // Dark Mode
               ),
               ListTile(
                 onTap: () {},
                 trailing: Icon(Icons.help_outline_rounded),
-                title: Text("About us"),
+                title: Text("59".tr), // About us
               ),
               ListTile(
                 onTap: () {},
                 trailing: Icon(Icons.phone_callback_outlined),
-                title: Text("Contact us"),
+                title: Text("60".tr), // Contact us
               ),
               ListTile(
                 onTap: () {
                   controller.logout();
                 },
-                title: Text("Logout"),
+                title: Text("61".tr), // Logout
                 trailing: Icon(Icons.exit_to_app),
               ),
             ]),

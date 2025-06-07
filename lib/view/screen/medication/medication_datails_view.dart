@@ -43,7 +43,12 @@ class MedicationDatailsView extends StatelessWidget {
                       )),
               const SizedBox(height: 10),
               PriceAndCountItems(
-                  onAdd: () {}, onRemove: () {}, price: controller.medication.price.toString(), count: "2"),
+                  onAdd: () {
+                    controller.cartController.addMedicationToCart(controller.medication.id!);
+                  },
+                   onRemove: () {},
+                    price: controller.medication.price.toString(),
+                     count: "2"),
               const SizedBox(height: 10),
               Text(
                   "${controller.medication.dosageForm}",

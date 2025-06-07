@@ -20,7 +20,7 @@ class SignUp extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.background,
         elevation: 0.0,
-        title: Text('17'.tr,
+        title: Text('26'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
