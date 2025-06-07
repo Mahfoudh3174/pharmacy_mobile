@@ -7,27 +7,23 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class MedicationCard extends GetView<MedicationsControllerImp> {
-
-  
-
-  const MedicationCard({
-    super.key,
-  });
+  const MedicationCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
         childAspectRatio: 0.7,
       ),
-      itemCount:
-          controller.medications.length, // Replace with your actual item count
+      itemCount: controller.medications.length,
       itemBuilder: (context, index) {
+        final med = controller.medications[index];
+
         return Card(
           color: Colors.white,
           elevation: 3,
@@ -37,35 +33,29 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () {
-              controller.goToDetails(controller.medications[index]);
+              controller.goToDetails(med);
             },
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: 220, // Minimum height to ensure all content fits
-                maxHeight: 250, // Maximum height to prevent excessive size
-              ),
+              constraints: const BoxConstraints(minHeight: 220, maxHeight: 250),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize:
-                      MainAxisSize.min, // Prevents column from expanding
                   children: [
-                    // Image Section
+                    // Image
                     Center(
                       child: SizedBox(
-                        height: 80, // Reduced from 100
-                        width: 80, // Reduced from 100
+                        height: 80,
+                        width: 80,
                         child: Hero(
-                           tag: "${controller.medications[index].id}",
+                          tag: "${med.id}",
                           child: CachedNetworkImage(
-                            imageUrl:
-                                "${AppLinks.imagesLink}/${controller.medications[index].imageUrl}",
-                            errorWidget:
-                                (context, url, error) => SvgPicture.asset(
-                                  "assets/images/medicine-bottle-svgrepo-com.svg",
-                                  fit: BoxFit.cover,
-                                ),
+                            imageUrl: "${AppLinks.imagesLink}/${med.imageUrl}",
+                            errorWidget: (context, url, error) =>
+                                SvgPicture.asset(
+                              "assets/images/medicine-bottle-svgrepo-com.svg",
+                              fit: BoxFit.cover,
+                            ),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -73,11 +63,11 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                     ),
                     const SizedBox(height: 8),
 
-                    // Name Text
+                    // Name
                     Text(
-                      "${controller.medications[index].name}",
+                      med.name!,
                       style: const TextStyle(
-                        fontSize: 14, // Reduced from 16
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 2,
@@ -85,40 +75,31 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                     ),
                     const SizedBox(height: 4),
 
-                    // Price Text
+                    // Price
                     Text(
-                      "${controller.medications[index].price}.00 MRU",
-                      style: TextStyle(
-                        fontSize: 13, // Reduced from 14
+                      "${med.price}.00 MRU",
+                      style: const TextStyle(
+                        fontSize: 13,
                         color: AppColor.primary,
                       ),
                     ),
-                    const Spacer(),
 
-                    // Add to Cart Button
-                    SizedBox(
-                      width: double.infinity, // Full width button
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // controller.addToCart(controller.medications[index]);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.primary,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                          ), // Reduced button height
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "56".tr,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13, // Reduced text size
-                          ),
-                        ),
-                      ),
+                    // Category
+                    const SizedBox(height: 4),
+                    Text(
+                      med.category!.name!,
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    // Description
+                    const SizedBox(height: 4),
+                    Text(
+                    "pharnacy:",
+                      style: const TextStyle(fontSize: 12),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -130,3 +111,4 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
     );
   }
 }
+

@@ -8,6 +8,7 @@ abstract class CartController extends GetxController {
   addMedicationToCart(int medicationId);
   deleteMedicationFromCart(int medicationId);
   getMedicationFromCart();
+  getCountItems(int id);
 }
 
 class CartControllerImp extends CartController {
@@ -22,7 +23,7 @@ class CartControllerImp extends CartController {
   @override
   void addMedicationToCart(int productId) async {
     try {
-    debugPrint("====medication $productId");
+      debugPrint("====medication $productId");
 
       statusRequest = StatusRequest.loading;
       update();
@@ -32,7 +33,8 @@ class CartControllerImp extends CartController {
 
       if (statusRequest == StatusRequest.success) {
         debugPrint("====medication $productId added");
-      }else{
+        update();
+      } else {
         statusRequest = StatusRequest.failure;
         update();
       }
@@ -44,12 +46,39 @@ class CartControllerImp extends CartController {
 
   @override
   deleteMedicationFromCart(int medicationId) {
-    throw UnimplementedError();
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      final response = cartData.deleteCartData(medicationId);
+      statusRequest = handlingData(response);
+      if (statusRequest == StatusRequest.success) {
+        debugPrint("====medication $medicationId deleted");
+      }
+    } catch (e) {
+      debugPrint("====medication $medicationId not deleted");
+    }
+    update();
   }
 
   @override
   getMedicationFromCart() {
     // TODO: implement getMedicationFromCart
     throw UnimplementedError();
+  }
+
+  @override
+  Future<int> getCountItems(int id) async {
+    int medicationsCount = 0;
+
+    try {
+      final response = await cartData.getCountCart(id);
+
+      debugPrint("==controller count show ${response['count'].runtimeType}");
+      medicationsCount = response['count'];
+      debugPrint("====medication count found $medicationsCount");
+    } catch (e) {
+      debugPrint("====medication count not found ${e.toString()}");
+    }
+    return medicationsCount;
   }
 }

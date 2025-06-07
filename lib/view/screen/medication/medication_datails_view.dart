@@ -1,5 +1,5 @@
-
 import 'package:ecommerce/controller/medication/medications_details_controller.dart';
+import 'package:ecommerce/core/class/handeling_data_view.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/view/widget/medications/price_count.dart';
 import 'package:ecommerce/view/widget/medications/subitems_list.dart';
@@ -12,52 +12,75 @@ class MedicationDatailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final MedicationsDetailsControllerImp controller=    Get.put(MedicationsDetailsControllerImp());
+    Get.put(MedicationsDetailsControllerImp());
     return Scaffold(
-        bottomNavigationBar: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            height: 40,
-            child: MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                color: AppColor.secondary,
-                onPressed: () {},
-                child:  Text(
-                  "56".tr,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ))),
-        body: ListView(children: [
-          const TopMedicationDetails(),
-          const SizedBox(
-            height: 100,
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        height: 40,
+        child: MaterialButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-              Text("${controller.medication.name}",
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppColor.textPrimary,
-                      )),
-              const SizedBox(height: 10),
-              PriceAndCountItems(
-                  onAdd: () {
-                    controller.cartController.addMedicationToCart(controller.medication.id!);
-                  },
-                   onRemove: () {},
-                    price: controller.medication.price.toString(),
-                     count: "2"),
-              const SizedBox(height: 10),
-              Text(
-                  "${controller.medication.dosageForm}",
-                  style: Theme.of(context).textTheme.bodyMedium),
-              const SizedBox(height: 10),
-              
-              const SubitemsList()
-            ]),
-          )
-        ]));
+          color: AppColor.secondary,
+          onPressed: () {},
+          child: Text(
+            "56".tr,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      body: ListView(
+        children: [
+          const TopMedicationDetails(),
+          const SizedBox(height: 100),
+          GetBuilder<MedicationsDetailsControllerImp>(
+            builder: (controller) {
+              return HandlingDataView(
+                statusRequest: controller.statusRequest,
+                widget: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${controller.medication.name}",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppColor.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      PriceAndCountItems(
+                        onAdd: () {
+                          controller.cartController.addMedicationToCart(
+                            controller.medication.id!,
+                          );
+                          controller.increment();
+                        },
+                        onRemove: () {
+                          controller.cartController.deleteMedicationFromCart(
+                            controller.medication.id!,
+                          );
+                          controller.decriment();
+                        },
+                        price: controller.medication.price.toString(),
+                        count: controller.medicationsCount.toString(),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "${controller.medication.dosageForm}",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 10),
+
+                      const SubitemsList(),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

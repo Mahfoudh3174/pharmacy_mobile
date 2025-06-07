@@ -20,18 +20,21 @@ class CartData {
   }
 
   postCartdata(int id) async {
-    final String token = storage.sharedPreferences.getString("token")!;
-
-    var response = await crud.postData(
-      'http://192.168.100.13/api/cart',
-      {"id": id},
+    String? token = storage.sharedPreferences.getString("token");
+    // Use the proper API endpoint from AppLinks
+    var response = await crud.postJsonData(
+      AppLinks.cart,
+      {
+        "medication_id":
+            id, // Changed from 'id' to 'medication_id' to match API
+      },
       {
         'Authorization': 'Bearer $token',
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
         'Accept': 'application/json',
       },
     );
-    debugPrint("$response received");
+    debugPrint("Cart API Response: $response");
 
     return response.fold((l) => l, (r) => r);
   }
@@ -43,6 +46,18 @@ class CartData {
       "Content-Type": "application/json",
       "Accept": "application/json",
     });
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getCountCart(int id) async {
+    debugPrint("id in getcard count $id");
+    String? token = storage.sharedPreferences.getString("token");
+    var response = await crud.getData("${AppLinks.cartCount}/$id", {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    });
+    debugPrint("show response $response");
     return response.fold((l) => l, (r) => r);
   }
 }

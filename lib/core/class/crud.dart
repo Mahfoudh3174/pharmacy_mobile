@@ -78,7 +78,6 @@ class Crud {
         debugPrint("Response body:=========//=========== ${response.body}");
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
-
           return Right(reponseBody);
         } else {
           return Left(StatusRequest.serverFailure);
@@ -90,4 +89,39 @@ class Crud {
       return Left(StatusRequest.serverException);
     }
   }
+
+  Future<Either<StatusRequest, Map>> postJsonData(
+    String url,
+    Map data,
+    Map<String, String> header,
+  ) async {
+    try {
+      if (await checkConnection()) {
+        debugPrint("we reched crud url========$url \n heder $header  body = $data");
+        var response = await http.post(
+          Uri.parse(url),
+          headers: header,
+          body: json.encode(data),
+        );
+      
+
+        debugPrint(
+          "Response status:=========//=========== ${response.statusCode}",
+        );
+        debugPrint("Response body:=========//=========== ${response.body}");
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          Map reponseBody = json.decode(response.body);
+          return Right(reponseBody);
+        } else {
+          return Left(StatusRequest.serverFailure);
+        }
+      } else {
+        return const Left(StatusRequest.offlineFailure);
+      }
+    } catch (e) {
+      return Left(StatusRequest.serverException);
+    }
+  }
+
+
 }
