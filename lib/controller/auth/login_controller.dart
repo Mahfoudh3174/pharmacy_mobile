@@ -43,7 +43,6 @@ class LoginControllerImp extends LoginController {
       update();
       if (statusRequest == StatusRequest.success) {
         storage.sharedPreferences.setString("token", response['token']);
-        debugPrint("Token==========: ${response['token']}");
         goToHome();
       } else {
         Fluttertoast.showToast(
@@ -57,7 +56,6 @@ class LoginControllerImp extends LoginController {
         );
       }
     } else {
-      debugPrint("Not Valid");
     }
   }
 

@@ -40,23 +40,18 @@ onInit() {
       statusRequest = handlingData(response);
       
       if (statusRequest == StatusRequest.success) {
-        debugPrint("Response received =====$statusRequest");
         List pharmacyList = response["pharmacies"] ?? [];
         
         if (pharmacyList.isEmpty) {
           statusRequest = StatusRequest.failure;
-          debugPrint("No pharmacies found");
         } else {
           pharmacies.addAll(
             pharmacyList.map((pharmacy) => Pharmacy.fromJson(pharmacy)).toList()
           );
-          debugPrint("Found ${pharmacies.length} pharmacies");
         }
       } else {
-        debugPrint("Failed to load pharmacies: $statusRequest");
       }
     } catch (e) {
-      debugPrint("Error loading pharmacies: $e");
       statusRequest = StatusRequest.serverException;
     }
     

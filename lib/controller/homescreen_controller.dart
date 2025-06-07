@@ -22,7 +22,6 @@ class HomeScreenControllerImp extends HomeScreenController {
   void changePage(int index) {
     currentIndex = index;
     update();
-    debugPrint("Changing to page: $index");
   }
 
   @override

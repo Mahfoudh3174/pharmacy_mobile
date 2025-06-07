@@ -71,7 +71,6 @@ class SignUpControllerImp extends SignUpController {
         );
       }
     } else {
-      debugPrint("Not Valid");
     }
   }
 

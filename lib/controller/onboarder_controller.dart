@@ -29,11 +29,9 @@ class OnboarderControllerImp extends OnboarderController {
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
       update();
     } else {
-    debugPrint("Next Page: $currentPage");
       storage.sharedPreferences.setBool("onBoarding", true);
       Get.offAllNamed(Routes.signUp);
     }
-    debugPrint("Next Page: $currentPage");
 
     
   }
@@ -41,7 +39,6 @@ class OnboarderControllerImp extends OnboarderController {
   @override
   onPageChanged(int index) {
     currentPage = index;
-    debugPrint("Current Page: $currentPage");
     update();
     
   }

@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/data/datasource/remote/cart/cart_data.dart';
+import 'package:ecommerce/data/model/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,24 +16,25 @@ class CartControllerImp extends CartController {
   StatusRequest statusRequest = StatusRequest.none;
   CartData cartData = CartData(Get.find());
 
+  List<Cart> cardItems = [];
+  int totalPrice = 0;
+  int totalItems = 0;
+
   @override
   void onInit() {
+    getMedicationFromCart();
     super.onInit();
   }
 
   @override
   void addMedicationToCart(int productId) async {
     try {
-      debugPrint("====medication $productId");
-
       statusRequest = StatusRequest.loading;
       update();
       final response = await cartData.postCartdata(productId);
       statusRequest = handlingData(response);
-      update();
 
       if (statusRequest == StatusRequest.success) {
-        debugPrint("====medication $productId added");
         update();
       } else {
         statusRequest = StatusRequest.failure;
@@ -51,19 +53,35 @@ class CartControllerImp extends CartController {
       update();
       final response = cartData.deleteCartData(medicationId);
       statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
-        debugPrint("====medication $medicationId deleted");
-      }
-    } catch (e) {
-      debugPrint("====medication $medicationId not deleted");
-    }
+      if (statusRequest == StatusRequest.success) {}
+    } catch (e) {}
     update();
   }
 
   @override
-  getMedicationFromCart() {
-    // TODO: implement getMedicationFromCart
-    throw UnimplementedError();
+  getMedicationFromCart() async {
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+
+      final response = await cartData.getCartData();
+      statusRequest = handlingData(response);
+      if (statusRequest == StatusRequest.success) {
+        for (var item in response['cartItems']) {
+          debugPrint("====controller fetch cardItems $item");
+          cardItems.add(Cart.fromJson(item));
+        }
+        totalPrice = response['totalCard'];
+        totalItems=response['totalItems'];
+        debugPrint("====total $totalPrice");
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    } catch (e) {
+      debugPrint("====cart get exception ${e.toString()}");
+    } finally {
+      update();
+    }
   }
 
   @override
@@ -73,9 +91,7 @@ class CartControllerImp extends CartController {
     try {
       final response = await cartData.getCountCart(id);
 
-      debugPrint("==controller count show ${response['count'].runtimeType}");
       medicationsCount = response['count'];
-      debugPrint("====medication count found $medicationsCount");
     } catch (e) {
       debugPrint("====medication count not found ${e.toString()}");
     }
