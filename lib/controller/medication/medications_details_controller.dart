@@ -1,12 +1,14 @@
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
+import 'package:ecommerce/routes.dart';
 import 'package:get/get.dart';
 
 abstract class MedicationsDetailsController extends GetxController {
   getMedicationDetails(int id) {}
   increment() {}
   decriment() {}
+  goToCarte() {}
 }
 
 class MedicationsDetailsControllerImp extends MedicationsDetailsController {
@@ -37,13 +39,23 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   @override
   increment() {
+    cartController.addMedicationToCart(medication.id!);
     medicationsCount++;
     update();
   }
 
   @override
   decriment() {
-    medicationsCount > 0 ? medicationsCount-- : medicationsCount = 0;
-    update();
+    if (medicationsCount > 0) {
+      cartController.deleteMedicationFromCart(medication.id!);
+      medicationsCount--;
+      update();
+    }
+  }
+
+  @override
+  goToCarte() {
+    
+    Get.toNamed(Routes.cart);
   }
 }

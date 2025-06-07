@@ -10,10 +10,13 @@ class PharmacyData {
   Myservice storage = Get.find();
   PharmacyData(this.crud);
 
-
-  Future getData() async {
+  Future getData({String? query}) async {
     String? token = storage.sharedPreferences.getString("token");
-    var response = await crud.getData(AppLinks.pharmacies, {
+    String url = AppLinks.pharmacies;
+    if (query != null && query.isNotEmpty) {
+      url += "?search=$query";
+    }
+    var response = await crud.getData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
       "Accept": "application/json",

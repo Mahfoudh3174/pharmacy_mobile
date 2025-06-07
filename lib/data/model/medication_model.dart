@@ -10,7 +10,7 @@ class Medication {
   final Category? category;
   final String? dosageForm;
   final String? strength;
-  final String? imageUrl ;
+  final String? imageUrl;
   final int? price;
   final int? quantity;
   final int? pivotQuantity;

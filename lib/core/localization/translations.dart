@@ -64,7 +64,8 @@ class AllTranslations extends Translations {
           "59": "من نحن",
           "60": "اتصل بنا",
           "61": "تسجيل الخروج",
-          "62": "الإعدادات"
+          "62": " الإعدادات",
+          "63":"الذهاب إلى السلة"
             },        
             "fr": {
           "46": "Choisir la langue",
@@ -127,6 +128,7 @@ class AllTranslations extends Translations {
           "59": "À propos de nous",
           "60": "Contactez-nous",
           "61": "Déconnexion",
-          "62": "Paramètres"
+          "62": "Paramètres",
+          "63":"Aller au panier"
         },};
 }

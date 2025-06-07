@@ -7,7 +7,7 @@ import 'package:ecommerce/view/widget/medications/top_medication_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MedicationDatailsView extends StatelessWidget {
+class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
   const MedicationDatailsView({super.key});
 
   @override
@@ -22,9 +22,11 @@ class MedicationDatailsView extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           color: AppColor.secondary,
-          onPressed: () {},
+          onPressed: () {
+            controller.goToCarte();
+          },
           child: Text(
-            "56".tr,
+            "63".tr,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -51,15 +53,9 @@ class MedicationDatailsView extends StatelessWidget {
                       const SizedBox(height: 10),
                       PriceAndCountItems(
                         onAdd: () {
-                          controller.cartController.addMedicationToCart(
-                            controller.medication.id!,
-                          );
                           controller.increment();
                         },
                         onRemove: () {
-                          controller.cartController.deleteMedicationFromCart(
-                            controller.medication.id!,
-                          );
                           controller.decriment();
                         },
                         price: controller.medication.price.toString(),

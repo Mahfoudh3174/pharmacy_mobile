@@ -12,13 +12,10 @@ class PharmacieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Initialize controller (better to do this in bindings)
-    Get.put(PharmacyControllerImp());
-
-    return GetBuilder<PharmacyControllerImp>(
+    Get.put(PharmacyControllerImp());    return GetBuilder<PharmacyControllerImp>(
       builder: (controller) {
-        return HandlingDataView(
-          statusRequest: controller.statusRequest,
-          widget: SafeArea(
+        return Scaffold(
+          body: SafeArea(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               decoration: BoxDecoration(
@@ -32,21 +29,23 @@ class PharmacieView extends StatelessWidget {
                 ),
               ),
               child: Column(
-                children: [                  CustomAppBar(
+                children: [
+                  CustomAppBar(
                     title: "49".tr,
+                    searchController: controller.searchController,
+                    icon: Icons.notifications_active_outlined,
                     onPressedIcon: () {
-                      Get.snackbar(
-                        "50".tr,
-                        "51".tr,
-                      );
+                      controller.searchController.clear();
+                      controller.getPharmacies();
                     },
                     onPressedSearch: () {
-                      Get.snackbar(
-                        "52".tr,
-                        "51".tr,
-                      );
+                      controller.searchPharmacies(controller.searchController.text);
                     },
                   ),
+                  Expanded(
+                    child: HandlingDataView(
+                      statusRequest: controller.statusRequest,
+                      widget:
                   Expanded(
                     child: ListView.builder(
                       itemCount: controller.pharmacies.length,
@@ -59,7 +58,8 @@ class PharmacieView extends StatelessWidget {
                       },
                     ),
                   ),
-                ],
+                
+              ))],
               ),
             ),
           ),
