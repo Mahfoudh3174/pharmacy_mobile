@@ -8,10 +8,16 @@ class CartData {
   Crud crud;
   CartData(this.crud);
   Myservice storage = Get.find();
-
   getCartData() async {
     String? token = storage.sharedPreferences.getString("token");
-    var response = await crud.getData(AppLinks.cart, {
+    int? pharmacyId = storage.sharedPreferences.getInt("current_pharmacy_id",
+    );
+    var url =
+        pharmacyId != null
+            ? "${AppLinks.cart}?pharmacy_id=$pharmacyId"
+            : AppLinks.cart;
+
+    var response = await crud.getData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -19,15 +25,15 @@ class CartData {
     return response.fold((l) => l, (r) => r);
   }
 
-  postCartdata(int id) async {
+  postCartdata(int medicationId) async {
     String? token = storage.sharedPreferences.getString("token");
-    // Use the proper API endpoint from AppLinks
+    int? pharmacyId = storage.sharedPreferences.getInt(
+      "current_pharmacy_id",
+    );
+    debugPrint("==pharma id ===$pharmacyId");
     var response = await crud.postJsonData(
       AppLinks.cart,
-      {
-        "medication_id":
-            id, // Changed from 'id' to 'medication_id' to match API
-      },
+      {"medication_id": medicationId, "pharmacy_id": pharmacyId},
       {
         'Authorization': 'Bearer $token',
         "Content-Type": "application/json",
@@ -41,7 +47,15 @@ class CartData {
 
   deleteCartData(int id) async {
     String? token = storage.sharedPreferences.getString("token");
-    var response = await crud.deleteData("${AppLinks.cart}/$id", {
+    int? pharmacyId = storage.sharedPreferences.getInt(
+      "current_pharmacy_id",
+    );
+    var url = "${AppLinks.cart}/$id";
+    if (pharmacyId != null) {
+      url += "?pharmacy_id=$pharmacyId";
+    }
+
+    var response = await crud.deleteData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -52,7 +66,15 @@ class CartData {
   getCountCart(int id) async {
     debugPrint("id in getcard count $id");
     String? token = storage.sharedPreferences.getString("token");
-    var response = await crud.getData("${AppLinks.cartCount}/$id", {
+    int? pharmacyId = storage.sharedPreferences.getInt(
+      "current_pharmacy_id",
+    );
+    var url = "${AppLinks.cartCount}/$id";
+    if (pharmacyId != null) {
+      url += "?pharmacy_id=$pharmacyId";
+    }
+
+    var response = await crud.getData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
       "Accept": "application/json",

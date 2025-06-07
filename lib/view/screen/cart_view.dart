@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:ecommerce/controller/cart/add_controller.dart';
+import 'package:ecommerce/core/class/handeling_data_view.dart';
 import 'package:ecommerce/view/widget/cart/buttom_navigation_bar.dart';
 import 'package:ecommerce/view/widget/cart/custom_cart_list.dart';
 import 'package:ecommerce/view/widget/cart/top_app_bar_cart.dart';
@@ -11,37 +14,54 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  CartControllerImp controller = Get.put(CartControllerImp());
+    CartControllerImp cartController = Get.put(CartControllerImp());
     return Scaffold(
-      bottomNavigationBar: BottomNavgationBarCart(
-        price: "${controller.totalPrice}",
-        shipping: "300",
-        totalprice: "100"
-      ),
-      body: ListView(
-        children: [
-          TopAppbarCart(title: 'My Cart'),
-          SizedBox(height: 10),
-          TopCardCart(message: "You Have ${controller.totalItems} Items in Your List"),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: const [
-                CustomItemsCartList(
-                  name: "Macbook M1",
-                  price: "1100.0 \$",
-                  count: "2",
-                ),
-                CustomItemsCartList(
-                  name: "Macbook M2 Max",
-                  price: "2100.0 \$",
-                  count: "1",
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        bottomNavigationBar: GetBuilder<CartControllerImp>(
+            builder: (controller) => BottomNavgationBarCart(
+                price: "${cartController.totalPrice}",
+                shipping: "300",
+                totalprice: "1500")),
+        body: GetBuilder<CartControllerImp>(
+            builder: ((controller) => HandlingDataView(
+                statusRequest: controller.statusRequest,
+                widget: ListView(
+                  children: [
+                    TopAppbarCart(
+                      title: 'My Cart',
+                    ),
+                    SizedBox(height: 10),
+                    TopCardCart(
+                        message:
+                            "You Have ${cartController.totalItems} Items in Your List"),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          ...List.generate(
+                            cartController.cardItems.length,
+                            (index) => CustomItemsCartList(
+                                onAdd: () async {
+                                  // await cartController
+                                  //     .addMedicationToCart(cartController.cardItems[index].medication.id!);
+                                  // cartController.refreshPage();
+                                },
+                                onRemove: () async  {
+                                //  await cartController.delete(
+                                //       cartController.data[index].itemsId!);
+                                //   cartController.refreshPage();
+                                },
+                                imagename:
+                                    "${cartController.cardItems[index].medication.imageUrl}",
+                                name: "${cartController.cardItems[index].medication.name}",
+                                price:
+                                    "${cartController.cardItems[index].medication.price} \$",
+                                count:
+                                    "${cartController.cardItems[index].quantity}"),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )))));
   }
 }
