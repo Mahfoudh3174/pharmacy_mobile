@@ -7,8 +7,9 @@ ThemeData themeEnglish = ThemeData(
   floatingActionButtonTheme:FloatingActionButtonThemeData(backgroundColor: AppColor.primary) ,
         appBarTheme: AppBarTheme(
           backgroundColor: AppColor.primary,
+          actionsIconTheme: IconThemeData(color: AppColor.background),
           elevation: 0,
-          iconTheme: IconThemeData(color: AppColor.primary),
+          centerTitle: true,
           titleTextStyle: TextStyle(
             color: AppColor.background,
             fontSize: 20,

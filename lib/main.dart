@@ -1,5 +1,4 @@
 import 'package:ecommerce/binding/initial_binding.dart';
-import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/localization/change_local.dart';
 import 'package:ecommerce/core/localization/translations.dart';
 import 'package:ecommerce/core/services/services.dart';

@@ -12,7 +12,8 @@ class PharmacieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Initialize controller (better to do this in bindings)
-    Get.put(PharmacyControllerImp());    return GetBuilder<PharmacyControllerImp>(
+    Get.put(PharmacyControllerImp());   
+     return GetBuilder<PharmacyControllerImp>(
       builder: (controller) {
         return Scaffold(
           body: SafeArea(
@@ -45,9 +46,7 @@ class PharmacieView extends StatelessWidget {
                   Expanded(
                     child: HandlingDataView(
                       statusRequest: controller.statusRequest,
-                      widget:
-                  Expanded(
-                    child: ListView.builder(
+                      widget: ListView.builder(
                       itemCount: controller.pharmacies.length,
                       itemBuilder: (context, index) {
                         final pharmacy = controller.pharmacies[index];
@@ -57,7 +56,7 @@ class PharmacieView extends StatelessWidget {
                         );
                       },
                     ),
-                  ),
+                  
                 
               ))],
               ),

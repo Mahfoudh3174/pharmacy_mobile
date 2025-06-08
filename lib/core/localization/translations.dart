@@ -67,6 +67,8 @@ class AllTranslations extends Translations {
           "62": " الإعدادات",
           "63":"الذهاب إلى السلة",
           "64":"السلة",
+          "65":"في الصيدلية",
+          "66":"توصيل سريع",
             },        
             "fr": {
           "46": "Choisir la langue",
@@ -132,5 +134,7 @@ class AllTranslations extends Translations {
           "62": "Paramètres",
           "63":"Aller au panier",
           "64":"Panier",
+          "65":"à la pharmacie",
+          "66":"livraison rapide",
         },};
 }

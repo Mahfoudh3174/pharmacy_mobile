@@ -2,6 +2,7 @@ import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/data/datasource/remote/cart/cart_data.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
+import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ abstract class CartController extends GetxController {
   addMedicationToCart(int medicationId);
   deleteMedicationFromCart(int medicationId);
   getMedicationFromCart();
-
+  goToCheckout();
   resetVariables();
   refreshData();
 }
@@ -113,7 +114,6 @@ class CartControllerImp extends CartController {
     }
   }
 
-
   @override
   refreshData() {
     resetVariables();
@@ -125,5 +125,23 @@ class CartControllerImp extends CartController {
     totalItems = 0;
     totalPrice = 0;
     cardItems.clear();
+  }
+
+  @override
+  goToCheckout() {
+    if (cardItems.isEmpty) {
+      Get.rawSnackbar(
+        title: "Notification",
+        messageText: const Text(
+          "Your cart is empty",
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+      return;
+    }
+    Get.toNamed(
+      Routes.checkout,
+      arguments: {'cardItems': cardItems, 'totalPrice': totalPrice},
+    );
   }
 }

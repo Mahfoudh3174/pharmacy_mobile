@@ -2,7 +2,6 @@
 
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/class/handeling_data_view.dart';
-import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/view/widget/cart/buttom_navigation_bar.dart';
 import 'package:ecommerce/view/widget/cart/custom_cart_list.dart';
 import 'package:ecommerce/view/widget/cart/top_card_cart.dart';

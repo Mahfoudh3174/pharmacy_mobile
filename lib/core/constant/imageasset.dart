@@ -20,5 +20,9 @@ class Imageasset {
     static const String offline="$lottiePath/offline.json";
     static const String nodata="$lottiePath/nodata.json";
 
+    static const String deliveryImage2="$imagePath/006-delivery.png";
+    static const String drivethruImage="$imagePath/drivethru.png";
+
+
 
 }

@@ -13,4 +13,7 @@ class AppLinks{
   //========cart=========
   static const String cart = "$baseUrl/cart";
   static const String cartCount = "$baseUrl/cart/cart-count";
+
+  //======order======
+  static const String checkout = "$baseUrl/orders";
 }
