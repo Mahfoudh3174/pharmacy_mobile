@@ -15,5 +15,5 @@ class AppLinks{
   static const String cartCount = "$baseUrl/cart/cart-count";
 
   //======order======
-  static const String checkout = "$baseUrl/orders";
+  static const String orders = "$baseUrl/orders";
 }

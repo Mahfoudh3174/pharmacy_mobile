@@ -15,6 +15,7 @@ import 'package:ecommerce/view/screen/medication/medication_datails_view.dart';
 import 'package:ecommerce/view/screen/medication/medication_view.dart';
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/on_boarding.dart';
+import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/pharmacie_view.dart';
 
 
@@ -42,6 +43,8 @@ class Routes {
   static const String cart = '/cart';
   static const String checkout = '/checkout';
 
+  static const String pending = '/pending';
+
 
 
   static List<GetPage> routes = [
@@ -61,6 +64,7 @@ class Routes {
     GetPage(name: pharmacies, page: () => const PharmacieView()),
     GetPage(name: cart, page: () => const CartView()),
     GetPage(name: checkout, page: () =>const CheckoutView()),
+    GetPage(name: pending, page: () =>const OrdersPending()),
 
 
   ];

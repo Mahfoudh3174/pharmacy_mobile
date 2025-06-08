@@ -43,7 +43,7 @@ class CheckoutControllerImp extends ChecoutController {
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
         Get.snackbar("success", "order passed successfully");
-        Get.offAllNamed(Routes.pharmacies);
+        Get.offAllNamed(Routes.home);
       }
       update();    } catch (e) {
       statusRequest = StatusRequest.serverException;

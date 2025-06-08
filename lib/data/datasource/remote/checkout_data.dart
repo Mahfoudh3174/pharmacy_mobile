@@ -18,7 +18,7 @@ class CheckoutData {
       "current_pharmacy_id",
     );
     final response= await crud.postJsonData(
-      AppLinks.checkout,
+      AppLinks.orders,
       {
         "pharmacy_id": pharmacyId,
         'cardItems': cardItems.map((e) => e.toJson()).toList(),

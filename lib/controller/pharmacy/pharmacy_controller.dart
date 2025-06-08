@@ -76,7 +76,7 @@ class PharmacyControllerImp extends PharmacyController {
 
   // @override
   // void onClose() {
-  //   searchController.dispose();
+  //    searchController.dispose();
   //   pharmacies.clear();
   //   super.onClose();
   // }
