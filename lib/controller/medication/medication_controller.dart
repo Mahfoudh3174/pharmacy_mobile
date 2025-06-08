@@ -15,6 +15,7 @@ abstract class MedicationsController extends GetxController {
   filterMedicationsByCategory(int categoryId) {}
   searchMedications(String query) {}
   goToDetails(Medication medication) {}
+  goToCarte();
 }
 
 class MedicationsControllerImp extends MedicationsController {
@@ -50,21 +51,25 @@ class MedicationsControllerImp extends MedicationsController {
   @override
   void searchMedications(String query) {
     if (query.isEmpty) {
-      medications = selectedCategoryId != null
-          ? allMedications
-              .where((med) => med.category?.id == selectedCategoryId)
-              .toList()
-          : List.from(allMedications);
+      medications =
+          selectedCategoryId != null
+              ? allMedications
+                  .where((med) => med.category?.id == selectedCategoryId)
+                  .toList()
+              : List.from(allMedications);
 
       statusRequest = StatusRequest.none;
     } else {
-      medications = allMedications.where((med) {
-        final matchesQuery =
-            med.name!.toLowerCase().contains(query.toLowerCase());
-        final matchesCategory = selectedCategoryId == null ||
-            med.category?.id == selectedCategoryId;
-        return matchesQuery && matchesCategory;
-      }).toList();
+      medications =
+          allMedications.where((med) {
+            final matchesQuery = med.name!.toLowerCase().contains(
+              query.toLowerCase(),
+            );
+            final matchesCategory =
+                selectedCategoryId == null ||
+                med.category?.id == selectedCategoryId;
+            return matchesQuery && matchesCategory;
+          }).toList();
 
       statusRequest =
           medications.isEmpty ? StatusRequest.failure : StatusRequest.none;
@@ -72,6 +77,7 @@ class MedicationsControllerImp extends MedicationsController {
 
     update(); // Only one update call
   }
+
   @override
   Future<void> getMedications() async {
     statusRequest = StatusRequest.loading;
@@ -82,15 +88,15 @@ class MedicationsControllerImp extends MedicationsController {
 
     try {
       final response = await medicationData.getData(
-        pharmacy!.id!, 
-        categoryId: selectedCategoryId
+        pharmacy!.id!,
+        categoryId: selectedCategoryId,
       );
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
         List meds = response["medications"];
         medications = meds.map((e) => Medication.fromJson(e)).toList();
-        
+
         // Only update allMedications if no category filter is active
         if (selectedCategoryId == null) {
           allMedications = List.from(medications);
@@ -108,6 +114,7 @@ class MedicationsControllerImp extends MedicationsController {
 
     update(); // Single update after data and status are set
   }
+
   @override
   void filterMedicationsByCategory(int categoryId) async {
     if (selectedCategoryId == categoryId) {
@@ -117,15 +124,18 @@ class MedicationsControllerImp extends MedicationsController {
       selectedCategoryId = categoryId;
       statusRequest = StatusRequest.loading;
       update();
-      
+
       try {
-        final response = await medicationData.getData(pharmacy!.id!, categoryId: categoryId);
+        final response = await medicationData.getData(
+          pharmacy!.id!,
+          categoryId: categoryId,
+        );
         statusRequest = handlingData(response);
 
         if (statusRequest == StatusRequest.success) {
           List meds = response["medications"];
           medications = meds.map((e) => Medication.fromJson(e)).toList();
-          
+
           if (medications.isEmpty) {
             statusRequest = StatusRequest.failure;
           }
@@ -152,7 +162,15 @@ class MedicationsControllerImp extends MedicationsController {
 
   @override
   void goToDetails(Medication medication) {
-    Get.toNamed(Routes.medicationDetails, arguments: {'medication': medication});
+    Get.toNamed(
+      Routes.medicationDetails,
+      arguments: {'medication': medication},
+    );
+  }
+  
+  @override
+  goToCarte() {
+    Get.toNamed(Routes.cart);
+
   }
 }
-

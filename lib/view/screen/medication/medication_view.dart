@@ -27,7 +27,7 @@ class MedicationsView extends StatelessWidget {
                       CustomMedicationBar(
                         title: "53".tr,
                         onPressedIcon: () {
-                          Get.snackbar("50".tr, "51".tr);
+                          controller.goToCarte();
                         },
                         searchController: controller.searchController,
                         onPressedSearch: () {
