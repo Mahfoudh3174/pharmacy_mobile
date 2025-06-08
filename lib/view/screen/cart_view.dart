@@ -2,9 +2,9 @@
 
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/class/handeling_data_view.dart';
+import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/view/widget/cart/buttom_navigation_bar.dart';
 import 'package:ecommerce/view/widget/cart/custom_cart_list.dart';
-import 'package:ecommerce/view/widget/cart/top_app_bar_cart.dart';
 import 'package:ecommerce/view/widget/cart/top_card_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +16,9 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     CartControllerImp cartController = Get.put(CartControllerImp());
     return Scaffold(
+      appBar: AppBar(
+        title: Text('64'.tr),
+          ),
         bottomNavigationBar: GetBuilder<CartControllerImp>(
             builder: (controller) => BottomNavgationBarCart(
                 price: "${cartController.totalPrice}",
@@ -26,9 +29,7 @@ class CartView extends StatelessWidget {
                 statusRequest: controller.statusRequest,
                 widget: ListView(
                   children: [
-                    TopAppbarCart(
-                      title: 'My Cart',
-                    ),
+                  
                     SizedBox(height: 10),
                     TopCardCart(
                         message:
@@ -43,7 +44,7 @@ class CartView extends StatelessWidget {
                                 onAdd: () async {
                                   await cartController
                                       .addMedicationToCart(cartController.cardItems[index].medication.id!);
-                                  // cartController.refreshPage();
+                                  cartController.refreshData();
                                 },
                                 onRemove: () async  {
                                  await cartController.deleteMedicationFromCart(
@@ -62,6 +63,8 @@ class CartView extends StatelessWidget {
                       ),
                     )
                   ],
-                )))));
+                )
+                )
+                )));
   }
 }

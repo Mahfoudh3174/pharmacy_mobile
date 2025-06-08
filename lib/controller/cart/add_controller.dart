@@ -9,7 +9,7 @@ abstract class CartController extends GetxController {
   addMedicationToCart(int medicationId);
   deleteMedicationFromCart(int medicationId);
   getMedicationFromCart();
-  getCountItems(int id);
+
   resetVariables();
   refreshData();
 }
@@ -35,8 +35,9 @@ class CartControllerImp extends CartController {
     getMedicationFromCart();
     super.onInit();
   }
+
   @override
-   addMedicationToCart(int productId) async {
+  addMedicationToCart(int productId) async {
     try {
       statusRequest = StatusRequest.loading;
       update();
@@ -44,17 +45,20 @@ class CartControllerImp extends CartController {
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-        // Refresh cart data after successful addition
-        resetVariables();
-        await getMedicationFromCart();
+        Get.rawSnackbar(
+          title: "Notification",
+          messageText: const Text(
+            "Medication added to cart",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
       } else {
         statusRequest = StatusRequest.failure;
-        update();
       }
     } catch (e) {
       statusRequest = StatusRequest.serverFailure;
-      update();
     }
+    update();
   }
 
   @override
@@ -65,7 +69,13 @@ class CartControllerImp extends CartController {
       final response = await cartData.deleteCartData(medicationId);
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
-        
+        Get.rawSnackbar(
+          title: "Notification",
+          messageText: const Text(
+            "Medication removed from cart",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
       }
     } catch (e) {
       statusRequest = StatusRequest.serverFailure;
@@ -82,7 +92,7 @@ class CartControllerImp extends CartController {
       final response = await cartData.getCartData();
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
-    cardItems.clear();
+        cardItems.clear();
 
         for (var item in response['cartItems']) {
           debugPrint("====controller fetch cardItems $item");
@@ -103,19 +113,6 @@ class CartControllerImp extends CartController {
     }
   }
 
-  @override
-  Future<int> getCountItems(int id) async {
-    int medicationsCount = 0;
-
-    try {
-      final response = await cartData.getCountCart(id);
-
-      medicationsCount = response['count'];
-    } catch (e) {
-      debugPrint("====medication count not found ${e.toString()}");
-    }
-    return medicationsCount;
-  }
 
   @override
   refreshData() {
@@ -127,5 +124,6 @@ class CartControllerImp extends CartController {
   resetVariables() {
     totalItems = 0;
     totalPrice = 0;
+    cardItems.clear();
   }
 }

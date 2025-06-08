@@ -1,22 +1,30 @@
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/class/status_request.dart';
+import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/data/datasource/remote/cart/cart_data.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
 import 'package:ecommerce/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class MedicationsDetailsController extends GetxController {
-  getMedicationDetails(int id) {}
-  increment() {}
-  decriment() {}
-  goToCarte() {}
+
+  increment() ;
+  decriment() ;
+  goToCarte() ;
+  addMedicationToCart(int productId) ;
+  deleteMedicationFromCart(int medicationId);
+  getCountItems(int id);
 }
 
 class MedicationsDetailsControllerImp extends MedicationsDetailsController {
-  CartControllerImp cartController = Get.put(CartControllerImp());
+  // CartControllerImp cartController = Get.put(CartControllerImp());
 
   late Medication medication;
   List subitems = [];
   int medicationsCount = 0;
+    CartData cartData = CartData(Get.find());
+
   StatusRequest statusRequest = StatusRequest.none;
 
   @override
@@ -26,20 +34,86 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
     super.onInit();
   }
 
-  @override
-  getMedicationDetails(int id) {}
+
 
   initialData() async {
     medication = Get.arguments['medication'];
     statusRequest = StatusRequest.loading;
-    medicationsCount = await cartController.getCountItems(medication.id!);
-    update();
+    medicationsCount = await getCountItems(medication.id!);
     statusRequest = StatusRequest.success;
+    update();
+
+  }
+
+    @override
+  Future<int> getCountItems(int id) async {
+    int medicationsCount = 0;
+
+    try {
+      final response = await cartData.getCountCart(id);
+
+      medicationsCount = response['count'];
+    } catch (e) {
+      debugPrint("====medication count not found ${e.toString()}");
+    }
+    return medicationsCount;
+  }
+
+
+
+  @override
+  addMedicationToCart(int productId) async {
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      final response = await cartData.postCartdata(productId);
+      statusRequest = handlingData(response);
+
+      if (statusRequest == StatusRequest.success) {
+        Get.rawSnackbar(
+          title: "Notification",
+          messageText: const Text(
+            "Medication added to cart",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    } catch (e) {
+      statusRequest = StatusRequest.serverFailure;
+    }
+    update();
   }
 
   @override
+  deleteMedicationFromCart(int medicationId) async {
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      final response = await cartData.deleteCartData(medicationId);
+      statusRequest = handlingData(response);
+      if (statusRequest == StatusRequest.success) {
+        Get.rawSnackbar(
+          title: "Notification",
+          messageText: const Text(
+            "Medication removed from cart",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
+      }
+    } catch (e) {
+      statusRequest = StatusRequest.serverFailure;
+    }
+    update();
+  }
+
+
+
+
+  @override
   increment() {
-    cartController.addMedicationToCart(medication.id!);
+    addMedicationToCart(medication.id!);
     medicationsCount++;
     update();
   }
@@ -47,7 +121,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   @override
   decriment() {
     if (medicationsCount > 0) {
-      cartController.deleteMedicationFromCart(medication.id!);
+      deleteMedicationFromCart(medication.id!);
       medicationsCount--;
       update();
     }
@@ -55,7 +129,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   @override
   goToCarte() {
-    
+    // cartController.refreshData();
     Get.toNamed(Routes.cart);
   }
 }

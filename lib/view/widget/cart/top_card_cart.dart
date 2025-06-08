@@ -18,7 +18,7 @@ class TopCardCart extends StatelessWidget {
               ),
               child: Text(message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColor.primary)),
+                  style: TextStyle(color: AppColor.background, fontSize: 16)),
             ) ; 
   }
 }

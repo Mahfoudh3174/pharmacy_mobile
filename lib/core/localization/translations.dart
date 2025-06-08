@@ -5,7 +5,7 @@ class AllTranslations extends Translations {
   Map<String, Map<String, String>> get keys => {        
     "ar": {
           "46": "اختر اللغة",
-          "47": "الإنجليزية",
+          "47": "الفرنسية",
           "48": "العربية",
           "49": "البحث عن الصيدليات",
           "53": "البحث عن الأدوية",
@@ -65,7 +65,8 @@ class AllTranslations extends Translations {
           "60": "اتصل بنا",
           "61": "تسجيل الخروج",
           "62": " الإعدادات",
-          "63":"الذهاب إلى السلة"
+          "63":"الذهاب إلى السلة",
+          "64":"السلة",
             },        
             "fr": {
           "46": "Choisir la langue",
@@ -129,6 +130,7 @@ class AllTranslations extends Translations {
           "60": "Contactez-nous",
           "61": "Déconnexion",
           "62": "Paramètres",
-          "63":"Aller au panier"
+          "63":"Aller au panier",
+          "64":"Panier",
         },};
 }

@@ -23,6 +23,7 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
           ),
           color: AppColor.secondary,
           onPressed: () {
+            
             controller.goToCarte();
           },
           child: Text(
