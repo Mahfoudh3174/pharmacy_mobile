@@ -1,6 +1,5 @@
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/routes.dart';
 import 'package:ecommerce/view/widget/cart/custom_button_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

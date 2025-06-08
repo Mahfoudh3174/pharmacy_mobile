@@ -1,6 +1,5 @@
 import 'package:ecommerce/core/class/crud.dart';
 import 'package:ecommerce/linkapi.dart';
-import 'package:flutter/material.dart';
 
 class SignupData {
   Crud crud;

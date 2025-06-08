@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/checkconnection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class Crud {

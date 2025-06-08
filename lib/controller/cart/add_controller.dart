@@ -105,6 +105,13 @@ class CartControllerImp extends CartController {
         statusRequest = StatusRequest.failure;
       }
     } catch (e) {
+      Get.rawSnackbar(
+        title: "67".tr,
+        messageText:  Text(
+          "68".tr,
+          style: TextStyle(color: Colors.white),
+        ),
+      );
     } finally {
       update();
     }

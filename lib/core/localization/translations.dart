@@ -69,6 +69,8 @@ class AllTranslations extends Translations {
           "64":"السلة",
           "65":"في الصيدلية",
           "66":"توصيل سريع",
+          "67":"خطأ",
+          "68":"حدث أمر غير متوقع"
             },        
             "fr": {
           "46": "Choisir la langue",
@@ -136,5 +138,7 @@ class AllTranslations extends Translations {
           "64":"Panier",
           "65":"à la pharmacie",
           "66":"livraison rapide",
+          "67":"Erreur",
+          "68":"quelque chose s'est mal passé"
         },};
 }
