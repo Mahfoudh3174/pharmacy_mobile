@@ -1,7 +1,6 @@
 import 'package:ecommerce/core/class/crud.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/linkapi.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartData {
@@ -28,9 +27,7 @@ class CartData {
   postCartdata(int medicationId) async {
     String? token = storage.sharedPreferences.getString("token");
     int? pharmacyId = storage.sharedPreferences.getInt(
-      "current_pharmacy_id",
-    );
-    debugPrint("==pharma id ===$pharmacyId");
+      "current_pharmacy_id",    );
     var response = await crud.postJsonData(
       AppLinks.cart,
       {"medication_id": medicationId, "pharmacy_id": pharmacyId},
@@ -38,10 +35,7 @@ class CartData {
         'Authorization': 'Bearer $token',
         "Content-Type": "application/json",
         'Accept': 'application/json',
-      },
-    );
-    debugPrint("Cart API Response: $response");
-
+      },    );
     return response.fold((l) => l, (r) => r);
   }
 
@@ -62,9 +56,7 @@ class CartData {
     });
     return response.fold((l) => l, (r) => r);
   }
-
   getCountCart(int id) async {
-    debugPrint("id in getcard count $id");
     String? token = storage.sharedPreferences.getString("token");
     int? pharmacyId = storage.sharedPreferences.getInt(
       "current_pharmacy_id",
@@ -77,9 +69,7 @@ class CartData {
     var response = await crud.getData(url, {
       "Authorization": "Bearer $token",
       "Content-Type": "application/json",
-      "Accept": "application/json",
-    });
-    debugPrint("show response $response");
+      "Accept": "application/json",    });
     return response.fold((l) => l, (r) => r);
   }
 }

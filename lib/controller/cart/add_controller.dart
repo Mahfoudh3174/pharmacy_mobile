@@ -96,19 +96,15 @@ class CartControllerImp extends CartController {
         cardItems.clear();
 
         for (var item in response['cartItems']) {
-          debugPrint("====controller fetch cardItems $item");
           cardItems.add(Cart.fromJson(item));
         }
-        debugPrint("====controller fetch cardItems $cardItems");
         totalPrice = response['totalCard'];
         totalItems = response['totalItems'];
-        debugPrint("====total $totalPrice");
         update();
       } else {
         statusRequest = StatusRequest.failure;
       }
     } catch (e) {
-      debugPrint("====cart get exception ${e.toString()}");
     } finally {
       update();
     }

@@ -17,15 +17,10 @@ class CheckoutControllerImp extends ChecoutController {
   int? totaPrice;
   List<Cart> cardItems = [];
   CheckoutData checkoutData = CheckoutData(Get.find());
-
   @override
   void onInit() {
     cardItems = Get.arguments["cardItems"];
     totaPrice = Get.arguments["totalPrice"];
-
-    for (var element in cardItems) {
-      debugPrint("elements:== ${element.medication.name}");
-    }
     super.onInit();
   }
 
@@ -51,9 +46,9 @@ class CheckoutControllerImp extends ChecoutController {
         Get.snackbar("success", "order passed successfully");
         Get.offAllNamed(Routes.pharmacies);
       }
+      update();    } catch (e) {
+      statusRequest = StatusRequest.serverException;
       update();
-    } catch (e) {
-      debugPrint("error===== ${e.toString()}");
     }
   }
 }

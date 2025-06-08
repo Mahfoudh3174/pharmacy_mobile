@@ -17,7 +17,6 @@ class LoginData {
       "Content-Type": "application/x-www-form-urlencoded",
       "Accept": "application/json",
     });
-    debugPrint("Response status:====Logindata================ ${response.toString()}");
     return response.fold((l) => l, (r) => r);
 
   }

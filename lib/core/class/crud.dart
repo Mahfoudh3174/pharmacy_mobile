@@ -14,7 +14,6 @@ class Crud {
   ) async {
     try {
       if (await checkConnection()) {
-        debugPrint("we reched crud url========$url \n heder $header  body = $data");
         var response = await http.post(
           Uri.parse(url),
           headers: header,
@@ -22,10 +21,7 @@ class Crud {
         );
       
 
-        debugPrint(
-          "Response status:=========//=========== ${response.statusCode}",
-        );
-        debugPrint("Response body:=========//=========== ${response.body}");
+      
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
@@ -47,11 +43,7 @@ class Crud {
     try {
       if (await checkConnection()) {
         var response = await http.get(Uri.parse(url), headers: header);
-        debugPrint(
-          "Response status:====getdata=====//=========== ${response.statusCode}",
-        );
-        debugPrint("Response body:==getdata=======//=========== ${response.body}");
-        if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
         } else {
@@ -94,7 +86,6 @@ class Crud {
   ) async {
     try {
       if (await checkConnection()) {
-        debugPrint("we reched crud url========$url \n heder $header  body = $data");
         var response = await http.post(
           Uri.parse(url),
           headers: header,
@@ -102,11 +93,7 @@ class Crud {
         );
       
 
-        debugPrint(
-          "Response status:=========//=========== ${response.statusCode}",
-        );
-        debugPrint("Response body:=========//=========== ${response.body}");
-        if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
         } else {
