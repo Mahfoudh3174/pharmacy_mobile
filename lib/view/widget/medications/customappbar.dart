@@ -73,8 +73,7 @@ class CustomAppBar extends StatelessWidget {
 class CustomMedicationBar extends StatelessWidget {
   final String title;
   final void Function()? onPressedSearch;
-  final void Function()? onPressedIcon;
-  final TextEditingController? searchController;
+  final void Function()? onPressedIcon;  final TextEditingController? searchController;
 
 
   const CustomMedicationBar({
@@ -122,14 +121,18 @@ class CustomMedicationBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             width: 60,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: IconButton(
-              onPressed: onPressedIcon,
-              icon: Icon(
-                Icons.shopping_cart, 
-                size: 30,
-                color: Colors.grey[600],
-              ),
+            padding: const EdgeInsets.symmetric(vertical: 8),            child: Stack(
+              children: [
+                IconButton(
+                  onPressed: onPressedIcon,
+                  icon: Icon(
+                    Icons.shopping_cart, 
+                    size: 30,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                
+              ],
             ),
           ),
         ],

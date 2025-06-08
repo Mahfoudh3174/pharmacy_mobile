@@ -28,8 +28,9 @@ class MedicationsControllerImp extends MedicationsController {
   int? selectedCategoryId;
   Pharmacy? pharmacy;
   TextEditingController searchController = TextEditingController();
-
   MedicationData medicationData = MedicationData(Get.find());
+
+
 
   @override
   void onInit() {
@@ -39,8 +40,11 @@ class MedicationsControllerImp extends MedicationsController {
     });
     getCategories();
     getMedications();
+  
     super.onInit();
   }
+
+
 
   @override
   void onClose() {
@@ -167,10 +171,9 @@ class MedicationsControllerImp extends MedicationsController {
       arguments: {'medication': medication},
     );
   }
-  
-  @override
-  goToCarte() {
-    Get.toNamed(Routes.cart);
+    @override
+  goToCarte() async {
+    await Get.toNamed(Routes.cart);
 
   }
 }

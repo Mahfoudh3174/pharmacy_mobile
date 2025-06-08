@@ -5,6 +5,7 @@ import 'package:ecommerce/core/constant/color.dart';
 
 
 import 'package:ecommerce/view/widget/medications/categories_list.dart';
+import 'package:ecommerce/view/widget/medications/custom_info_card.dart';
 import 'package:ecommerce/view/widget/medications/customappbar.dart';
 import 'package:ecommerce/view/widget/medications/medication_card.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,9 @@ class MedicationsView extends StatelessWidget {
         builder: (controller) => SafeArea(
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView(                    children: [
-                      CustomMedicationBar(
+                  child: ListView(  
+                                      children: [  
+                        CustomMedicationBar(
                         title: "53".tr,
                         onPressedIcon: () {
                           controller.goToCarte();
@@ -32,7 +34,12 @@ class MedicationsView extends StatelessWidget {
                         searchController: controller.searchController,
                         onPressedSearch: () {
                           controller.searchMedications(controller.searchController.text);
-                        }
+                        },
+                        
+                      ),
+                      CustomCardHome(
+                        title: controller.pharmacy!.name!,
+                        body: controller.pharmacy!.address!,
                       ),
                        SizedBox(height: 20),
                       Text(
