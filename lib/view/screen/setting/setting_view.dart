@@ -38,11 +38,33 @@ class SettingView extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Card(
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              ListTile(
-                // onTap: () {},  
-                trailing: Switch(onChanged: (val){} ,value: true ),
-                title: Text("57".tr), // Dark Mode
+            child: Column(mainAxisSize: MainAxisSize.min, children: [              ListTile(
+                onTap: () {
+                  Get.defaultDialog(
+                    title: "lang".tr,
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text("47".tr),  // French
+                          onTap: () {
+                            controller.changeLanguage("fr");
+                            Get.back();
+                          },
+                        ),
+                        ListTile(
+                          title: Text("48".tr),  // Arabic
+                          onTap: () {
+                            controller.changeLanguage("ar");
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                trailing: Icon(Icons.language_outlined),
+                title: Text("lang".tr),  // Language
               ),
               ListTile(
                 onTap: () {},
