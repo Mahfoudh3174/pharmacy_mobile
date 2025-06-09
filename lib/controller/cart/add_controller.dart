@@ -105,10 +105,9 @@ class CartControllerImp extends CartController {
         statusRequest = StatusRequest.failure;
       }
     } catch (e) {
-      Get.rawSnackbar(
-        title: "67".tr,
+      Get.rawSnackbar(        title: "error".tr,
         messageText:  Text(
-          "68".tr,
+          "unexpected_error".tr,
           style: TextStyle(color: Colors.white),
         ),
       );

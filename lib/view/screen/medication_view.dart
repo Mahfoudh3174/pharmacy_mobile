@@ -32,9 +32,9 @@
 //                   padding: EdgeInsets.symmetric(horizontal: 15),
 //                   child: ListView(                    children: [
 //                       CustomMedicationBar(
-//                         title: "53".tr,
+//                         title: "search_medications".tr,
 //                         onPressedIcon: () {
-//                           Get.snackbar("50".tr, "51".tr);
+//                           Get.snackbar("alert".tr, "feature_in_development".tr);
 //                         },
 //                         searchController: controller.searchController,
 //                         onPressedSearch: () {
@@ -46,7 +46,7 @@
 //                       ),
 //                        SizedBox(height: 20),
 //                       Text(
-//                         "54".tr,
+//                         "categories".tr,
 //                         style: TextStyle(
 //                           fontSize: 20,
 //                           color: AppColor.primary,
@@ -58,7 +58,7 @@
 //                         controller: controller,
 //                       ),
 //                       const SizedBox(height: 10),                      Text(
-//                         "55".tr,
+//                         "medications".tr,
 //                         style: const TextStyle(
 //                           fontSize: 20,
 //                           color: AppColor.primary,

@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/controller/auth/forgetpassword_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/functions/validinput.dart';
@@ -21,7 +20,7 @@ class ForgetPassword extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.background,
         elevation: 0.0,
-        title: Text('Forget Password',
+        title: Text('forget_password'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -31,11 +30,9 @@ class ForgetPassword extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
         child: ListView(children: [
           const SizedBox(height: 20),
-          const CustomTextTitleAuth(text: "Check Email"),
+          CustomTextTitleAuth(text: "check_email".tr),
           const SizedBox(height: 10),
-          const CustomTextBodyAuth(
-              text:
-                  "Enter Your Email To Receive A Link To Create A New Password"),
+          CustomTextBodyAuth(text: "check_email_desc".tr),
           const SizedBox(height: 15),
           CustonTextFormAuth(
             isNumber: false,
@@ -43,14 +40,16 @@ class ForgetPassword extends StatelessWidget {
               return validInput(val!, 3, 30, "email");
             },
             mycontroller: controller.email,
-            hinttext: "Enter Your Email",
+            hinttext: "enter_email".tr,
             iconData: Icons.email_outlined,
-            labeltext: "Email",
-            // mycontroller: ,
+            labeltext: "email".tr,
           ),
-          CustomButtomAuth(text: "Check", onPressed: () {
-            controller.goToVerfiyCode();
-          }),
+          CustomButtomAuth(
+            text: "check".tr,
+            onPressed: () {
+              controller.goToVerfiyCode();
+            },
+          ),
           const SizedBox(height: 40),
         ]),
       ),

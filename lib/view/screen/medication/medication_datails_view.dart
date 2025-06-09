@@ -38,7 +38,7 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
             controller.goToCarte();
           },
           child: Text(
-            "63".tr,
+            "go_to_cart".tr,
             style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),

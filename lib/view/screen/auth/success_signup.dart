@@ -33,7 +33,7 @@ class SuccessSignUp extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "40".tr,
+                  "success".tr,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -41,14 +41,14 @@ class SuccessSignUp extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "39".tr,
+                  "register_success".tr,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 100),
                 SizedBox(
                   width: double.infinity,
                   child: CustomButtomAuth(
-                    text: "41".tr,
+                    text: "login_now".tr,
                     onPressed: () {
                       Get.offAllNamed(Routes.login);
                     },

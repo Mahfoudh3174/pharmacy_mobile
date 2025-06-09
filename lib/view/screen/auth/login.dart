@@ -23,7 +23,7 @@ class Login extends StatelessWidget {
         backgroundColor: AppColor.background,
         elevation: 0.0,
         title: Text(
-          '9'.tr,
+          'login_now'.tr,
           style: Theme.of(
             context,
           ).textTheme.bodyMedium!.copyWith(color: AppColor.grey),
@@ -38,25 +38,22 @@ class Login extends StatelessWidget {
               child: ListView(
                 children: [
                   const LogoAuth(),
-                  const SizedBox(height: 20),
-                  CustomTextTitleAuth(text: "10".tr),
+                  const SizedBox(height: 20),                  CustomTextTitleAuth(text: "welcome_back".tr),
                   const SizedBox(height: 10),
-                  CustomTextBodyAuth(text: "11".tr),
+                  CustomTextBodyAuth(text: "login_desc".tr),
                   const SizedBox(height: 15),
                   CustonTextFormAuth(
           
                     isNumber: false,
-                    valid: (val) {
-                      if (val!.isEmpty) {
-                        return "12".tr;
+                    valid: (val) {                      if (val!.isEmpty) {
+                        return "enter_phone_or_email".tr;
                       }
-
                       return null;
                     },
                     mycontroller: controller.email,
-                    hinttext: "13".tr,
-                    iconData: Icons.email_outlined,
-                    labeltext: "14".tr,
+                    hinttext: "enter_phone_or_email".tr,
+                    iconData: Icons.person_2_outlined,
+                    labeltext: "phone_or_email".tr,
                   ),
                   GetBuilder<LoginControllerImp>(
                       builder: (controller) => CustonTextFormAuth(
@@ -65,46 +62,36 @@ class Login extends StatelessWidget {
                           controller.togglePassword();
                         },
                         isNumber: false,
-                        valid: (val) {
-                          if (val!.isEmpty || val.trim().isEmpty) {
-                            return "16".tr;
+                        valid: (val) {                          if (val!.isEmpty || val.trim().isEmpty) {
+                            return "enter_password".tr;
                           }
                           
                           return null;
                         },
                         mycontroller: controller.password,
-                        hinttext: "16".tr,
+                        hinttext: "enter_password".tr,
                         iconData: controller.isPasswordVisible
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        labeltext: "16".tr,
+                        labeltext: "password".tr,
                         // mycontroller: ,
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        controller.goToForgetPassword();
-                      },
-                      child: Text(
-                        "14".tr,
-                        textAlign: TextAlign.right,
-                      ),
-                    ),InkWell(
                     onTap: () {
                       controller.goToForgetPassword();
-                    },
-                    child: Text("17".tr, textAlign: TextAlign.end),
+                    },                    child: Text("forget_password".tr, textAlign: TextAlign.end),
                   ),
                   CustomButtomAuth(
-                    text: "9".tr,
+                    text: "login".tr,
                     onPressed: () {
                       controller.login();
                     },
                   ),
                   const SizedBox(height: 40),
                   CustomTextSignUpOrSignIn(
-                    textone: "19".tr,
-                    texttwo: "18".tr,
+                    textone: "no_account".tr,
+                    texttwo: "create_account".tr,
                     onTap: () {
                       controller.goToSignUp();
                     },

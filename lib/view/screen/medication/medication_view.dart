@@ -20,7 +20,7 @@ class MedicationsView extends StatelessWidget {
           centerTitle: true,
           backgroundColor: AppColor.primary,
           title: Text(
-            "53".tr, // Title from translation
+            "search_medications".tr, // Title from translation
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
@@ -65,7 +65,7 @@ class MedicationsView extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "54".tr,
+                  "categories".tr,
                   style: const TextStyle(
                     fontSize: 20,
                     color: AppColor.primary,
@@ -76,7 +76,7 @@ class MedicationsView extends StatelessWidget {
                 CategoriesList(controller: controller),
                 const SizedBox(height: 10),
                 Text(
-                  "55".tr,
+                  "medications".tr,
                   style: const TextStyle(
                     fontSize: 20,
                     color: AppColor.primary,

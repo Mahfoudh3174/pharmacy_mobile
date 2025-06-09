@@ -19,7 +19,7 @@ class PharmacieView extends StatelessWidget {
             centerTitle: true,
             backgroundColor: AppColor.primary,
             title: Text(
-              "Pharmacies",
+              "pharmacies".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -45,7 +45,7 @@ class PharmacieView extends StatelessWidget {
                     controller.searchPharmacies(val);
                   },
                   decoration: InputDecoration(
-                    hintText: "Search pharmacies...",
+                    hintText: "search_pharmacies".tr,
                     fillColor: Colors.white,
                     filled: true,
                     prefixIcon: const Icon(Icons.search),

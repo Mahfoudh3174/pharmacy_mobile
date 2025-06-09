@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/controller/auth/reset_password_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/functions/validinput.dart';
@@ -21,7 +20,7 @@ class ResetPassword extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.background,
         elevation: 0.0,
-        title: Text('ResetPassword',
+        title: Text('reset_password'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -31,36 +30,32 @@ class ResetPassword extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
         child: ListView(children: [
           const SizedBox(height: 20),
-          const CustomTextTitleAuth(text: "New Password"),
+          CustomTextTitleAuth(text: "new_password".tr),
           const SizedBox(height: 10),
-          const CustomTextBodyAuth(
-              text:
-                  "Please Enter new Password"),
+          CustomTextBodyAuth(text: "please_enter_new_password".tr),
           const SizedBox(height: 15),
-            CustonTextFormAuth(
+          CustonTextFormAuth(
             isNumber: false,
-            valid: (val) {
-              return validInput(val!, 3, 30, "password");
-            },
+            valid: (val) => validInput(val!, 3, 30, "password"),
             mycontroller: controller.password,
-            hinttext: "Enter Your Password",
+            hinttext: "enter_your_password".tr,
             iconData: Icons.lock_outline,
-            labeltext: "Password",
-            // mycontroller: ,
-          ),   CustonTextFormAuth(
-            isNumber: false,
-            valid: (val) {
-              return validInput(val!, 3, 30, "password");
-            },
-            mycontroller: controller.password,
-            hinttext: "Re Enter Your Password",
-            iconData: Icons.lock_outline,
-            labeltext: "Password",
-            // mycontroller: ,
+            labeltext: "password".tr,
           ),
-          CustomButtomAuth(text: "save", onPressed: () {
-            controller.goToSuccessResetPassword();
-          }),
+          CustonTextFormAuth(
+            isNumber: false,
+            valid: (val) => validInput(val!, 3, 30, "password"),
+            mycontroller: controller.password,
+            hinttext: "re_enter_your_password".tr,
+            iconData: Icons.lock_outline,
+            labeltext: "password".tr,
+          ),
+          CustomButtomAuth(
+            text: "save".tr,
+            onPressed: () {
+              controller.goToSuccessResetPassword();
+            },
+          ),
           const SizedBox(height: 40),
         ]),
       ),

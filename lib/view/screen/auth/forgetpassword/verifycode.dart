@@ -1,8 +1,6 @@
 import 'package:ecommerce/controller/auth/verify_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
-
 import 'package:ecommerce/view/widget/auth/customtextbodyauth.dart';
-
 import 'package:ecommerce/view/widget/auth/customtexttitleauth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -20,10 +18,11 @@ class VerfiyCode extends StatelessWidget {
         backgroundColor: AppColor.background,
         elevation: 0.0,
         title: Text(
-          'Verification Code',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium!.copyWith(color: AppColor.grey),
+          'verification_code'.tr,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: AppColor.grey),
         ),
       ),
       body: Container(
@@ -31,25 +30,20 @@ class VerfiyCode extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 20),
-            const CustomTextTitleAuth(text: "Check code"),
+            CustomTextTitleAuth(text: "check_code".tr),
             const SizedBox(height: 10),
-            const CustomTextBodyAuth(
-              text: "Enter The Code Sent To Your Email To Verify Your Account",
+            CustomTextBodyAuth(
+              text: "enter_code_sent_to_email".tr,
             ),
             const SizedBox(height: 15),
             OtpTextField(
               numberOfFields: 5,
-              borderColor: Color(0xFF512DA8),
-              //set to true to show as box or false to show as dash
+              borderColor: const Color(0xFF512DA8),
               showFieldAsBox: true,
-              //runs when a code is typed in
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              //runs when every textfield is filled
+              onCodeChanged: (String code) {},
               onSubmit: (String verificationCode) {
                 controller.goToResetPassword();
-              }, // end onSubmit
+              },
             ),
             const SizedBox(height: 40),
           ],

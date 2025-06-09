@@ -50,7 +50,7 @@ class SignUpControllerImp extends SignUpController {
       update();
       if (statusRequest == StatusRequest.success) {
         Fluttertoast.showToast(
-          msg: "43".tr,
+          msg: "can_login_now".tr,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -61,7 +61,7 @@ class SignUpControllerImp extends SignUpController {
         goToSuccess();
       } else {
         Fluttertoast.showToast(
-          msg: "42".tr,
+          msg: "user_already_exists".tr,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

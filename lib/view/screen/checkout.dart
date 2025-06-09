@@ -37,7 +37,7 @@ class CheckoutView extends StatelessWidget {
                 await controller.passeOrder();
               },
               child:  Text(
-                "70".tr,
+                "order".tr,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
@@ -87,7 +87,7 @@ class CheckoutView extends StatelessWidget {
                     // ),
                     // const SizedBox(height: 20),
                      Text(
-                      "71".tr,
+                      "choose_delivery_method".tr,
                       style: TextStyle(
                         color: AppColor.secondary,
                         fontWeight: FontWeight.bold,
@@ -103,7 +103,7 @@ class CheckoutView extends StatelessWidget {
                           },
                           child: CardDeliveryTypeCheckout(
                             imagename: Imageasset.deliveryImage2,
-                            title: "66".tr,
+                            title: "fast_delivery".tr,
                             active:
                                 controller.deliveryType == "LIVRAISON"
                                     ? true
@@ -117,7 +117,7 @@ class CheckoutView extends StatelessWidget {
                           },
                           child: CardDeliveryTypeCheckout(
                             imagename: Imageasset.drivethruImage,
-                            title: "65".tr,
+                            title: "in_pharmacy".tr,
                             active:
                                 controller.deliveryType == "SURE PLACE"
                                     ? true

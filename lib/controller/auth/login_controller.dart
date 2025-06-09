@@ -46,7 +46,7 @@ class LoginControllerImp extends LoginController {
         goToHome();
       } else {
         Fluttertoast.showToast(
-          msg: "44".tr,
+          msg: "invalid_credentials".tr,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           timeInSecForIosWeb: 1,

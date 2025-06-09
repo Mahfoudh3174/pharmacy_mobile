@@ -15,10 +15,12 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartControllerImp cartController = Get.put(CartControllerImp());
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('64'.tr,
-                  style: TextStyle(
+        title: Text(
+          'cart'.tr, // key: cart
+          style: TextStyle(
             color: AppColor.background,
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -26,53 +28,57 @@ class CartView extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: AppColor.primary,
-          ),
-        bottomNavigationBar: GetBuilder<CartControllerImp>(
-            builder: (controller) => BottomNavgationBarCart(
-                price: "${cartController.totalPrice}",
-                shipping: "300",
-                totalprice: "1500")),
-        body: GetBuilder<CartControllerImp>(
-            builder: ((controller) => HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: ListView(
+      ),
+      bottomNavigationBar: GetBuilder<CartControllerImp>(
+        builder: (controller) => BottomNavgationBarCart(
+          price: "${cartController.totalPrice}",
+          shipping: "300",
+          totalprice: "1500",
+        ),
+      ),
+      body: GetBuilder<CartControllerImp>(
+        builder: (controller) => HandlingDataView(
+          statusRequest: controller.statusRequest,
+          widget: ListView(
+            children: [
+              SizedBox(height: 10),
+              TopCardCart(
+                message:
+                    "cart_items_message".trParams({'count': cartController.totalItems.toString()}),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
                   children: [
-                  
-                    SizedBox(height: 10),
-                    TopCardCart(
-                        message:
-                            "You Have ${cartController.totalItems} Items in Your List"),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          ...List.generate(
-                            cartController.cardItems.length,
-                            (index) => CustomItemsCartList(
-                                onAdd: () async {
-                                  await cartController
-                                      .addMedicationToCart(cartController.cardItems[index].medication.id!);
-                                  cartController.refreshData();
-                                },
-                                onRemove: () async  {
-                                 await cartController.deleteMedicationFromCart(
-                                      cartController.cardItems[index].medication.id!);
-                                  cartController.refreshData();
-                                },
-                                imagename:
-                                    "${cartController.cardItems[index].medication.imageUrl}",
-                                name: "${cartController.cardItems[index].medication.name}",
-                                price:
-                                    "${cartController.cardItems[index].medication.price} \$",
-                                count:
-                                    "${cartController.cardItems[index].quantity}"),
-                          )
-                        ],
+                    ...List.generate(
+                      cartController.cardItems.length,
+                      (index) => CustomItemsCartList(
+                        onAdd: () async {
+                          await cartController.addMedicationToCart(
+                              cartController.cardItems[index].medication.id!);
+                          cartController.refreshData();
+                        },
+                        onRemove: () async {
+                          await cartController.deleteMedicationFromCart(
+                              cartController.cardItems[index].medication.id!);
+                          cartController.refreshData();
+                        },
+                        imagename:
+                            "${cartController.cardItems[index].medication.imageUrl}",
+                        name:
+                            "${cartController.cardItems[index].medication.name}",
+                        price:
+                            "${cartController.cardItems[index].medication.price} \$",
+                        count: "${cartController.cardItems[index].quantity}",
                       ),
-                    )
+                    ),
                   ],
-                )
-                )
-                )));
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

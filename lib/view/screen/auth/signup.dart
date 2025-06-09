@@ -20,7 +20,7 @@ class SignUp extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.background,
         elevation: 0.0,
-        title: Text('26'.tr,
+        title: Text('create_account'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -28,57 +28,53 @@ class SignUp extends StatelessWidget {
       ),
       body: GetBuilder<SignUpControllerImp>(
         builder: (controller) {
-          return controller.statusRequest == StatusRequest.loading  ? const Center(child: CircularProgressIndicator()):
+          return controller.statusRequest == StatusRequest.loading  ? 
+          const Center(child: CircularProgressIndicator()):
            Container(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
             child: Form(
               key: controller.formstate,
               child: ListView(children: [
-                const SizedBox(height: 20),
-                CustomTextTitleAuth(text: "10".tr),
+                const SizedBox(height: 20),                CustomTextTitleAuth(text: "welcome_back".tr),
                 const SizedBox(height: 10),
-                CustomTextBodyAuth(text: "24".tr),
+                CustomTextBodyAuth(text: "create_account_desc".tr),
                 const SizedBox(height: 15),
                 CustonTextFormAuth(
-                  isNumber: false,
-                  valid: (val) {
+                  isNumber: false,                  valid: (val) {
                     if (val!.isEmpty) {
-                      return "30".tr;
+                      return "invalid_username".tr;
                     }
                     return null;
                   },
-                  mycontroller: controller.username,
-                  hinttext: "23".tr,
+                  mycontroller: controller.username,                  hinttext: "enter_username".tr,
                   iconData: Icons.person_outline,
-                  labeltext: "20".tr,
+                  labeltext: "username".tr,
                 ),
                 CustonTextFormAuth(
                   isNumber: false,
-                  valid: (val) {
-                    if (val!.isEmpty) {
-                      return "27".tr;
+                  valid: (val) {                    if (val!.isEmpty) {
+                      return "please_enter_email".tr;
                     }
                     return null;
                   },
                   mycontroller: controller.email,
-                  hinttext: "14".tr,
+                  hinttext: "email".tr,
                   iconData: Icons.email_outlined,
-                  labeltext: "14".tr,
+                  labeltext: "email".tr,
                 ),
                 CustonTextFormAuth(
-                  isNumber: true,
-                  valid: (val) {
+                  isNumber: true,                  valid: (val) {
                     if (val!.isEmpty) {
-                      return "22".tr;
+                      return "enter_phone".tr;
                     } else if (!RegExp(r'^(2|3|4)\d{7}$').hasMatch(val)) {
-                      return "33".tr;
+                      return "invalid_phone".tr;
                     }
                     return null;
                   },
                   mycontroller: controller.phone,
-                  hinttext: "22".tr,
+                  hinttext: "enter_phone".tr,
                   iconData: Icons.phone_android_outlined,
-                  labeltext: "21".tr,
+                  labeltext: "phone".tr,
                 ),
                 GetBuilder<SignUpControllerImp>(
                   builder: (controller) => CustonTextFormAuth(
@@ -87,34 +83,32 @@ class SignUp extends StatelessWidget {
                       controller.togglePassword();
                     },
                     isNumber: false,
-                    valid: (val) {
-                      if (val!.isEmpty) {
-                        return "16".tr;
-                      } else if (val.length < 8) {
-                        return "${"28".tr}8";
-                      } else if (val.length > 20) {
-                        return "${"29".tr}20";
-                      }
-                      return null;
-                    },
-                    mycontroller: controller.password,
-                    hinttext: "16".tr,
-                    iconData: controller.isPasswordVisible
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    labeltext: "16".tr,
+                    valid: (val) {                    if (val!.isEmpty) {
+                      return "enter_password".tr;
+                    } else if (val.length < 8) {
+                      return "${"input_min_length".tr}8";
+                    } else if (val.length > 20) {
+                      return "${"input_max_length".tr}20";
+                    }
+                    return null;
+                  },
+                  mycontroller: controller.password,
+                  hinttext: "enter_password".tr,
+                  iconData: controller.isPasswordVisible
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  labeltext: "password".tr,
                   ),
-                ),
-                CustomButtomAuth(
-                  text: "26".tr,
+                ),                CustomButtomAuth(
+                  text: "sign_in".tr,
                   onPressed: () {
                     controller.signUp();
                   },
                 ),
                 const SizedBox(height: 40),
                 CustomTextSignUpOrSignIn(
-                  textone: "25".tr,
-                  texttwo: "26".tr,
+                  textone: "have_account".tr,
+                  texttwo: "sign_in".tr,
                   onTap: () {
                     controller.goToSignIn();
                   },
