@@ -14,15 +14,8 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<HomeScreenControllerImp>(
       builder: (controller) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColor.primary,
-            onPressed: () {
-              Get.toNamed(Routes.pending);
-            },
-            child: const Icon(Icons.person,color: AppColor.background,),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+
+
           bottomNavigationBar: BottomAppBar(
             color: AppColor.secondary,
             notchMargin: 10,

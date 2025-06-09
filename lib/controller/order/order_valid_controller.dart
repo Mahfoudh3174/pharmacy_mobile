@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-class  OrdersPendingController extends GetxController{
+class  ValidOrdersController extends GetxController{
 
 OrderData orderData=OrderData(Get.find());
   List<Order> ordersList=[];
@@ -17,17 +17,16 @@ OrderData orderData=OrderData(Get.find());
 
   @override
   void onInit() {
-
-    getPendingOrdersData();
+    getValidatedOrdersData();
     super.onInit();
   }
 
-getPendingOrdersData() async {
+getValidatedOrdersData() async {
   try {
     statusRequest = StatusRequest.loading;
     update();
 
-    var response = await orderData.getOrdersData(status: "ENCOURS");
+    var response = await orderData.getOrdersData(status: "VALIDEE");
 
     statusRequest = handlingData(response);
 
@@ -36,14 +35,16 @@ getPendingOrdersData() async {
         debugPrint(element.toString());
         ordersList.add(Order.fromJson(element));
       }
-      // List orders = response["orders"];
-      // ordersList = orders.map((e) => Order.fromJson(e)).toList();
+      if(ordersList.isEmpty){
+        statusRequest = StatusRequest.failure;
+      }
+
     } else {
       statusRequest = StatusRequest.failure;
     }
   } catch (e) {
     // Optional: Print/log error
-    print("Error in getPendingOrdersData: $e");
+    print("Error in getValidatedOrdersData: $e");
     statusRequest = StatusRequest.serverException;
   }
 

@@ -36,6 +36,7 @@ dependencies:
   flutter_otp_text_field: ^1.5.1+1
   flutter_svg: ^2.1.0
   fluttertoast: ^8.2.12
+  geolocator: ^14.0.1
   get: ^4.7.2
   http: ^1.4.0
   jiffy: ^6.4.3
@@ -76,14 +77,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Tajawal-Bold.ttf
           weight: 700
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
     - family: PlayfairDisplay
       fonts:
         - asset: assets/fonts/PlayfairDisplay-Regular.ttf
           weight: 400
-        # - asset: fonts/TrajanPro_Bold.ttf
+          # - asset: fonts/TrajanPro_Bold.ttf
           # weight: 700
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

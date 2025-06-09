@@ -13,7 +13,19 @@ class CheckoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(CheckoutControllerImp());
     return Scaffold(
-      appBar: AppBar(title: const Text('Checkout')),
+      appBar: AppBar(
+        title:  Text('69'.tr,
+                          style: TextStyle(
+            color: AppColor.background,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: AppColor.primary,
+        
+        
+        ),
       bottomNavigationBar: GetBuilder<CheckoutControllerImp>(
         builder: (controller) {
           return Container(
@@ -24,8 +36,8 @@ class CheckoutView extends StatelessWidget {
               onPressed: () async {
                 await controller.passeOrder();
               },
-              child: const Text(
-                "Checkout",
+              child:  Text(
+                "70".tr,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
@@ -74,8 +86,8 @@ class CheckoutView extends StatelessWidget {
                     //           ),
                     // ),
                     // const SizedBox(height: 20),
-                    const Text(
-                      "Choisir la méthode de reception",
+                     Text(
+                      "71".tr,
                       style: TextStyle(
                         color: AppColor.secondary,
                         fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:ecommerce/core/class/crud.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
 import 'package:ecommerce/linkapi.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class CheckoutData {
@@ -12,7 +13,7 @@ class CheckoutData {
   CheckoutData(this.crud);
   Myservice storage = Get.find();
 
-  postData(int totalPrice,String deliveryType  ,List<Cart> cardItems) async {
+  postData(int totalPrice,String deliveryType  ,List<Cart> cardItems,Position? position) async {
     String? token = storage.sharedPreferences.getString("token");
         int? pharmacyId = storage.sharedPreferences.getInt(
       "current_pharmacy_id",
@@ -23,7 +24,9 @@ class CheckoutData {
         "pharmacy_id": pharmacyId,
         'cardItems': cardItems.map((e) => e.toJson()).toList(),
         'totalPrice': totalPrice,
-        'deliveryType': deliveryType
+        'deliveryType': deliveryType,
+        'latitude': position?.latitude,
+        'longitude': position?.longitude
       },
         {
           "Authorization": "Bearer $token",

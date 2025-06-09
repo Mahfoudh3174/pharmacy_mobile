@@ -14,6 +14,18 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
   Widget build(BuildContext context) {
     Get.put(MedicationsDetailsControllerImp());
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Medication_Details".tr, 
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: AppColor.background),
+        ),
+        backgroundColor: AppColor.primary,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: AppColor.background), // back arrow color
+      ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         height: 40,
@@ -23,12 +35,11 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
           ),
           color: AppColor.secondary,
           onPressed: () {
-            
             controller.goToCarte();
           },
           child: Text(
             "63".tr,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -48,17 +59,13 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
                       Text(
                         "${controller.medication.name}",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: AppColor.textPrimary,
-                        ),
+                              color: AppColor.textPrimary,
+                            ),
                       ),
                       const SizedBox(height: 10),
                       PriceAndCountItems(
-                        onAdd: () {
-                          controller.increment();
-                        },
-                        onRemove: () {
-                          controller.decriment();
-                        },
+                        onAdd: controller.increment,
+                        onRemove: controller.decriment,
                         price: controller.medication.price.toString(),
                         count: controller.medicationsCount.toString(),
                       ),
@@ -68,7 +75,6 @@ class MedicationDatailsView extends GetView<MedicationsDetailsControllerImp> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 10),
-
                       const SubitemsList(),
                     ],
                   ),

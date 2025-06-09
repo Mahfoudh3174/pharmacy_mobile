@@ -6,6 +6,7 @@ import 'package:ecommerce/data/model/pharmacy_model.dart';
 class Order {
   final int id;
   final String status;
+  final String reference;
   final String? rejectReason;
   final double? totalAmount;
   final String? type;
@@ -17,6 +18,7 @@ class Order {
   Order({
     required this.id,
     required this.status,
+    required this.reference,
     this.rejectReason,
     this.totalAmount,
     this.type,
@@ -30,6 +32,7 @@ class Order {
     return Order(
       id: json['id'],
       status: json['status'],
+      reference: json['reference'],
       rejectReason: json['reject_reason'],
       totalAmount: (json['total_amount'] != null) ? json['total_amount'].toDouble() : null,
       type: json['type'],

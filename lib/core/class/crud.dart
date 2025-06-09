@@ -18,9 +18,7 @@ class Crud {
           headers: header,
           body: data,
         );
-      
 
-      
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
@@ -42,8 +40,9 @@ class Crud {
     try {
       if (await checkConnection()) {
         var response = await http.get(Uri.parse(url), headers: header);
-      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
+          print("================response crud================= $reponseBody");
           return Right(reponseBody);
         } else {
           return Left(StatusRequest.serverFailure);
@@ -63,7 +62,7 @@ class Crud {
     try {
       if (await checkConnection()) {
         var response = await http.delete(Uri.parse(url), headers: header);
-      
+
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
@@ -90,9 +89,8 @@ class Crud {
           headers: header,
           body: json.encode(data),
         );
-      
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           return Right(reponseBody);
         } else {
@@ -105,6 +103,4 @@ class Crud {
       return Left(StatusRequest.serverException);
     }
   }
-
-
 }

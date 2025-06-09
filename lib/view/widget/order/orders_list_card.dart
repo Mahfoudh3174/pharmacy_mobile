@@ -1,7 +1,5 @@
-
 import 'package:ecommerce/controller/order/order_pending_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
-
 import 'package:ecommerce/data/model/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,62 +13,84 @@ class CardOrdersList extends GetView<OrdersPendingController> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text("Order Number : #${listdata.id}",
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  // Text(listdata.ordersDatetime!)
-                  Text(
-                    Jiffy.parse(listdata.createdAt.toString() ).fromNow(),
-                    style: const TextStyle(
-                        color: AppColor.primary,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              Divider(),
-              Text(
-                  "Order Type : ${listdata.type}"),
-              Text("Order Price : ${listdata.totalAmount} \$"),
-              Text("Delivery Price : NAN MRU "),
-              Text(
-                  "Order Status : ${listdata.status} "),
-              const Divider(),
-              Row(
-                children: [
-                  Text("Total Price : NAN \$ ",
-                      style: const TextStyle(
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  MaterialButton(
-                    onPressed: () {
-                      // Get.toNamed(AppRoute.ordersdetails,
-                      //     arguments: {"ordersmodel": listdata});
-                    },
-                    color: AppColor.accent,
-                    textColor: AppColor.background,
-                    child: const Text("Details"),
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                // Pharmacy name
+                Text(
+                  listdata.pharmacy?.name ?? '',
+                  style: const TextStyle(
+                    color: AppColor.primary,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(width: 10),
-                 if (listdata.status == "Received") MaterialButton(
+                ),
+                const Spacer(),
+                // Formatted date
+                Text(
+                  Jiffy.parse(listdata.createdAt.toString()).fromNow(),
+                  style: const TextStyle(
+                    color: AppColor.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            Text(
+              "${"order_reference".tr} : #${listdata.reference}",
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColor.errorColor,
+              ),
+            ),
+            Text("${"order_type".tr} : ${listdata.type}"),
+            Text("${"order_price".tr} : ${listdata.totalAmount} MRU"),
+            Text("${"delivery_price".tr} : NAN MRU"), // Update once dynamic
+            Text(
+              "${"status".tr} : ${listdata.status}",
+              style: const TextStyle(
+                color: AppColor.warningColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Divider(),
+            Row(
+              children: [
+                Text(
+                  "${"total_price".tr} : ${listdata.totalAmount} MRU",
+                  style: const TextStyle(
+                    color: AppColor.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                MaterialButton(
+                  onPressed: () {
+                    controller.goToOrderDetails(listdata);
+                  },
+                  color: AppColor.accent,
+                  textColor: AppColor.background,
+                  child: Text("details".tr),
+                ),
+                const SizedBox(width: 10),
+                if (listdata.status == "Received")
+                  MaterialButton(
                     onPressed: () {
                       // controller.deleteOrder(listdata.ordersId!);
                     },
                     color: AppColor.errorColor,
                     textColor: AppColor.background,
-                    child: const Text("Delete"),
-                  )
-                ],
-              ),
-            ],
-          )),
+                    child: Text("delete".tr),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

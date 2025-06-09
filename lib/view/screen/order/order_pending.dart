@@ -10,11 +10,7 @@ class OrdersPending extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(OrdersPendingController());
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Orders'),
-        ),
-        body: Container(
+    return  Container(
           padding:const  EdgeInsets.all(10),
           child: GetBuilder<OrdersPendingController>(
               builder: ((controller) => HandlingDataView(statusRequest: controller.statusRequest, widget: ListView.builder(
@@ -22,6 +18,6 @@ class OrdersPending extends StatelessWidget {
                     itemBuilder: ((context, index) =>
                         CardOrdersList(listdata: controller.ordersList[index])),
                   )))),
-        ));
+        );
   }
 }

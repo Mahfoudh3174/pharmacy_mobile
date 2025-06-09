@@ -64,8 +64,8 @@ class Medication {
       dosageForm = json['dosageForm'] ?? 'Unknown Dosage Form',
       strength = json['strength'] ?? 'Unknown Strength',
       price = json['price'] ?? 0,
-      pivotQuantity = 0,
-      totalPrice = 0,
+      pivotQuantity = json['pivot_quantity'] ?? 0,
+      totalPrice = json['total_price'] ?? 0,
       quantity = json['quantity'] ?? 0;
 
   Medication.fromJsonBasic(Map<String, dynamic> json)

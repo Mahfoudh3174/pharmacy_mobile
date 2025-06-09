@@ -5,18 +5,7 @@ import 'package:flutter/material.dart';
 ThemeData themeEnglish = ThemeData(
   fontFamily: "PlayfairDisplay", 
   floatingActionButtonTheme:FloatingActionButtonThemeData(backgroundColor: AppColor.primary) ,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColor.primary,
-          actionsIconTheme: IconThemeData(color: AppColor.background),
-          elevation: 0,
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            color: AppColor.background,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-          // Text Theme
+  // Text Theme
         textTheme: TextTheme(
           headlineSmall: TextStyle(
             fontSize: 16,
@@ -210,17 +199,8 @@ primarySwatch: Colors.blue,
           brightness: Brightness.light,
         ),
 
-        // AppBar Theme
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColor.primary,
-          elevation: 0,
-          iconTheme: IconThemeData(color: AppColor.primary),
-          titleTextStyle: TextStyle(
-            color: AppColor.background,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        
+
 
         // Card Theme
         cardTheme: CardTheme(

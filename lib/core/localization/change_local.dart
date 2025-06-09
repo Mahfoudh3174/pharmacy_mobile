@@ -2,16 +2,15 @@ import 'package:ecommerce/core/constant/apptheme.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 class Localcontroller extends GetxController {
   Locale? lang;
-
   Myservice storage = Get.find();
   ThemeData appTheme = themeEnglish;
 
   @override
   void onInit() {
-
     String? currentLang = storage.sharedPreferences.getString("lang");
 
     if (currentLang == "ar") {
@@ -21,8 +20,10 @@ class Localcontroller extends GetxController {
     } else {
       lang = Locale(Get.deviceLocale!.languageCode);
     }
-    super.onInit();
 
+    Jiffy.setLocale(lang!.languageCode);
+
+    super.onInit();
   }
 
   changeLang(String langCode) {
@@ -31,5 +32,7 @@ class Localcontroller extends GetxController {
     appTheme = langCode == "ar" ? themeArabic : themeEnglish;
     Get.changeTheme(appTheme);
     Get.updateLocale(locale);
+
+    Jiffy.setLocale(langCode);
   }
 }

@@ -32,4 +32,22 @@ Future<dynamic> getOrdersData({required String status, int? id}) async {
   return response.fold((l) => l, (r) => r);
 }
 
+
+Future<dynamic> getSingleOrderData({required int id}) async {
+  final String token = storage.sharedPreferences.getString("token")!;
+
+  String url = "${AppLinks.orders}/$id";
+
+  // Send request with headers
+  var response = await crud.getData(
+    url,
+    {
+      "Authorization": "Bearer $token",
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+  );
+
+  return response.fold((l) => l, (r) => r);
+}
 }
