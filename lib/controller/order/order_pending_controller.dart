@@ -56,4 +56,26 @@ goToOrderDetails(Order order) {
   
 }
 
+  deleteOrder(int orderid) async {
+    try{
+    ordersList.clear();
+    statusRequest = StatusRequest.loading;
+    update();
+     await orderData.deleteData(orderid);
+
+    statusRequest= StatusRequest.success;
+
+        refrehOrder();
+    }
+    catch(e){
+    
+      statusRequest = StatusRequest.serverException;
+    }
+
+    update();
+  }
+
+  refrehOrder() {
+    getPendingOrdersData();
+  }
 }

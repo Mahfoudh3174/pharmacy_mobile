@@ -26,7 +26,7 @@ class OrderView extends StatelessWidget {
           ),
           body: Column(
             children: [
-              // Top navigation buttons (moved from bottomNavigationBar)
+              
               Container(
                 color: AppColor.secondary,
                 padding: const EdgeInsets.symmetric(vertical: 10),

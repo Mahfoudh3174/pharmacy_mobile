@@ -50,4 +50,17 @@ Future<dynamic> getSingleOrderData({required int id}) async {
 
   return response.fold((l) => l, (r) => r);
 }
+
+Future<dynamic> deleteData(int id)async{
+
+  final String token = storage.sharedPreferences.getString("token")!;
+  var response = await crud.deleteData("${AppLinks.orders}/$id", {
+    "Authorization": "Bearer $token",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  });
+  print("response delete order $response");
+  return response.fold((l) => l, (r) => r);
+}
+
 }

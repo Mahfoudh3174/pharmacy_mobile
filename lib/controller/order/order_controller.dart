@@ -16,8 +16,8 @@ class OrderViewControllerImp extends OrderViewController {
   List<Widget> pages = [const OrdersPending(), const OrderValidated()];
   List<String> pageTitles = ["Commandes en attente", "Commandes reçues"];
   List<Map<String, IconData>> bottomItems = [
-    {"icon": Icons.checklist_rtl_outlined},
     {"icon": Icons.pending_actions_outlined},
+    {"icon": Icons.checklist_rtl_outlined},
   ];
 
   @override

@@ -13,11 +13,14 @@ class OrdersPending extends StatelessWidget {
     return  Container(
           padding:const  EdgeInsets.all(10),
           child: GetBuilder<OrdersPendingController>(
-              builder: ((controller) => HandlingDataView(statusRequest: controller.statusRequest, widget: ListView.builder(
-                    itemCount: controller.ordersList.length,
-                    itemBuilder: ((context, index) =>
-                        CardOrdersList(listdata: controller.ordersList[index])),
-                  )))),
+              builder: ((controller) => RefreshIndicator(
+                onRefresh: () => controller.getPendingOrdersData(),
+                child: HandlingDataView(statusRequest: controller.statusRequest, widget: ListView.builder(
+                      itemCount: controller.ordersList.length,
+                      itemBuilder: ((context, index) =>
+                          CardOrdersList(listdata: controller.ordersList[index])),
+                    )),
+              ))),
         );
   }
 }

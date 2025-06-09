@@ -58,29 +58,32 @@ class PharmacieView extends StatelessWidget {
               ),
             ),
           ),
-          body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 13),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColor.background,
-                  Theme.of(context).colorScheme.surface,
-                ],
+          body: RefreshIndicator(
+            onRefresh: () => controller.getPharmacies(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColor.background,
+                    Theme.of(context).colorScheme.surface,
+                  ],
+                ),
               ),
-            ),
-            child: HandlingDataView(
-              statusRequest: controller.statusRequest,
-              widget: ListView.builder(
-                itemCount: controller.pharmacies.length,
-                itemBuilder: (context, index) {
-                  final pharmacy = controller.pharmacies[index];
-                  return PharmacyCard(
-                    pharmacy: pharmacy,
-                    pharmacyController: controller,
-                  );
-                },
+              child: HandlingDataView(
+                statusRequest: controller.statusRequest,
+                widget: ListView.builder(
+                  itemCount: controller.pharmacies.length,
+                  itemBuilder: (context, index) {
+                    final pharmacy = controller.pharmacies[index];
+                    return PharmacyCard(
+                      pharmacy: pharmacy,
+                      pharmacyController: controller,
+                    );
+                  },
+                ),
               ),
             ),
           ),
