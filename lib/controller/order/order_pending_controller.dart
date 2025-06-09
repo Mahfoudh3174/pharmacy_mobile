@@ -36,6 +36,9 @@ getPendingOrdersData() async {
         debugPrint(element.toString());
         ordersList.add(Order.fromJson(element));
       }
+      if (ordersList.isEmpty) {
+        statusRequest = StatusRequest.failure;
+      }
       // List orders = response["orders"];
       // ordersList = orders.map((e) => Order.fromJson(e)).toList();
     } else {

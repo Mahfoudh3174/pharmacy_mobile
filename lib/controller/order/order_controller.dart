@@ -1,4 +1,6 @@
 
+import 'package:ecommerce/controller/order/order_pending_controller.dart';
+import 'package:ecommerce/controller/order/order_valid_controller.dart';
 import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/order/order_valid.dart';
 
@@ -23,6 +25,16 @@ class OrderViewControllerImp extends OrderViewController {
   @override
   void changePage(int index) {
     currentIndex = index;
+    switch (index) {
+      case 0:
+        Get.delete<OrdersPendingController>();
+        Get.put(OrdersPendingController());
+        break;
+      case 1:
+        Get.delete<ValidOrdersController>();
+        Get.put(ValidOrdersController());
+        break;
+    }
     update();
   }
 

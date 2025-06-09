@@ -15,10 +15,12 @@ import 'package:ecommerce/view/screen/medication/medication_view.dart';
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/on_boarding.dart';
 import 'package:ecommerce/view/screen/order/order_details.dart';
-
+import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/order/order_valid.dart';
+
 import 'package:ecommerce/view/screen/order/order_view.dart';
 import 'package:ecommerce/view/screen/pharmacie_view.dart';
+import 'package:ecommerce/view/screen/setting/setting_view.dart';
 
 import 'package:get/get.dart';
 
@@ -40,6 +42,8 @@ class Routes {
   static const String medications = "/medications";
   static const String medicationDetails = "/medicationDetails";
   static const String pharmacies = '/pharmacies';
+
+  static const String settings = '/settings';
 
   static const String cart = '/cart';
   static const String checkout = '/checkout';
@@ -74,9 +78,11 @@ class Routes {
     GetPage(name: cart, page: () => const CartView()),
     GetPage(name: checkout, page: () => const CheckoutView()),
 
+    GetPage(name: settings, page: () => const SettingView()),
+
     GetPage(name: orders, page: () => const OrderView()),
-    // GetPage(name: pending, page: () => const OrdersPending()),
+    GetPage(name: pending, page: () => const OrdersPending()),
     GetPage(name: ordersdetails, page: () => const OrdersDetails()),
-    // GetPage(name: validated, page: () => const OrderValidated()),
+    GetPage(name: validated, page: () => const OrderValidated()),
   ];
 }

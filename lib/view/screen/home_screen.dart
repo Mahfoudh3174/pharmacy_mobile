@@ -43,7 +43,8 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          body: controller.pages[controller.currentIndex],
+          body:
+           controller.pages[controller.currentIndex],
         );
       },
     );
