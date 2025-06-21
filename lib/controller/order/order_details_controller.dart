@@ -19,30 +19,31 @@ class OrdersDetailsController extends GetxController {
   @override
   void onInit() {
     order = Get.arguments['order'];
-    getData();
+    // getData();
     super.onInit();
   }
 
-  getData() async {
-    try {
-      statusRequest = StatusRequest.loading;
+  // getData() async {
+  //   try {
+  //     statusRequest = StatusRequest.loading;
 
-      var response = await ordersDetailsData.getSingleOrderData(id: order!.id);
+  //     var response = await ordersDetailsData.getSingleOrderData(id: order!.id);
 
-      statusRequest = handlingData(response);
+  //     statusRequest = handlingData(response);
 
-      if (StatusRequest.success == statusRequest) {
-        // Start backend
+  //     if (StatusRequest.success == statusRequest) {
+  //       // Start backend
 
-        order = Order.fromJson(response['order']);
+  //       order = Order.fromJson(response['order']);
 
 
-        // End
-      }
-    } catch (e) {
-      statusRequest = StatusRequest.failure;
-      debugPrint("$e=====================");
-    }
-    update();
-  }
+  //       // End
+  //     }
+  //   } catch (e) {
+  //     statusRequest = StatusRequest.failure;
+  //     debugPrint("$e=====================");
+  //   }
+  //   update();
+  // }
+
 }

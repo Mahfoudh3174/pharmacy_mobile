@@ -6,7 +6,7 @@ import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrdersPendingController extends GetxController {
+class OrderRejectedController extends GetxController {
   OrderData orderData = OrderData(Get.find());
   List<Order> ordersList = [];
   StatusRequest statusRequest = StatusRequest.none;
@@ -14,16 +14,16 @@ class OrdersPendingController extends GetxController {
   @override
   void onInit() {
     debugPrint("onInit");
-    getPendingOrdersData();
+    getRejectedOrders();
     super.onInit();
   }
 
-  getPendingOrdersData() async {
+  getRejectedOrders() async {
     try {
       statusRequest = StatusRequest.loading;
       update();
 
-      var response = await orderData.getOrdersData(status: "ENCOURS");
+      var response = await orderData.getOrdersData(status: "REJETEE");
 
       statusRequest = handlingData(response);
 
@@ -43,7 +43,7 @@ class OrdersPendingController extends GetxController {
       }
     } catch (e) {
       // Optional: Print/log error
-      print("Error in getPendingOrdersData: $e");
+      print("Error in getRejectedOrdersData: $e");
       statusRequest = StatusRequest.serverException;
     }
 
@@ -72,6 +72,6 @@ class OrdersPendingController extends GetxController {
   }
 
   refrehOrder() {
-    getPendingOrdersData();
+    getRejectedOrders();
   }
 }

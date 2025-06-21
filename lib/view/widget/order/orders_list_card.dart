@@ -57,8 +57,13 @@ class CardOrdersList extends GetView<OrdersPendingController> {
             ), // Update once dynamic
             Text(
               "${"status".tr} : ${listdata.status}",
-              style: const TextStyle(
-                color: AppColor.warningColor,
+              style: TextStyle(
+                color:
+                    listdata.status == "ENCOURS"
+                        ? AppColor.warningColor
+                        : listdata.status == "VALIDEE"
+                        ? AppColor.successColor
+                        : AppColor.errorColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -93,7 +98,16 @@ class CardOrdersList extends GetView<OrdersPendingController> {
                       Flexible(
                         child: MaterialButton(
                           onPressed: () {
-                            controller.deleteOrder(listdata.id);
+                            Get.defaultDialog(
+                              title: "delete".tr,
+                              content: Text("delete_order".tr),
+                              onConfirm: () {
+                                controller.deleteOrder(listdata.id);
+                                Get.back();
+                              },
+                              textConfirm: "yes".tr,
+                              textCancel: "no".tr,
+                            );
                           },
                           color: AppColor.errorColor,
                           textColor: AppColor.background,
