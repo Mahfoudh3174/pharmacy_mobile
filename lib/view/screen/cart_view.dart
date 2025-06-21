@@ -33,8 +33,9 @@ class CartView extends StatelessWidget {
         builder:
             (controller) => BottomNavgationBarCart(
               price: "${cartController.totalPrice}",
-              shipping: "300",
-              totalprice: "1500",
+              shipping: "${cartController.shipping}",
+              totalprice:
+                  "${cartController.totalPrice + cartController.shipping}",
             ),
       ),
       body: GetBuilder<CartControllerImp>(

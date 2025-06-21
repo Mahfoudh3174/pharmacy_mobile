@@ -110,6 +110,6 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   @override
   goToCarte() {
     
-    Get.toNamed(Routes.cart);
+    Get.offNamed(Routes.cart);
   }
 }

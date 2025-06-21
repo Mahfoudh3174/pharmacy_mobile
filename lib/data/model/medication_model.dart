@@ -1,11 +1,7 @@
-
-
-
-
 import 'package:ecommerce/data/model/category_model.dart';
 
 class Medication {
-  final int? id;
+  final int id;
   final String? name;
   final Category? category;
   final String? dosageForm;
@@ -15,6 +11,7 @@ class Medication {
   final int? quantity;
   final int? pivotQuantity;
   final int? totalPrice;
+
   Medication({
     required this.id,
     required this.name,
@@ -28,22 +25,15 @@ class Medication {
     this.totalPrice,
   });
 
-  Medication copyWith({
-    int? id,
-    String? name,
-
-    int? price,
-    // String? imageUrl,
-    int? quantity,
-  }) {
+  Medication copyWith({int? id, String? name, int? price, int? quantity}) {
     return Medication(
       id: id ?? this.id,
+      name: name ?? this.name,
       category: category,
       dosageForm: dosageForm,
       strength: strength,
-      name: name ?? this.name,
-      price: price ?? this.price,
       imageUrl: imageUrl ?? 'https://via.placeholder.com/150',
+      price: price ?? this.price,
       quantity: quantity ?? this.quantity,
     );
   }
@@ -53,30 +43,39 @@ class Medication {
     'name': name,
     'category': category?.toJson(),
     'dosageForm': dosageForm,
+    'strength': strength,
+    'imageUrl': imageUrl,
     'price': price,
     'quantity': quantity,
+    'pivot_quantity': pivotQuantity,
+    'total_price': totalPrice,
   };
+
   Medication.fromJson(Map<String, dynamic> json)
-    : id = json['id'] ?? 0,
-      name = json['name'] ?? 'Unknown Medication',
-      category = Category.fromJson(json['category'] ?? {}),
-      imageUrl = json['imageUrl'] ,
-      dosageForm = json['dosageForm'] ?? 'Unknown Dosage Form',
-      strength = json['strength'] ?? 'Unknown Strength',
-      price = json['price'] ?? 0,
-      pivotQuantity = json['pivot_quantity'] ?? 0,
-      totalPrice = json['total_price'] ?? 0,
-      quantity = json['quantity'] ?? 0;
+    : id = json['id'] as int,
+      name = json['name'] as String?,
+      category =
+          json['category'] != null
+              ? Category.fromJson(json['category'] as Map<String, dynamic>)
+              : null,
+      imageUrl = json['imageUrl'] as String?,
+      dosageForm = json['dosageForm'] as String?,
+      strength = json['strength'] as String?,
+      price = int.tryParse(json['price']?.toString() ?? '') ?? 0,
+      pivotQuantity =
+          int.tryParse(json['pivot_quantity']?.toString() ?? '') ?? 0,
+      totalPrice = int.tryParse(json['total_price']?.toString() ?? '') ?? 0,
+      quantity = int.tryParse(json['quantity']?.toString() ?? '') ?? 0;
 
   Medication.fromJsonBasic(Map<String, dynamic> json)
-    : id = json['id'] ?? 0,
-      name = json['name'] ?? 'Unknown Medication',
+    : id = json['id'] as int,
+      name = json['name'] as String?,
       category = null,
       imageUrl = null,
-      dosageForm = json['dosage_form'] ?? 'Unknown Dosage Form',
+      dosageForm = json['dosage_form'] as String?,
       strength = null,
-      price = json['price'] ?? 0,
-      pivotQuantity = json['pivot_quantity'] ?? 0,
-      totalPrice = json['total_price'] ?? 0,
+      price = int.tryParse(json['price']?.toString() ?? '') ?? 0,
+      pivotQuantity = json['pivot_quantity'] as int? ?? 0,
+      totalPrice = json['total_price'] as int? ?? 0,
       quantity = 0;
 }

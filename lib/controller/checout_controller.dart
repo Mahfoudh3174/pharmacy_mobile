@@ -2,6 +2,7 @@ import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
 import 'package:ecommerce/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce/data/datasource/remote/checkout_data.dart';
@@ -15,6 +16,7 @@ class CheckoutControllerImp extends ChecoutController {
   StatusRequest statusRequest = StatusRequest.none;
   String? deliveryType;
   int? totaPrice;
+  int? shipping;
   List<Cart> cardItems = [];
   CheckoutData checkoutData = CheckoutData(Get.find());
 
@@ -23,6 +25,8 @@ class CheckoutControllerImp extends ChecoutController {
   void onInit() {
     cardItems = Get.arguments["cardItems"];
     totaPrice = Get.arguments["totalPrice"];
+    shipping = Get.arguments["shipping"];
+
     super.onInit();
   }
 
@@ -41,29 +45,34 @@ class CheckoutControllerImp extends ChecoutController {
     }
 
     try {
-      if (deliveryType == "LIVRAISON") {
-        position = await getCurrentLocationApp();
-        if (position == null) {
-          Get.rawSnackbar(message: "please turn on location");
-          return;
-        }
+      position = await getCurrentLocationApp();
+      if (position == null) {
+        Get.rawSnackbar(message: "please turn on location");
+        return;
       }
 
       statusRequest = StatusRequest.loading;
       update();
+      debugPrint(
+        "==========start totalPrice $totaPrice shipping $shipping latitude ${position!.latitude} longitude ${position!.longitude}",
+      );
+
       final response = await checkoutData.postData(
-        totaPrice!,
-        deliveryType!,
-        cardItems,
-        position,
+        cardItems: cardItems,
+        deliveryType: deliveryType!,
+        shipping: shipping!,
+        totalPrice: totaPrice!,
+        position: position!,
       );
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
         Get.snackbar("success", "order passed successfully");
-        Get.offAllNamed(Routes.home);
+        Get.until((route) => route.settings.name == Routes.medications);
       }
+      debugPrint("==========end");
       update();
     } catch (e) {
+      print(e.toString());
       statusRequest = StatusRequest.serverException;
       update();
     }

@@ -41,27 +41,31 @@ class PharmacyControllerImp extends PharmacyController {
 
       if (statusRequest == StatusRequest.success) {
         List pharmacyList = response["pharmacies"] ?? [];
-
-        if (pharmacyList.isEmpty) {
-          statusRequest = StatusRequest.failure;
-        } else {
-          pharmacies.addAll(
-            pharmacyList
-                .map((pharmacy) => Pharmacy.fromJson(pharmacy))
-                .toList(),
-          );
+        for (var pharmacy in pharmacyList) {
+          pharmacies.add(Pharmacy.fromJsonBasic(pharmacy));
+          print("======${pharmacies.first}");
         }
-      } else {}
+
+        if (pharmacies.isEmpty) {
+          statusRequest = StatusRequest.failure;
+        }
+      } else {
+        statusRequest = StatusRequest.serverFailure;
+      }
     } catch (e) {
+      print(e);
       statusRequest = StatusRequest.serverException;
     }
+    print("statusRequest ${statusRequest == StatusRequest.serverException}");
 
     update();
   }
 
   @override
   void goToMedications(Pharmacy pharmacy) {
-    storage.sharedPreferences.setInt("current_pharmacy_id", pharmacy.id!);
+    storage.sharedPreferences.setInt("current_pharmacy_id", pharmacy.id);
+    storage.sharedPreferences.setDouble("latitude", pharmacy.latitude!);
+    storage.sharedPreferences.setDouble("longitude", pharmacy.longitude!);
     Get.toNamed(Routes.medications, arguments: {'pharmacy': pharmacy});
   }
 

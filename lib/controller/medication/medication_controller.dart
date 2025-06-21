@@ -30,8 +30,6 @@ class MedicationsControllerImp extends MedicationsController {
   TextEditingController searchController = TextEditingController();
   MedicationData medicationData = MedicationData(Get.find());
 
-
-
   @override
   void onInit() {
     pharmacy = Get.arguments['pharmacy'];
@@ -40,11 +38,9 @@ class MedicationsControllerImp extends MedicationsController {
     });
     getCategories();
     getMedications();
-  
+
     super.onInit();
   }
-
-
 
   @override
   void onClose() {
@@ -92,7 +88,7 @@ class MedicationsControllerImp extends MedicationsController {
 
     try {
       final response = await medicationData.getData(
-        pharmacy!.id!,
+        pharmacy!.id,
         categoryId: selectedCategoryId,
       );
       statusRequest = handlingData(response);
@@ -113,6 +109,7 @@ class MedicationsControllerImp extends MedicationsController {
         statusRequest = StatusRequest.serverFailure;
       }
     } catch (e) {
+      debugPrint(e.toString());
       statusRequest = StatusRequest.serverException;
     }
 
@@ -171,9 +168,9 @@ class MedicationsControllerImp extends MedicationsController {
       arguments: {'medication': medication},
     );
   }
-    @override
+
+  @override
   goToCarte() async {
     await Get.toNamed(Routes.cart);
-
   }
 }

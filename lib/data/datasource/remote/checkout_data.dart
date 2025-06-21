@@ -13,7 +13,7 @@ class CheckoutData {
   CheckoutData(this.crud);
   Myservice storage = Get.find();
 
-  postData(int totalPrice,String deliveryType  ,List<Cart> cardItems,Position? position) async {
+  postData({required int totalPrice,required String deliveryType  ,required List<Cart> cardItems,required int shipping,required Position position}) async {
     String? token = storage.sharedPreferences.getString("token");
         int? pharmacyId = storage.sharedPreferences.getInt(
       "current_pharmacy_id",
@@ -26,6 +26,7 @@ class CheckoutData {
         'totalPrice': totalPrice,
         'deliveryType': deliveryType,
         'latitude': position?.latitude,
+        'shipping_price': shipping,
         'longitude': position?.longitude
       },
         {

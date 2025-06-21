@@ -1,16 +1,13 @@
-
 import 'package:ecommerce/controller/order/order_pending_controller.dart';
 import 'package:ecommerce/controller/order/order_valid_controller.dart';
 import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/order/order_valid.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class OrderViewController extends GetxController {
   changePage(int index);
-
 }
 
 class OrderViewControllerImp extends OrderViewController {
@@ -21,6 +18,11 @@ class OrderViewControllerImp extends OrderViewController {
     {"icon": Icons.pending_actions_outlined},
     {"icon": Icons.checklist_rtl_outlined},
   ];
+  @override
+  void onInit() {
+    changePage(0);
+    super.onInit();
+  }
 
   @override
   void changePage(int index) {
@@ -43,6 +45,4 @@ class OrderViewControllerImp extends OrderViewController {
     // Clean up resources if needed
     super.onClose();
   }
-  
-
 }

@@ -20,14 +20,17 @@ class CardOrdersList extends GetView<OrdersPendingController> {
             Row(
               children: [
                 // Pharmacy name
-                Text(
-                  listdata.pharmacy?.name ?? '',
-                  style: const TextStyle(
-                    color: AppColor.primary,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    listdata.pharmacy?.name ?? '',
+                    style: const TextStyle(
+                      color: AppColor.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 // Formatted date
                 Text(
                   Jiffy.parse(listdata.createdAt.toString()).fromNow(),
@@ -49,7 +52,9 @@ class CardOrdersList extends GetView<OrdersPendingController> {
             ),
             Text("${"order_type".tr} : ${listdata.type}"),
             Text("${"order_price".tr} : ${listdata.totalAmount} MRU"),
-            Text("${"delivery_price".tr} : NAN MRU"), // Update once dynamic
+            Text(
+              "${"delivery_price".tr} : ${listdata.shippingPrice} MRU",
+            ), // Update once dynamic
             Text(
               "${"status".tr} : ${listdata.status}",
               style: const TextStyle(
@@ -58,34 +63,45 @@ class CardOrdersList extends GetView<OrdersPendingController> {
               ),
             ),
             const Divider(),
-            Row(
+            // Fixed the problematic Row - using Column for better layout
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${"total_price".tr} : ${listdata.totalAmount} MRU",
+                  "${"total_price".tr} : ${listdata.totalAmount! + listdata.shippingPrice!} MRU",
                   style: const TextStyle(
                     color: AppColor.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Spacer(),
-                MaterialButton(
-                  onPressed: () {
-                    controller.goToOrderDetails(listdata);
-                  },
-                  color: AppColor.accent,
-                  textColor: AppColor.background,
-                  child: Text("details".tr),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: MaterialButton(
+                        onPressed: () {
+                          controller.goToOrderDetails(listdata);
+                        },
+                        color: AppColor.accent,
+                        textColor: AppColor.background,
+                        child: Text("details".tr),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    if (listdata.status == "ENCOURS")
+                      Flexible(
+                        child: MaterialButton(
+                          onPressed: () {
+                            controller.deleteOrder(listdata.id);
+                          },
+                          color: AppColor.errorColor,
+                          textColor: AppColor.background,
+                          child: Text("delete".tr),
+                        ),
+                      ),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                if (listdata.status == "ENCOURS")
-                  MaterialButton(
-                    onPressed: () {
-                      controller.deleteOrder(listdata.id);
-                    },
-                    color: AppColor.errorColor,
-                    textColor: AppColor.background,
-                    child: Text("delete".tr),
-                  ),
               ],
             ),
           ],
