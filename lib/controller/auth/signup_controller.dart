@@ -48,6 +48,7 @@ class SignUpControllerImp extends SignUpController {
       );
       statusRequest = handlingData(response);
       update();
+      
       if (statusRequest == StatusRequest.success) {
         Fluttertoast.showToast(
           msg: "can_login_now".tr,

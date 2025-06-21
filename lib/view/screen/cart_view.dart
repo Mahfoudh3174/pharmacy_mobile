@@ -30,54 +30,48 @@ class CartView extends StatelessWidget {
         backgroundColor: AppColor.primary,
       ),
       bottomNavigationBar: GetBuilder<CartControllerImp>(
-        builder: (controller) => BottomNavgationBarCart(
-          price: "${cartController.totalPrice}",
-          shipping: "300",
-          totalprice: "1500",
-        ),
+        builder:
+            (controller) => BottomNavgationBarCart(
+              price: "${cartController.totalPrice}",
+              shipping: "300",
+              totalprice: "1500",
+            ),
       ),
       body: GetBuilder<CartControllerImp>(
-        builder: (controller) => HandlingDataView(
-          statusRequest: controller.statusRequest,
-          widget: ListView(
-            children: [
-              SizedBox(height: 10),
-              TopCardCart(
-                message:
-                    "cart_items_message".trParams({'count': cartController.totalItems.toString()}),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    ...List.generate(
-                      cartController.cardItems.length,
-                      (index) => CustomItemsCartList(
-                        onAdd: () async {
-                          await cartController.addMedicationToCart(
-                              cartController.cardItems[index].medication.id!);
-                          cartController.refreshData();
-                        },
-                        onRemove: () async {
-                          await cartController.deleteMedicationFromCart(
-                              cartController.cardItems[index].medication.id!);
-                          cartController.refreshData();
-                        },
-                        imagename:
-                            "${cartController.cardItems[index].medication.imageUrl}",
-                        name:
-                            "${cartController.cardItems[index].medication.name}",
-                        price:
-                            "${cartController.cardItems[index].medication.price} \$",
-                        count: "${cartController.cardItems[index].quantity}",
-                      ),
+        builder:
+            (controller) => HandlingDataView(
+              statusRequest: controller.statusRequest,
+              widget: ListView(
+                children: [
+                  SizedBox(height: 10),
+                  TopCardCart(
+                    message: "cart_items_message".trParams({
+                      'count': cartController.totalItems.toString(),
+                    }),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        ...List.generate(
+                          cartController.cardItems.length,
+                          (index) => CustomItemsCartList(
+                            imagename:
+                                "${cartController.cardItems[index].medication.imageUrl}",
+                            name:
+                                "${cartController.cardItems[index].medication.name}",
+                            price:
+                                "${cartController.cardItems[index].medication.price} \$",
+                            count:
+                                "${cartController.cardItems[index].quantity}",
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }

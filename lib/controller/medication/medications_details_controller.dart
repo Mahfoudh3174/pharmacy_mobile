@@ -7,11 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class MedicationsDetailsController extends GetxController {
-
-  increment() ;
-  decriment() ;
-  goToCarte() ;
-  addMedicationToCart(int productId) ;
+  increment();
+  decriment();
+  goToCarte();
+  addMedicationToCart(int productId);
   deleteMedicationFromCart(int medicationId);
   getCountItems(int id);
 }
@@ -22,9 +21,11 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   late Medication medication;
   List subitems = [];
   int medicationsCount = 0;
-    CartData cartData = CartData(Get.find());
+  CartData cartData = CartData(Get.find());
 
   StatusRequest statusRequest = StatusRequest.none;
+    // Position? position;
+
 
   @override
   void onInit() {
@@ -33,18 +34,15 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
     super.onInit();
   }
 
-
-
   initialData() async {
     medication = Get.arguments['medication'];
     statusRequest = StatusRequest.loading;
     medicationsCount = await getCountItems(medication.id!);
     statusRequest = StatusRequest.success;
     update();
-
   }
 
-    @override
+  @override
   Future<int> getCountItems(int id) async {
     int medicationsCount = 0;
 
@@ -58,8 +56,6 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
     return medicationsCount;
   }
 
-
-
   @override
   addMedicationToCart(int productId) async {
     try {
@@ -67,18 +63,6 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
       update();
       final response = await cartData.postCartdata(productId);
       statusRequest = handlingData(response);
-
-      if (statusRequest == StatusRequest.success) {
-        Get.rawSnackbar(
-          title: "Notification",
-          messageText: const Text(
-            "Medication added to cart",
-            style: TextStyle(color: Colors.white),
-          ),
-        );
-      } else {
-        statusRequest = StatusRequest.failure;
-      }
     } catch (e) {
       statusRequest = StatusRequest.serverFailure;
     }
@@ -107,9 +91,6 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
     update();
   }
 
-
-
-
   @override
   increment() {
     addMedicationToCart(medication.id!);
@@ -128,7 +109,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   @override
   goToCarte() {
-    // cartController.refreshData();
+    
     Get.toNamed(Routes.cart);
   }
 }
