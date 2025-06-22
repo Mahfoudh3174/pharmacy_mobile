@@ -10,6 +10,12 @@ class OrderRejectedController extends GetxController {
   OrderData orderData = OrderData(Get.find());
   List<Order> ordersList = [];
   StatusRequest statusRequest = StatusRequest.none;
+  
+  // Pagination variables
+  int currentPage = 1;
+  int lastPage = 1;
+  bool isLoadingMore = false;
+  bool hasMoreData = true;
 
   @override
   void onInit() {
@@ -23,29 +29,55 @@ class OrderRejectedController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
 
-      var response = await orderData.getOrdersData(status: "REJETEE");
+      var response = await orderData.getOrdersData(status: "REJETEE", page: 1);
 
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-        for (var element in response["orders"]) {
-          debugPrint(element.toString());
-          ordersList.add(Order.fromJson(element));
-        }
+        final orderResponse = OrderResponse.fromJson(response);
+        ordersList = orderResponse.orders;
+        currentPage = orderResponse.meta.currentPage;
+        lastPage = orderResponse.meta.lastPage;
+        hasMoreData = orderResponse.meta.hasNextPage;
+        
         if (ordersList.isEmpty) {
           statusRequest = StatusRequest.failure;
         }
-        // List orders = response["orders"];
-        // ordersList = orders.map((e) => Order.fromJson(e)).toList();
       } else {
         statusRequest = StatusRequest.failure;
       }
     } catch (e) {
       // Optional: Print/log error
-
       statusRequest = StatusRequest.serverException;
     }
 
+    update();
+  }
+
+  loadMoreOrders() async {
+    if (isLoadingMore || !hasMoreData) return;
+
+    isLoadingMore = true;
+    update();
+
+    try {
+      var response = await orderData.getOrdersData(
+        status: "REJETEE", 
+        page: currentPage + 1
+      );
+
+      if (response is Map<String, dynamic> && response.containsKey('orders')) {
+        final orderResponse = OrderResponse.fromJson(response);
+        ordersList.addAll(orderResponse.orders);
+        currentPage = orderResponse.meta.currentPage;
+        lastPage = orderResponse.meta.lastPage;
+        hasMoreData = orderResponse.meta.hasNextPage;
+      }
+    } catch (e) {
+      debugPrint("Error loading more orders: ${e.toString()}");
+    }
+
+    isLoadingMore = false;
     update();
   }
 

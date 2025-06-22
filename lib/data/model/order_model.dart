@@ -1,6 +1,45 @@
 import 'package:ecommerce/data/model/medication_model.dart';
 import 'package:ecommerce/data/model/pharmacy_model.dart';
 
+class OrderPaginationMeta {
+  final int currentPage;
+  final int lastPage;
+
+  OrderPaginationMeta({
+    required this.currentPage,
+    required this.lastPage,
+  });
+
+  factory OrderPaginationMeta.fromJson(Map<String, dynamic> json) {
+    return OrderPaginationMeta(
+      currentPage: json['current_page'] ?? 1,
+      lastPage: json['last_page'] ?? 1,
+    );
+  }
+
+  bool get hasNextPage => currentPage < lastPage;
+  bool get hasPreviousPage => currentPage > 1;
+}
+
+class OrderResponse {
+  final List<Order> orders;
+  final OrderPaginationMeta meta;
+
+  OrderResponse({
+    required this.orders,
+    required this.meta,
+  });
+
+  factory OrderResponse.fromJson(Map<String, dynamic> json) {
+    return OrderResponse(
+      orders: (json['orders'] as List)
+          .map((e) => Order.fromJson(e))
+          .toList(),
+      meta: OrderPaginationMeta.fromJson(json['meta'] ?? {}),
+    );
+  }
+}
+
 class Order {
   final int id;
   final String status;

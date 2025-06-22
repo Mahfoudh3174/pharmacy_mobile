@@ -1,5 +1,3 @@
-
-
 import 'package:ecommerce/core/class/crud.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/linkapi.dart';
@@ -12,12 +10,12 @@ class OrderData {
   Myservice storage = Get.find();
 
 
-Future<dynamic> getOrdersData({required String status, int? id}) async {
+Future<dynamic> getOrdersData({required String status, int? id, int page = 1}) async {
   final String token = storage.sharedPreferences.getString("token")!;
 
   String url = id != null
-      ? "${AppLinks.orders}/$id?status=$status"
-      : "${AppLinks.orders}?status=$status";
+      ? "${AppLinks.orders}/$id?status=$status&page=$page"
+      : "${AppLinks.orders}?status=$status&page=$page";
 
   // Send request with headers
   var response = await crud.getData(
