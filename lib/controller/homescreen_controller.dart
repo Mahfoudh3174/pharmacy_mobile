@@ -21,10 +21,10 @@ class HomeScreenControllerImp extends HomeScreenController {
     const OrderView(),
   ];
 
-  List<Map<String, IconData>> bottomItems = [
-    {"icon": Icons.home_outlined},
-    {"icon": Icons.settings_outlined},
-    {"icon": Icons.view_list_outlined},
+  List<Map<String, dynamic>> bottomItems = [
+    {"icon": Icons.home_outlined, "title": "home"},
+    {"icon": Icons.settings_outlined, "title": "settings"},
+    {"icon": Icons.view_list_outlined, "title": "orders"},
   ];
 
   @override
@@ -41,7 +41,6 @@ class HomeScreenControllerImp extends HomeScreenController {
         // If you have a controller for setting view, reset it
         break;
       case 2:
-        
         Get.delete<OrderViewControllerImp>();
         Get.put(OrderViewControllerImp());
         break;

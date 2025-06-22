@@ -1,9 +1,9 @@
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TopCardCart extends StatelessWidget {
-  final String message;
-  const TopCardCart({super.key, required this.message});
+  const TopCardCart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class TopCardCart extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  message,
+                  "your_shopping_cart".tr,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -38,7 +38,7 @@ class TopCardCart extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Review your items and proceed to checkout",
+                  "review_items_checkout".tr,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
                     fontSize: 12,

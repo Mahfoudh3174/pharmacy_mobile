@@ -14,37 +14,86 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<HomeScreenControllerImp>(
       builder: (controller) {
         return Scaffold(
+          backgroundColor: Colors.grey.shade50,
 
-
-          bottomNavigationBar: BottomAppBar(
-            color: AppColor.secondary,
-            notchMargin: 10,
-            shape: const CircularNotchedRectangle(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...List.generate(
-                  controller.pages.length,
-                  (index)=>
-                                  // Left side buttons
-                CustomIconButton(
-                  onPressed: () {
-                    controller.changePage(index);
-                  },
-                  icon: controller.bottomItems[index]['icon']!,
-                  color: controller.currentIndex == index ? AppColor.background :Colors.black,
+          // Modern Bottom Navigation Bar
+          bottomNavigationBar: Container(
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, -8),
                 ),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -4),
                 ),
-
-                // Spacer to create space for FAB
-                
-
               ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                selectedItemColor: AppColor.primary,
+                unselectedItemColor: Colors.grey.shade600,
+                selectedLabelStyle: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+                unselectedLabelStyle: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 11,
+                ),
+                currentIndex: controller.currentIndex,
+                onTap: (index) {
+                  controller.changePage(index);
+                },
+                items: List.generate(
+                  controller.bottomItems.length,
+                  (index) => BottomNavigationBarItem(
+                    icon: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color:
+                            controller.currentIndex == index
+                                ? AppColor.primary.withOpacity(0.1)
+                                : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(
+                        controller.bottomItems[index]['icon']!,
+                        size: 24,
+                      ),
+                    ),
+                    label:
+                        (controller.bottomItems[index]['title'] as String).tr,
+                  ),
+                ),
+              ),
             ),
           ),
 
-          body:
-           controller.pages[controller.currentIndex],
+          // Body with page content
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColor.primary.withOpacity(0.05),
+                  Colors.grey.shade50,
+                ],
+              ),
+            ),
+            child: controller.pages[controller.currentIndex],
+          ),
         );
       },
     );

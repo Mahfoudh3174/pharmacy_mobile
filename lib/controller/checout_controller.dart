@@ -33,6 +33,7 @@ class CheckoutControllerImp extends ChecoutController {
   @override
   String? chooseDeliveryType(String type) {
     deliveryType = type;
+    debugPrint("Delivery type selected: $deliveryType");
     update();
     return deliveryType;
   }

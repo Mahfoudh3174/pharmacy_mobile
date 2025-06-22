@@ -86,11 +86,7 @@ class CartView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: TopCardCart(
-                      message: "cart_items_message".trParams({
-                        'count': cartController.totalItems.toString(),
-                      }),
-                    ),
+                    child: const TopCardCart(),
                   ),
 
                   // Cart Items Container
@@ -127,7 +123,7 @@ class CartView extends StatelessWidget {
                               ),
                               const SizedBox(width: 12),
                               Text(
-                                "Cart Items",
+                                "cart_items".tr,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,

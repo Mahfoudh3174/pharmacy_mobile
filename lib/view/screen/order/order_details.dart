@@ -10,147 +10,433 @@ class OrdersDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(OrdersDetailsController());
+
     return Scaffold(
-      appBar: AppBar(title: Text('PendOrDetails'.tr)),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: GetBuilder<OrdersDetailsController>(
-          builder:
-              ((controller) => HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: ListView(
-                  children: [
-                    // Add rejection reason if exists
-                    if (controller.order?.rejectReason != null)
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Rejection Reason".tr,
-                                style: TextStyle(
-                                  color: AppColor.errorColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                controller.order!.rejectReason!,
-                                style: TextStyle(color: AppColor.darkGrey),
-                              ),
-                            ],
-                          ),
+      backgroundColor: Colors.grey.shade50,
+      body: GetBuilder<OrdersDetailsController>(
+        builder:
+            (controller) => CustomScrollView(
+              slivers: [
+                // Modern App Bar
+                SliverAppBar(
+                  expandedHeight: 120,
+                  floating: false,
+                  pinned: true,
+                  elevation: 0,
+                  backgroundColor: AppColor.primary,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppColor.primary,
+                            AppColor.primary.withOpacity(0.8),
+                          ],
                         ),
                       ),
-
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          children: [
-                            Table(
+                      child: Stack(
+                        children: [
+                          // Background Pattern
+                          Positioned(
+                            top: -30,
+                            right: -30,
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          // Header Content
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                TableRow(
-                                  children: [
-                                    Text(
-                                      "Item".tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColor.primary,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Icon(
+                                    Icons.receipt_long_rounded,
+                                    color: Colors.white,
+                                    size: 28,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  "order_details".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  "view_order_information".tr,
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.8),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Order Details Content
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                    child: HandlingDataView(
+                      statusRequest: controller.statusRequest,
+                      widget: Column(
+                        children: [
+                          // Rejection Reason Card (if exists)
+                          if (controller.order?.rejectReason != null)
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.red.shade50,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.red.shade200,
+                                  width: 1,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.red.withOpacity(0.1),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.shade100,
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
-                                    Text(
-                                      "QTY".tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColor.primary,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: Icon(
+                                      Icons.error_outline_rounded,
+                                      color: Colors.red.shade600,
+                                      size: 24,
                                     ),
-                                    Text(
-                                      "Prix".tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColor.primary,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "rejection_reason".tr,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red.shade700,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          controller.order!.rejectReason!,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.red.shade600,
+                                            height: 1.4,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          // Order Items Card
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.06),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                // Header
+                                Container(
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.primary.withOpacity(0.05),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: AppColor.primary.withOpacity(
+                                            0.1,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.shopping_bag_rounded,
+                                          color: AppColor.primary,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        "order_items".tr,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColor.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
 
-                                ...List.generate(
-                                  controller.order!.medications.length,
-                                  (index) => TableRow(
+                                // Items List
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
                                     children: [
-                                      Text(
-                                        "${controller.order!.medications[index].name}",
-                                        textAlign: TextAlign.center,
+                                      // Table Header
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade50,
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: Text(
+                                                "item".tr,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColor.primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                "qty".tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColor.primary,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                "price".tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColor.primary,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        "${controller.order!.medications[index].pivotQuantity}X${controller.order!.medications[index].price}",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        "${controller.order!.medications[index].totalPrice}",
-                                        textAlign: TextAlign.center,
+
+                                      const SizedBox(height: 12),
+
+                                      // Items
+                                      ...List.generate(
+                                        controller.order!.medications.length,
+                                        (index) => Container(
+                                          margin: const EdgeInsets.only(
+                                            bottom: 8,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                            vertical: 12,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade50,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  controller
+                                                          .order!
+                                                          .medications[index]
+                                                          .name ??
+                                                      "",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  "${controller.order!.medications[index].pivotQuantity}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.grey.shade600,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  "${controller.order!.medications[index].totalPrice}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColor.primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                "${'TotPrix'.tr}: ${controller.order!.totalAmount!} + ${controller.order!.shippingPrice!}=${controller.order!.shippingPrice! + controller.order!.totalAmount!}",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: AppColor.primary,
-                                  fontWeight: FontWeight.bold,
+                          ),
+
+                          // Total Price Card
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.06),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 6),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "subtotal".tr,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${controller.order!.totalAmount!}",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "shipping".tr,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${controller.order!.shippingPrice!}",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(height: 24),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "total".tr,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${controller.order!.shippingPrice! + controller.order!.totalAmount!}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    // if (controller.order!.type == "LIVRAISON")    Card(
-                    //     child: Container(
-                    //         child: ListTile(
-                    //       title: const Text("Addresse de Livraison",
-                    //           style: TextStyle(
-                    //               color: AppColor.primary,
-                    //               fontWeight: FontWeight.bold)),
-                    //       subtitle: Text(
-                    //           "${controller.ordersModel.addressCity} ${controller.ordersModel.addressStreet}"),
-                    //     )),
-                    //   ),
-                    // if (controller.ordersModel.ordersType == "0")    Card(
-                    //       child: Container(
-                    //         padding:
-                    //             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    //         height: 300,
-                    //         width: double.infinity,
-                    //         child: GoogleMap(
-                    //           mapType: MapType.normal,
-                    //           markers: controller.markers.toSet(),
-                    //           initialCameraPosition: controller.cameraPosition!,
-                    //           onMapCreated: (GoogleMapController controllermap) {
-                    //             controller.completercontroller!
-                    //                 .complete(controllermap);
-                    //           },
-                    //         ),
-                    //       ),
-                    //     )
-                  ],
+                  ),
                 ),
-              )),
-        ),
+              ],
+            ),
       ),
     );
   }

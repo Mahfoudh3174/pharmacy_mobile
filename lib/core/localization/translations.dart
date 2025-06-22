@@ -152,7 +152,7 @@ class AllTranslations extends Translations {
       "unknown": "غير معروف",
       "quantity": "الكمية",
       "price": "السعر",
-      "total": "المجموع",
+      "total": "المجموع الكلي",
       "subtotal": "المجموع الفرعي",
       "shipping": "الشحن",
       "tax": "الضريبة",
@@ -235,8 +235,61 @@ class AllTranslations extends Translations {
       "confirm_password": "تأكيد كلمة المرور",
       "enter_6_digit_code": "أدخل الرمز المكون من 6 أرقام",
       "or_auto_submit": "أو سيتم التحقق تلقائياً عند إدخال 6 أرقام",
+
+      // Cart translations
+      "your_shopping_cart": "سلة التسوق الخاصة بك",
+      "review_items_checkout": "راجع العناصر واتابع للدفع",
+      "cart_items": "عناصر السلة",
+      "place_order": "إتمام الطلب",
+      "selected": "محدد",
+      "choose_delivery_method": "اختر طريقة التوصيل",
+      "delivery_method_selected": "طريقة التوصيل المحددة",
+      "complete_your_order": "أكمل طلبك",
+      "please_select_delivery_method": "يرجى اختيار طريقة التوصيل",
+
+      // Pharmacy translations
+      "no_address": "لا يوجد عنوان",
+      "view_medications": "عرض الأدوية",
+
+      // Navigation translations
+      "home": "الرئيسية",
+      "settings": "الإعدادات",
+      "orders": "الطلبات",
+
+      // Settings translations
+      "manage_your_preferences": "إدارة تفضيلاتك",
+      "language_settings": "إعدادات اللغة",
+      "account_actions": "إجراءات الحساب",
+
+      // Order translations
+      "orders_waiting_approval": "الطلبات في انتظار الموافقة",
+      "orders_that_were_rejected": "الطلبات التي تم رفضها",
+      "orders_that_were_validated": "الطلبات التي تم تأكيدها",
+      "total_pending_orders": "إجمالي الطلبات المعلقة",
+      "total_rejected_orders": "إجمالي الطلبات المرفوضة",
+      "total_validated_orders": "إجمالي الطلبات المؤكدة",
+
+      // Order Details translations
+      "order_details": "تفاصيل الطلب",
+      "view_order_information": "عرض معلومات الطلب",
+      "rejection_reason": "سبب الرفض",
+      "order_items": "عناصر الطلب",
+      "item": "العنصر",
+      "qty": "الكمية",
+      "price": "السعر",
+      "subtotal": "المجموع الفرعي",
+      "shipping": "الشحن",
+      "total": "المجموع الكلي",
+
+      // Medication translations
+      "find_your_medications": "ابحث عن أدويتك",
+      "available_medications": "الأدوية المتوفرة",
+      "view_medication_info": "عرض معلومات الدواء",
+      "dosage_form": "شكل الجرعة",
+      "in_pharmacy": "في الصيدلية",
     },
     "fr": {
+      "in_pharmacy": "Dans la pharmacie",
       "about_us": "À propos de nous",
       "choose_language": "Choisir la langue",
       "french": "Français",
@@ -474,6 +527,40 @@ class AllTranslations extends Translations {
       "enter_6_digit_code": "Entrez le code à 6 chiffres",
       "or_auto_submit":
           "Ou le vérification sera effectuée automatiquement lors de la saisie de 6 chiffres",
+
+      // Cart translations
+      "your_shopping_cart": "Votre panier d'achat",
+      "review_items_checkout": "Réviser les articles et passer à la caisse",
+      "cart_items": "Articles du panier",
+      "place_order": "Finaliser la commande",
+      "selected": "Sélectionné",
+      "choose_delivery_method": "Choisir la méthode de livraison",
+      "delivery_method_selected": "Méthode de livraison sélectionnée",
+      "complete_your_order": "Terminer votre commande",
+      "please_select_delivery_method":
+          "Veuillez sélectionner la méthode de livraison",
+
+      // Pharmacy translations
+      "no_address": "Aucune adresse",
+      "view_medications": "Voir les médicaments",
+
+      // Navigation translations
+      "home": "Accueil",
+      "settings": "Paramètres",
+      "orders": "Commandes",
+
+      // Settings translations
+      "manage_your_preferences": "Gérer vos préférences",
+      "language_settings": "Paramètres de langue",
+      "account_actions": "Actions du compte",
+
+      // Order translations
+      "orders_waiting_approval": "Commandes en attente d'approbation",
+      "orders_that_were_rejected": "Commandes qui ont été rejetées",
+      "orders_that_were_validated": "Commandes qui ont été validées",
+      "total_pending_orders": "Total des commandes en attente",
+      "total_rejected_orders": "Total des commandes rejetées",
+      "total_validated_orders": "Total des commandes validées",
     },
   };
 }

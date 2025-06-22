@@ -1,6 +1,6 @@
 import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/view/widget/cart/custom_button_cart.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,11 +43,11 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
             child: Column(
               children: [
                 // Price Row
-                _buildPriceRow("Price", "$price \$", false),
+                _buildPriceRow("price", "$price \$", false),
                 const SizedBox(height: 12),
 
                 // Shipping Row
-                _buildPriceRow("Shipping", "$shipping \$", false),
+                _buildPriceRow("shipping", "$shipping \$", false),
 
                 const SizedBox(height: 16),
 
@@ -68,7 +68,7 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
                 const SizedBox(height: 16),
 
                 // Total Price Row
-                _buildPriceRow("Total Price", "$totalprice \$", true),
+                _buildPriceRow("total_price", "$totalprice \$", true),
               ],
             ),
           ),
@@ -111,7 +111,7 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        "Place Order",
+                        "place_order".tr,
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          label,
+          label.tr,
           style: TextStyle(
             fontSize: isTotal ? 16 : 14,
             fontWeight: isTotal ? FontWeight.w600 : FontWeight.w500,

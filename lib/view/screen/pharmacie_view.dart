@@ -15,75 +15,158 @@ class PharmacieView extends StatelessWidget {
     return GetBuilder<PharmacyControllerImp>(
       builder: (controller) {
         return Scaffold(
+          backgroundColor: Colors.grey.shade50,
           appBar: AppBar(
+            elevation: 0,
             centerTitle: true,
             backgroundColor: AppColor.primary,
             title: Text(
               "pharmacies".tr,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: AppColor.background),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_active_outlined),
-                color: AppColor.background,
-                onPressed: () {
-                  controller.searchController.clear();
-                  controller.getPharmacies();
-                },
-              ),
-            ],
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(50),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: controller.searchController,
-                  onSubmitted: (val) {
-                    controller.searchPharmacies(val);
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.refresh_rounded),
+                  color: Colors.white,
+                  onPressed: () {
+                    controller.searchController.clear();
+                    controller.getPharmacies();
                   },
-                  decoration: InputDecoration(
-                    hintText: "search_pharmacies".tr,
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                  ),
                 ),
               ),
+            ],
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
             ),
           ),
           body: RefreshIndicator(
             onRefresh: () => controller.getPharmacies(),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 13),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColor.background,
-                    Theme.of(context).colorScheme.surface,
+                    AppColor.primary.withOpacity(0.05),
+                    Colors.grey.shade50,
                   ],
                 ),
               ),
-              child: HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: ListView.builder(
-                  itemCount: controller.pharmacies.length,
-                  itemBuilder: (context, index) {
-                    final pharmacy = controller.pharmacies[index];
-                    return PharmacyCard(
-                      pharmacy: pharmacy,
-                      pharmacyController: controller,
-                    );
-                  },
-                ),
+              child: Column(
+                children: [
+                  // Modern Search Section
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.06),
+                          blurRadius: 15,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColor.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(
+                                Icons.search_rounded,
+                                color: AppColor.primary,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              "search_pharmacies".tr,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppColor.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: controller.searchController,
+                          onSubmitted: (val) {
+                            controller.searchPharmacies(val);
+                          },
+                          decoration: InputDecoration(
+                            hintText: "search_pharmacies".tr,
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 14,
+                            ),
+                            fillColor: Colors.grey.shade50,
+                            filled: true,
+                            prefixIcon: Icon(
+                              Icons.search_rounded,
+                              color: Colors.grey.shade600,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                color: AppColor.primary,
+                                width: 2,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Pharmacies List
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      child: HandlingDataView(
+                        statusRequest: controller.statusRequest,
+                        widget: ListView.builder(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          itemCount: controller.pharmacies.length,
+                          itemBuilder: (context, index) {
+                            final pharmacy = controller.pharmacies[index];
+                            return PharmacyCard(
+                              pharmacy: pharmacy,
+                              pharmacyController: controller,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
