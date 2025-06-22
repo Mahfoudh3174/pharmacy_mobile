@@ -113,59 +113,71 @@ class CartControllerImp extends CartController {
   @override
   addMedicationToCart(int productId) async {
     try {
-      statusRequest = StatusRequest.loading;
-      update();
       final response = await cartData.postCartdata(productId);
-      statusRequest = handlingData(response);
+      final status = handlingData(response);
 
-      if (statusRequest == StatusRequest.success) {
+      if (status == StatusRequest.success) {
+        // Refresh cart data without showing loading
+        await getMedicationFromCart();
+
         Get.rawSnackbar(
-          title: "Notification",
-          messageText: const Text(
-            "Medication added to cart",
-            style: TextStyle(color: Colors.white),
+          title: "notification".tr,
+          messageText: Text(
+            "medication_added".tr,
+            style: const TextStyle(color: Colors.white),
           ),
         );
       } else {
-        statusRequest = StatusRequest.failure;
+        statusRequest = status;
+        update();
       }
     } catch (e) {
       statusRequest = StatusRequest.serverFailure;
+      update();
     }
-    update();
   }
 
   @override
   deleteMedicationFromCart(int medicationId) async {
     try {
-      statusRequest = StatusRequest.loading;
-      update();
+      // Don't show loading state for better UX
       final response = await cartData.deleteCartData(medicationId);
-      statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
+      final status = handlingData(response);
+
+      if (status == StatusRequest.success) {
+        // Refresh cart data without showing loading
+        await getMedicationFromCart();
+
         Get.rawSnackbar(
-          title: "Notification",
-          messageText: const Text(
-            "Medication removed from cart",
-            style: TextStyle(color: Colors.white),
+          title: "notification".tr,
+          messageText: Text(
+            "medication_removed".tr,
+            style: const TextStyle(color: Colors.white),
           ),
         );
+      } else {
+        statusRequest = status;
+        update();
       }
     } catch (e) {
       statusRequest = StatusRequest.serverFailure;
+      update();
     }
-    update();
   }
 
   @override
   getMedicationFromCart() async {
     try {
-      statusRequest = StatusRequest.loading;
-      update();
+      // Only show loading on initial load, not on refresh
+      if (cardItems.isEmpty) {
+        statusRequest = StatusRequest.loading;
+        update();
+      }
 
       final response = await cartData.getCartData();
-      statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
+      final status = handlingData(response);
+
+      if (status == StatusRequest.success) {
         cardItems.clear();
 
         for (var item in response['cartItems']) {
@@ -173,9 +185,12 @@ class CartControllerImp extends CartController {
         }
         totalPrice = response['totalCard'];
         totalItems = response['totalItems'];
+
+        statusRequest = StatusRequest.success;
         update();
       } else {
-        statusRequest = StatusRequest.failure;
+        statusRequest = status;
+        update();
       }
     } catch (e) {
       Get.rawSnackbar(
@@ -185,7 +200,7 @@ class CartControllerImp extends CartController {
           style: TextStyle(color: Colors.white),
         ),
       );
-    } finally {
+      statusRequest = StatusRequest.serverException;
       update();
     }
   }
@@ -218,7 +233,11 @@ class CartControllerImp extends CartController {
     }
     Get.toNamed(
       Routes.checkout,
-      arguments: {'cardItems': cardItems, 'totalPrice': totalPrice, 'shipping': shipping},
+      arguments: {
+        'cardItems': cardItems,
+        'totalPrice': totalPrice,
+        'shipping': shipping,
+      },
     );
   }
 }

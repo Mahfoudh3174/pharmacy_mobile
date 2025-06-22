@@ -24,8 +24,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   CartData cartData = CartData(Get.find());
 
   StatusRequest statusRequest = StatusRequest.none;
-    // Position? position;
-
+  // Position? position;
 
   @override
   void onInit() {
@@ -36,8 +35,11 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   initialData() async {
     medication = Get.arguments['medication'];
-    statusRequest = StatusRequest.loading;
+
+    // Get count without showing loading state
     medicationsCount = await getCountItems(medication.id);
+
+    // Set success state only once at the end
     statusRequest = StatusRequest.success;
     update();
   }
@@ -59,57 +61,121 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   @override
   addMedicationToCart(int productId) async {
     try {
-      statusRequest = StatusRequest.loading;
-      update();
       final response = await cartData.postCartdata(productId);
-      statusRequest = handlingData(response);
+      final status = handlingData(response);
+
+      if (status == StatusRequest.success) {
+        // Operation successful, optimistic update was correct
+        // No need to update count again
+      } else {
+        // Operation failed, revert the optimistic update
+        medicationsCount--;
+        statusRequest = status;
+        update();
+
+        // Show error notification
+        Get.rawSnackbar(
+          title: "error".tr,
+          messageText: Text(
+            "failed_to_add_medication".tr,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        );
+      }
     } catch (e) {
+      // Operation failed, revert the optimistic update
+      medicationsCount--;
       statusRequest = StatusRequest.serverFailure;
+      update();
+
+      // Show error notification
+      Get.rawSnackbar(
+        title: "error".tr,
+        messageText: Text(
+          "failed_to_add_medication".tr,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+      );
     }
-    update();
   }
 
   @override
   deleteMedicationFromCart(int medicationId) async {
     try {
-      statusRequest = StatusRequest.loading;
-      update();
       final response = await cartData.deleteCartData(medicationId);
-      statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
+      final status = handlingData(response);
+
+      if (status == StatusRequest.success) {
+        // Operation successful, optimistic update was correct
+        // No need to update count again
+
         Get.rawSnackbar(
-          title: "Notification",
-          messageText: const Text(
-            "Medication removed from cart",
-            style: TextStyle(color: Colors.white),
+          title: "notification".tr,
+          messageText: Text(
+            "medication_removed".tr,
+            style: const TextStyle(color: Colors.white),
           ),
+        );
+      } else {
+        // Operation failed, revert the optimistic update
+        medicationsCount++;
+        statusRequest = status;
+        update();
+
+        // Show error notification
+        Get.rawSnackbar(
+          title: "error".tr,
+          messageText: Text(
+            "failed_to_remove_medication".tr,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
         );
       }
     } catch (e) {
+      // Operation failed, revert the optimistic update
+      medicationsCount++;
       statusRequest = StatusRequest.serverFailure;
+      update();
+
+      // Show error notification
+      Get.rawSnackbar(
+        title: "error".tr,
+        messageText: Text(
+          "failed_to_remove_medication".tr,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+      );
     }
-    update();
   }
 
   @override
   increment() {
-    addMedicationToCart(medication.id);
+    // Optimistic update
     medicationsCount++;
     update();
+
+    // Perform the actual operation
+    addMedicationToCart(medication.id);
   }
 
   @override
   decriment() {
     if (medicationsCount > 0) {
-      deleteMedicationFromCart(medication.id);
+      // Optimistic update
       medicationsCount--;
       update();
+
+      // Perform the actual operation
+      deleteMedicationFromCart(medication.id);
     }
   }
 
   @override
   goToCarte() {
-    
-    Get.offNamed(Routes.cart);
+    Get.toNamed(Routes.cart);
   }
 }
