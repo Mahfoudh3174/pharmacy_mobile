@@ -64,16 +64,8 @@ class SettingView extends StatelessWidget {
                 },
                 trailing: Icon(Icons.language_outlined),
                 title: Text("lang".tr),  // Language
-              ),              ListTile(
-                onTap: () {},
-                trailing: Icon(Icons.help_outline_rounded),
-                title: Text("about_us".tr),
-              ),
-              ListTile(
-                onTap: () {},
-                trailing: Icon(Icons.phone_callback_outlined),
-                title: Text("contact_us".tr),
-              ),
+              ),              
+
               ListTile(
                 onTap: () {
                   controller.logout();

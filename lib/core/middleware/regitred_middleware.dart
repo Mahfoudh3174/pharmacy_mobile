@@ -10,6 +10,8 @@ class RegitredMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
+    if(storage.sharedPreferences.getString("token") != null)
+    {return RouteSettings(name: Routes.home);}
     if (storage.sharedPreferences.getBool("onBoarding") == true) {
       return RouteSettings(name: Routes.login);
     }
