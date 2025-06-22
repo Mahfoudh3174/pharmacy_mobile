@@ -93,14 +93,15 @@ class CategoriesList extends StatelessWidget {
                       isSelected ? AppColor.primary : AppColor.grey,
                       BlendMode.srcIn,
                     ),
-                    errorBuilder:
-                        (context, error, stackTrace) => SvgPicture.asset(
-                          "assets/images/medicine-bottle-svgrepo-com.svg",
-                          colorFilter: ColorFilter.mode(
-                            isSelected ? AppColor.primary : AppColor.grey,
-                            BlendMode.srcIn,
-                          ),
+                    errorBuilder: (context, error, stackTrace) {
+                      return SvgPicture.asset(
+                        "assets/images/medicine-bottle-svgrepo-com.svg",
+                        colorFilter: ColorFilter.mode(
+                          isSelected ? AppColor.primary : AppColor.grey,
+                          BlendMode.srcIn,
                         ),
+                      );
+                    },
                   ),
                 ),
                 Text(

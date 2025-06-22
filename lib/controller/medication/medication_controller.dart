@@ -11,6 +11,7 @@ import 'package:ecommerce/data/model/category_model.dart';
 
 abstract class MedicationsController extends GetxController {
   getMedications() {}
+  loadMoreMedications() {}
   getCategories() {}
   filterMedicationsByCategory(int categoryId) {}
   searchMedications(String query) {}
@@ -29,6 +30,12 @@ class MedicationsControllerImp extends MedicationsController {
   Pharmacy? pharmacy;
   TextEditingController searchController = TextEditingController();
   MedicationData medicationData = MedicationData(Get.find());
+  
+  // Pagination variables
+  int currentPage = 1;
+  int lastPage = 1;
+  bool isLoadingMore = false;
+  bool hasMoreData = true;
 
   @override
   void onInit() {
@@ -105,17 +112,23 @@ class MedicationsControllerImp extends MedicationsController {
 
     medications.clear();
     allMedications.clear();
+    currentPage = 1;
+    hasMoreData = true;
 
     try {
       final response = await medicationData.getData(
         pharmacy!.id,
         categoryId: selectedCategoryId,
+        page: currentPage,
       );
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-        List meds = response["medications"];
-        medications = meds.map((e) => Medication.fromJson(e)).toList();
+        final medicationResponse = MedicationResponse.fromJson(response);
+        medications = medicationResponse.medications;
+        currentPage = medicationResponse.meta.currentPage;
+        lastPage = medicationResponse.meta.lastPage;
+        hasMoreData = medicationResponse.meta.hasNextPage;
 
         // Only update allMedications if no category filter is active
         if (selectedCategoryId == null) {
@@ -137,6 +150,40 @@ class MedicationsControllerImp extends MedicationsController {
   }
 
   @override
+  Future<void> loadMoreMedications() async {
+    if (isLoadingMore || !hasMoreData) return;
+
+    isLoadingMore = true;
+    update();
+
+    try {
+      final response = await medicationData.getData(
+        pharmacy!.id,
+        categoryId: selectedCategoryId,
+        page: currentPage + 1,
+      );
+      
+      if (response is Map<String, dynamic> && response.containsKey('medications')) {
+        final medicationResponse = MedicationResponse.fromJson(response);
+        medications.addAll(medicationResponse.medications);
+        currentPage = medicationResponse.meta.currentPage;
+        lastPage = medicationResponse.meta.lastPage;
+        hasMoreData = medicationResponse.meta.hasNextPage;
+
+        // Update allMedications if no category filter is active
+        if (selectedCategoryId == null) {
+          allMedications = List.from(medications);
+        }
+      }
+    } catch (e) {
+      debugPrint("Error loading more medications: ${e.toString()}");
+    }
+
+    isLoadingMore = false;
+    update();
+  }
+
+  @override
   void filterMedicationsByCategory(int categoryId) async {
     if (selectedCategoryId == categoryId) {
       selectedCategoryId = null;
@@ -150,12 +197,16 @@ class MedicationsControllerImp extends MedicationsController {
         final response = await medicationData.getData(
           pharmacy!.id,
           categoryId: categoryId,
+          page: 1,
         );
         statusRequest = handlingData(response);
 
         if (statusRequest == StatusRequest.success) {
-          List meds = response["medications"];
-          medications = meds.map((e) => Medication.fromJson(e)).toList();
+          final medicationResponse = MedicationResponse.fromJson(response);
+          medications = medicationResponse.medications;
+          currentPage = medicationResponse.meta.currentPage;
+          lastPage = medicationResponse.meta.lastPage;
+          hasMoreData = medicationResponse.meta.hasNextPage;
 
           if (medications.isEmpty) {
             statusRequest = StatusRequest.failure;

@@ -1,5 +1,44 @@
 import 'package:ecommerce/data/model/category_model.dart';
 
+class PaginationMeta {
+  final int currentPage;
+  final int lastPage;
+
+  PaginationMeta({
+    required this.currentPage,
+    required this.lastPage,
+  });
+
+  factory PaginationMeta.fromJson(Map<String, dynamic> json) {
+    return PaginationMeta(
+      currentPage: json['current_page'] ?? 1,
+      lastPage: json['last_page'] ?? 1,
+    );
+  }
+
+  bool get hasNextPage => currentPage < lastPage;
+  bool get hasPreviousPage => currentPage > 1;
+}
+
+class MedicationResponse {
+  final List<Medication> medications;
+  final PaginationMeta meta;
+
+  MedicationResponse({
+    required this.medications,
+    required this.meta,
+  });
+
+  factory MedicationResponse.fromJson(Map<String, dynamic> json) {
+    return MedicationResponse(
+      medications: (json['medications'] as List)
+          .map((e) => Medication.fromJson(e))
+          .toList(),
+      meta: PaginationMeta.fromJson(json['meta'] ?? {}),
+    );
+  }
+}
+
 class Medication {
   final int id;
   final String? name;
