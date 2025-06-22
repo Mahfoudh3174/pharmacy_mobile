@@ -51,31 +51,76 @@ class Medication {
     'total_price': totalPrice,
   };
 
-  Medication.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int,
-      name = json['name'] as String?,
-      category =
-          json['category'] != null
-              ? Category.fromJson(json['category'] as Map<String, dynamic>)
-              : null,
-      imageUrl = json['imageUrl'] as String?,
-      dosageForm = json['dosageForm'] as String?,
-      strength = json['strength'] as String?,
-      price = int.tryParse(json['price']?.toString() ?? '') ?? 0,
-      pivotQuantity =
-          int.tryParse(json['pivot_quantity']?.toString() ?? '') ?? 0,
-      totalPrice = int.tryParse(json['total_price']?.toString() ?? '') ?? 0,
-      quantity = int.tryParse(json['quantity']?.toString() ?? '') ?? 0;
+  factory Medication.fromJson(Map<String, dynamic> json) {
+    try {
+      return Medication(
+        id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+        name: json['name']?.toString(),
+        category: json['category'] != null
+            ? Category.fromJson(json['category'] as Map<String, dynamic>)
+            : null,
+        imageUrl: json['image_url']?.toString() ?? json['imageUrl']?.toString(),
+        dosageForm: json['dosage_form']?.toString() ?? json['dosageForm']?.toString(),
+        strength: json['strength']?.toString(),
+        price: json['price'] is int 
+            ? json['price'] 
+            : int.tryParse(json['price']?.toString() ?? '0') ?? 0,
+        pivotQuantity: json['pivot_quantity'] is int 
+            ? json['pivot_quantity'] 
+            : int.tryParse(json['pivot_quantity']?.toString() ?? '0') ?? 0,
+        totalPrice: json['total_price'] is int 
+            ? json['total_price'] 
+            : int.tryParse(json['total_price']?.toString() ?? '0') ?? 0,
+        quantity: json['quantity'] is int 
+            ? json['quantity'] 
+            : int.tryParse(json['quantity']?.toString() ?? '0') ?? 0,
+      );
+    } catch (e) {
+      // Return a default medication if parsing fails
+      return Medication(
+        id: 0,
+        name: 'Unknown Medication',
+        category: null,
+        imageUrl: null,
+        dosageForm: null,
+        strength: null,
+        price: 0,
+        quantity: 0,
+      );
+    }
+  }
 
-  Medication.fromJsonBasic(Map<String, dynamic> json)
-    : id = json['id'] as int,
-      name = json['name'] as String?,
-      category = null,
-      imageUrl = null,
-      dosageForm = json['dosage_form'] as String?,
-      strength = null,
-      price = int.tryParse(json['price']?.toString() ?? '') ?? 0,
-      pivotQuantity = json['pivot_quantity'] as int? ?? 0,
-      totalPrice = json['total_price'] as int? ?? 0,
-      quantity = 0;
+  factory Medication.fromJsonBasic(Map<String, dynamic> json) {
+    try {
+      return Medication(
+        id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '0') ?? 0,
+        name: json['name']?.toString(),
+        category: null,
+        imageUrl: null,
+        dosageForm: json['dosage_form']?.toString(),
+        strength: null,
+        price: json['price'] is int 
+            ? json['price'] 
+            : int.tryParse(json['price']?.toString() ?? '0') ?? 0,
+        pivotQuantity: json['pivot_quantity'] is int 
+            ? json['pivot_quantity'] 
+            : int.tryParse(json['pivot_quantity']?.toString() ?? '0') ?? 0,
+        totalPrice: json['total_price'] is int 
+            ? json['total_price'] 
+            : int.tryParse(json['total_price']?.toString() ?? '0') ?? 0,
+        quantity: 0,
+      );
+    } catch (e) {
+      return Medication(
+        id: 0,
+        name: 'Unknown Medication',
+        category: null,
+        imageUrl: null,
+        dosageForm: null,
+        strength: null,
+        price: 0,
+        quantity: 0,
+      );
+    }
+  }
 }

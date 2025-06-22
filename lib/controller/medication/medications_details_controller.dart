@@ -37,7 +37,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   initialData() async {
     medication = Get.arguments['medication'];
     statusRequest = StatusRequest.loading;
-    medicationsCount = await getCountItems(medication.id!);
+    medicationsCount = await getCountItems(medication.id);
     statusRequest = StatusRequest.success;
     update();
   }
@@ -93,7 +93,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   @override
   increment() {
-    addMedicationToCart(medication.id!);
+    addMedicationToCart(medication.id);
     medicationsCount++;
     update();
   }
@@ -101,7 +101,7 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   @override
   decriment() {
     if (medicationsCount > 0) {
-      deleteMedicationFromCart(medication.id!);
+      deleteMedicationFromCart(medication.id);
       medicationsCount--;
       update();
     }

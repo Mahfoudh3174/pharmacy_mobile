@@ -49,15 +49,20 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                         width: 80,
                         child: Hero(
                           tag: "${med.id}",
-                          child: CachedNetworkImage(
-                            imageUrl: "${AppLinks.imagesLink}/${med.imageUrl}",
-                            errorWidget: (context, url, error) =>
-                                SvgPicture.asset(
-                              "assets/images/medicine-bottle-svgrepo-com.svg",
-                              fit: BoxFit.cover,
-                            ),
-                            fit: BoxFit.cover,
-                          ),
+                          child: med.imageUrl != null && med.imageUrl!.isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: "${AppLinks.imagesLink}/${med.imageUrl}",
+                                  errorWidget: (context, url, error) =>
+                                      SvgPicture.asset(
+                                    "assets/images/medicine-bottle-svgrepo-com.svg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                  fit: BoxFit.cover,
+                                )
+                              : SvgPicture.asset(
+                                  "assets/images/medicine-bottle-svgrepo-com.svg",
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
@@ -65,7 +70,7 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
 
                     // Name
                     Text(
-                      med.name!,
+                      med.name ?? 'Unknown Medication',
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -77,28 +82,29 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
 
                     // Price
                     Text(
-                      "${med.price}.00 MRU",
+                      "${med.price ?? 0} MRU",
                       style: const TextStyle(
                         fontSize: 13,
                         color: AppColor.primary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
                     // Category
                     const SizedBox(height: 4),
                     Text(
-                      med.category!.name!,
+                      med.category?.name ?? 'No Category',
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
 
-                    // Description
+                    // Pharmacy
                     const SizedBox(height: 4),
                     Text(
-                    "pharnacy:",
-                      style: const TextStyle(fontSize: 12),
-                      maxLines: 2,
+                      "Pharmacy: ${controller.pharmacy?.name ?? 'Unknown'}",
+                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

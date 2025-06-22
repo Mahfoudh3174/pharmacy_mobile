@@ -20,6 +20,8 @@ class PharmacyControllerImp extends PharmacyController {
   StatusRequest statusRequest = StatusRequest.none;
   TextEditingController searchController = TextEditingController();
   Myservice storage = Get.find();
+ 
+
 
   @override
   onInit() {
@@ -33,7 +35,6 @@ class PharmacyControllerImp extends PharmacyController {
       statusRequest = StatusRequest.loading;
       update();
 
-      // Clear existing data before fetching new data
       pharmacies.clear();
 
       var response = await pharmacyData.getData(query: query);

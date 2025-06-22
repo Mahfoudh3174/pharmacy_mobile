@@ -25,9 +25,9 @@ class CheckoutData {
         'cardItems': cardItems.map((e) => e.toJson()).toList(),
         'totalPrice': totalPrice,
         'deliveryType': deliveryType,
-        'latitude': position?.latitude,
+        'latitude': position.latitude,
         'shipping_price': shipping,
-        'longitude': position?.longitude
+        'longitude': position.longitude
       },
         {
           "Authorization": "Bearer $token",

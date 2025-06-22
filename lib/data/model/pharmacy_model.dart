@@ -1,4 +1,3 @@
-import 'package:ecommerce/data/model/category_model.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
 
 class Pharmacy {
@@ -8,7 +7,6 @@ class Pharmacy {
   final double? latitude;
   final double? longitude;
   final List<Medication?>? medications;
-  final List<Category?>? categories;
 
   Pharmacy({
     required this.id,
@@ -18,15 +16,7 @@ class Pharmacy {
     this.longitude,
 
     this.medications,
-    this.categories,
   });
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'address': address,
-    'medications': medications?.map((med) => med!.toJson()).toList(),
-    'categories': categories?.map((cat) => cat!.toJson()).toList(),
-  };
 
   Pharmacy.fromJson(Map<String, dynamic> json)
     : id = json['id'] ?? 0,
@@ -37,23 +27,13 @@ class Pharmacy {
               .toList(),
       address = json['address'],
       latitude = double.tryParse(json['latitude']?.toString() ?? '') ?? 0.0,
-      longitude = double.tryParse(json['longitude']?.toString() ?? '') ?? 0.0,
-
-      categories =
-          (json['categories'] as List)
-              .map((cat) => Category.fromJson(cat))
-              .toList();
+      longitude = double.tryParse(json['longitude']?.toString() ?? '') ?? 0.0;
 
   Pharmacy.fromJsonBasic(Map<String, dynamic> json)
     : id = json['id'] ?? 0,
       name = json['name'],
       latitude = double.tryParse(json['latitude']?.toString() ?? '') ?? 0.0,
       longitude = double.tryParse(json['longitude']?.toString() ?? '') ?? 0.0,
-
       address = json['address'],
-      medications = null,
-      categories =
-          (json['categories'] as List)
-              .map((cat) => Category.fromJson(cat))
-              .toList();
+      medications = null;
 }

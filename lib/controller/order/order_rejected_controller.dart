@@ -31,7 +31,6 @@ class OrderRejectedController extends GetxController {
         for (var element in response["orders"]) {
           debugPrint(element.toString());
           ordersList.add(Order.fromJson(element));
-          
         }
         if (ordersList.isEmpty) {
           statusRequest = StatusRequest.failure;
@@ -43,7 +42,7 @@ class OrderRejectedController extends GetxController {
       }
     } catch (e) {
       // Optional: Print/log error
-      print("Error in getRejectedOrdersData: $e");
+
       statusRequest = StatusRequest.serverException;
     }
 

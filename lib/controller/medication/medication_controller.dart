@@ -36,6 +36,7 @@ class MedicationsControllerImp extends MedicationsController {
     searchController.addListener(() {
       searchMedications(searchController.text);
     });
+
     getCategories();
     getMedications();
 
@@ -46,6 +47,25 @@ class MedicationsControllerImp extends MedicationsController {
   void onClose() {
     searchController.dispose();
     super.onClose();
+  }
+
+  @override
+  Future<void> getCategories() async {
+    try {
+      final response = await medicationData.getCategoriesData();
+      if (response is Map<String, dynamic> && response.containsKey('categories')) {
+        List categoriesList = response['categories'];
+        categories = categoriesList.map((e) => Category.fromJson(e)).toList();
+      } else {
+        // Fallback to static categories if API fails
+        categories = CategoriesData.categories;
+      }
+    } catch (e) {
+      debugPrint("Error fetching categories: ${e.toString()}");
+      // Fallback to static categories
+      categories = CategoriesData.categories;
+    }
+    update();
   }
 
   @override
@@ -128,7 +148,7 @@ class MedicationsControllerImp extends MedicationsController {
 
       try {
         final response = await medicationData.getData(
-          pharmacy!.id!,
+          pharmacy!.id,
           categoryId: categoryId,
         );
         statusRequest = handlingData(response);
@@ -154,11 +174,6 @@ class MedicationsControllerImp extends MedicationsController {
     } else {
       update();
     }
-  }
-
-  @override
-  void getCategories() {
-    categories = List.from(pharmacy?.categories ?? []);
   }
 
   @override
