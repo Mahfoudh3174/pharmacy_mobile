@@ -290,8 +290,12 @@ class AllTranslations extends Translations {
       "view_medication_info": "عرض معلومات الدواء",
       "dosage_form": "شكل الجرعة",
       "in_pharmacy": "في الصيدلية",
+      "RejOrDetails": "طلبات مرفوضة",
+      "ValidOrDetails": "طلبات مؤكدة",
     },
     "fr": {
+      "ValidOrDetails": "Les commandes validées",
+      "RejOrDetails": "Les commandes rejetées",
       "in_pharmacy": "Dans la pharmacie",
       "about_us": "À propos de nous",
       "choose_language": "Choisir la langue",
