@@ -38,7 +38,10 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                   controller.goToDetails(med);
                 },
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 220, maxHeight: 250),
+                  constraints: const BoxConstraints(
+                    minHeight: 220,
+                    maxHeight: 250,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
@@ -51,20 +54,27 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                             width: 80,
                             child: Hero(
                               tag: "${med.id}",
-                              child: med.imageUrl != null && med.imageUrl!.isNotEmpty
-                                  ? CachedNetworkImage(
-                                      imageUrl: "${AppLinks.imagesLink}/${med.imageUrl}",
-                                      errorWidget: (context, url, error) =>
-                                          SvgPicture.asset(
+                              child:
+                                  med.imageUrl != null &&
+                                          med.imageUrl!.isNotEmpty
+                                      ? CachedNetworkImage(
+                                        imageUrl:
+                                            "${AppLinks.imagesLink}/${med.imageUrl}",
+                                        errorWidget:
+                                            (
+                                              context,
+                                              url,
+                                              error,
+                                            ) => SvgPicture.asset(
+                                              "assets/images/medicine-bottle-svgrepo-com.svg",
+                                              fit: BoxFit.cover,
+                                            ),
+                                        fit: BoxFit.cover,
+                                      )
+                                      : SvgPicture.asset(
                                         "assets/images/medicine-bottle-svgrepo-com.svg",
                                         fit: BoxFit.cover,
                                       ),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : SvgPicture.asset(
-                                      "assets/images/medicine-bottle-svgrepo-com.svg",
-                                      fit: BoxFit.cover,
-                                    ),
                             ),
                           ),
                         ),
@@ -72,7 +82,7 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
 
                         // Name
                         Text(
-                          med.name ?? 'Unknown Medication',
+                          med.name ?? "unknown_medication".tr,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -95,8 +105,11 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                         // Category
                         const SizedBox(height: 4),
                         Text(
-                          med.category?.name ?? 'No Category',
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          med.category?.name ?? "no_category".tr,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -104,8 +117,11 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
                         // Pharmacy
                         const SizedBox(height: 4),
                         Text(
-                          "Pharmacy: ${controller.pharmacy?.name ?? 'Unknown'}",
-                          style: const TextStyle(fontSize: 11, color: Colors.grey),
+                          "${"pharmacy_label".tr} ${controller.pharmacy?.name ?? "unknown_pharmacy".tr}",
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -117,40 +133,49 @@ class MedicationCard extends GetView<MedicationsControllerImp> {
             );
           },
         ),
-        
+
         // Load More Button
         if (controller.hasMoreData && controller.medications.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: GetBuilder<MedicationsControllerImp>(
-              builder: (controller) => ElevatedButton(
-                onPressed: controller.isLoadingMore ? null : controller.loadMoreMedications,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primary,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-                child: controller.isLoadingMore
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      )
-                    : Text(
-                        "Load More (${controller.currentPage}/${controller.lastPage})",
-                        style: const TextStyle(fontSize: 16),
+              builder:
+                  (controller) => ElevatedButton(
+                    onPressed:
+                        controller.isLoadingMore
+                            ? null
+                            : controller.loadMoreMedications,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.primary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 12,
                       ),
-              ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child:
+                        controller.isLoadingMore
+                            ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
+                              ),
+                            )
+                            : Text(
+                              "${"load_more".tr} (${controller.currentPage}/${controller.lastPage})",
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                  ),
             ),
           ),
       ],
     );
   }
 }
-

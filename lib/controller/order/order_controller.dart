@@ -20,9 +20,9 @@ class OrderViewControllerImp extends OrderViewController {
     const OrderRejected(),
   ];
   List<String> pageTitles = [
-    "Commandes en attente",
-    "Commandes reçues",
-    "Commandes rejettées",
+    "PendOrDetails".tr,
+    "ValidOrDetails".tr,
+    "RejOrDetails".tr,
   ];
   List<Map<String, IconData>> bottomItems = [
     {"icon": Icons.pending_actions_outlined},

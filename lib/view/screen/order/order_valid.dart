@@ -67,7 +67,7 @@ class OrderValidated extends StatelessWidget {
                                           ),
                                         )
                                         : Text(
-                                          "Load More (${controller.currentPage}/${controller.lastPage})",
+                                          "${"load_more".tr} (${controller.currentPage}/${controller.lastPage})",
                                           style: const TextStyle(fontSize: 16),
                                         ),
                               ),
