@@ -10,26 +10,44 @@ class CategoriesList extends StatelessWidget {
   // Map API SVG names to actual asset file names
   String _getSvgAssetPath(String? svgName) {
     if (svgName == null) return "assets/images/medicine-bottle-svgrepo-com.svg";
-    
+
     // Direct mapping for exact matches
     final exactMatches = [
-      'analgesics.svg', 'antibiotics.svg', 'anti-inflammatory.svg',
-      'antihistamines.svg', 'antihypertensives.svg', 'antidiabetics.svg',
-      'cardiovascular.svg', 'respiratory.svg', 'gastrointestinal.svg',
-      'psychiatric.svg', 'contraceptives.svg', 'dental-care.svg',
-      'eye-care.svg', 'first-aid.svg', 'vitamins.svg', 'skincare.svg',
-      'anti-infectious.svg', 'hormonal.svg', 'immunosuppressants.svg',
-      'oncology.svg', 'medicine-bottle-svgrepo-com.svg', 'capsule-svgrepo-com.svg',
-      'medicine-chest-svgrepo-com.svg', 'inject-svgrepo-com.svg',
-      'ointment-svgrepo-com.svg', 'medicine-icon-svgrepo-com.svg',
-      'infusion-svgrepo-com.svg', 'microscope-svgrepo-com.svg',
-      'stethoscope-svgrepo-com.svg'
+      'analgesics.svg',
+      'antibiotics.svg',
+      'anti-inflammatory.svg',
+      'antihistamines.svg',
+      'antihypertensives.svg',
+      'antidiabetics.svg',
+      'cardiovascular.svg',
+      'respiratory.svg',
+      'gastrointestinal.svg',
+      'psychiatric.svg',
+      'contraceptives.svg',
+      'dental-care.svg',
+      'eye-care.svg',
+      'first-aid.svg',
+      'vitamins.svg',
+      'skincare.svg',
+      'anti-infectious.svg',
+      'hormonal.svg',
+      'immunosuppressants.svg',
+      'oncology.svg',
+      'medicine-bottle-svgrepo-com.svg',
+      'capsule-svgrepo-com.svg',
+      'medicine-chest-svgrepo-com.svg',
+      'inject-svgrepo-com.svg',
+      'ointment-svgrepo-com.svg',
+      'medicine-icon-svgrepo-com.svg',
+      'infusion-svgrepo-com.svg',
+      'microscope-svgrepo-com.svg',
+      'stethoscope-svgrepo-com.svg',
     ];
-    
+
     if (exactMatches.contains(svgName)) {
       return "assets/svgs/$svgName";
     }
-    
+
     // Fallback mappings for common variations
     final fallbackMap = {
       'pain-relief.svg': 'analgesics.svg',
@@ -46,12 +64,12 @@ class CategoriesList extends StatelessWidget {
       'medical-devices.svg': 'stethoscope-svgrepo-com.svg',
       'health-wellness.svg': 'vitamins.svg',
     };
-    
+
     final fallback = fallbackMap[svgName];
     if (fallback != null) {
       return "assets/svgs/$fallback";
     }
-    
+
     // Default fallback
     return "assets/images/medicine-bottle-svgrepo-com.svg";
   }
@@ -68,7 +86,7 @@ class CategoriesList extends StatelessWidget {
           final category = controller.categories[index];
           final isSelected = controller.selectedCategoryId == category.id;
           final svgPath = _getSvgAssetPath(category.svgLogo);
-          
+
           return InkWell(
             onTap: () => controller.filterMedicationsByCategory(category.id),
             child: Column(
@@ -105,7 +123,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  controller.categories[index].name.toString(),
+                  category.getTranslatedName(),
                   style: TextStyle(
                     fontSize: 13,
                     color: isSelected ? AppColor.primary : AppColor.grey,

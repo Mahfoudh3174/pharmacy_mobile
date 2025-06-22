@@ -31,10 +31,11 @@ class SignUpControllerImp extends SignUpController {
     update();
   }
 
-@override
+  @override
   goToSuccess() {
     Get.offNamed(Routes.successSignUp);
   }
+
   @override
   signUp() async {
     if (formstate.currentState!.validate()) {
@@ -48,7 +49,7 @@ class SignUpControllerImp extends SignUpController {
       );
       statusRequest = handlingData(response);
       update();
-      
+
       if (statusRequest == StatusRequest.success) {
         Fluttertoast.showToast(
           msg: "can_login_now".tr,
@@ -71,8 +72,7 @@ class SignUpControllerImp extends SignUpController {
           fontSize: 16.0,
         );
       }
-    } else {
-    }
+    } else {}
   }
 
   @override

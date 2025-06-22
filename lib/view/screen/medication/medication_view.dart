@@ -66,18 +66,9 @@ class MedicationsView extends StatelessWidget {
                       title: controller.pharmacy?.name ?? "",
                       body: controller.pharmacy?.address ?? "",
                     ),
-                    const SizedBox(height: 20),
-                    Text(
-                      "categories".tr,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: AppColor.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+
                     const SizedBox(height: 10),
-                    CategoriesList(controller: controller),
-                    const SizedBox(height: 10),
+
                     Text(
                       "medications".tr,
                       style: const TextStyle(

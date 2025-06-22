@@ -30,7 +30,7 @@ class MedicationsControllerImp extends MedicationsController {
   Pharmacy? pharmacy;
   TextEditingController searchController = TextEditingController();
   MedicationData medicationData = MedicationData(Get.find());
-  
+
   // Pagination variables
   int currentPage = 1;
   int lastPage = 1;
@@ -60,7 +60,8 @@ class MedicationsControllerImp extends MedicationsController {
   Future<void> getCategories() async {
     try {
       final response = await medicationData.getCategoriesData();
-      if (response is Map<String, dynamic> && response.containsKey('categories')) {
+      if (response is Map<String, dynamic> &&
+          response.containsKey('categories')) {
         List categoriesList = response['categories'];
         categories = categoriesList.map((e) => Category.fromJson(e)).toList();
       } else {
@@ -92,10 +93,23 @@ class MedicationsControllerImp extends MedicationsController {
             final matchesQuery = med.name!.toLowerCase().contains(
               query.toLowerCase(),
             );
+
+            // Search by category name in both English and Arabic
+            final matchesCategoryName =
+                med.category != null &&
+                (med.category!.name.toLowerCase().contains(
+                      query.toLowerCase(),
+                    ) ||
+                    med.category!.arName.contains(query) ||
+                    med.category!.getTranslatedName().toLowerCase().contains(
+                      query.toLowerCase(),
+                    ));
+
             final matchesCategory =
                 selectedCategoryId == null ||
                 med.category?.id == selectedCategoryId;
-            return matchesQuery && matchesCategory;
+
+            return (matchesQuery || matchesCategoryName) && matchesCategory;
           }).toList();
 
       statusRequest =
@@ -162,8 +176,9 @@ class MedicationsControllerImp extends MedicationsController {
         categoryId: selectedCategoryId,
         page: currentPage + 1,
       );
-      
-      if (response is Map<String, dynamic> && response.containsKey('medications')) {
+
+      if (response is Map<String, dynamic> &&
+          response.containsKey('medications')) {
         final medicationResponse = MedicationResponse.fromJson(response);
         medications.addAll(medicationResponse.medications);
         currentPage = medicationResponse.meta.currentPage;
