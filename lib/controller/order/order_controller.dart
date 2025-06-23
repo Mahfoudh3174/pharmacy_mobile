@@ -21,7 +21,7 @@ class OrderViewControllerImp extends OrderViewController {
   ];
   List<String> pageTitles = [
     "PendOrDetails".tr,
-    "ValidOrDetails".tr,
+    "validated_orders".tr,
     "RejOrDetails".tr,
   ];
   List<Map<String, IconData>> bottomItems = [

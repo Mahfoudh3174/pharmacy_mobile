@@ -17,6 +17,7 @@ class CustomCardHome extends GetView<MedicationsControllerImp> {
             constraints: const BoxConstraints(minHeight: 120),
             decoration: BoxDecoration(
               color: AppColor.primary,
+              
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(

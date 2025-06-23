@@ -110,14 +110,6 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
       if (status == StatusRequest.success) {
         // Operation successful, optimistic update was correct
         // No need to update count again
-
-        Get.rawSnackbar(
-          title: "notification".tr,
-          messageText: Text(
-            "medication_removed".tr,
-            style: const TextStyle(color: Colors.white),
-          ),
-        );
       } else {
         // Operation failed, revert the optimistic update
         medicationsCount++;
