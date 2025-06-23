@@ -145,6 +145,7 @@ class AllTranslations extends Translations {
       "failed_to_remove_medication": "فشل في إزالة الدواء من السلة",
       "notification": "إشعار",
       "error": "خطأ",
+
       "something_went_wrong": "حدث خطأ ما",
       "try_again": "حاول مرة أخرى",
       "cancel": "إلغاء",
@@ -292,8 +293,11 @@ class AllTranslations extends Translations {
       "in_pharmacy": "في الصيدلية",
       "RejOrDetails": "طلبات مرفوضة",
       "ValidOrDetails": "طلبات مؤكدة",
+      "chargement": "تحميل...",
     },
     "fr": {
+      "cart_is_empty": "Votre panier est vide",
+      "chargement": "Chargement...",
       "ValidOrDetails": "Les commandes validées",
       "RejOrDetails": "Les commandes rejetées",
       "in_pharmacy": "Dans la pharmacie",

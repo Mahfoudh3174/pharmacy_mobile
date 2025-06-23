@@ -223,9 +223,9 @@ class CartControllerImp extends CartController {
   goToCheckout() {
     if (cardItems.isEmpty) {
       Get.rawSnackbar(
-        title: "Notification",
-        messageText: const Text(
-          "Your cart is empty",
+        title: "notification".tr,
+        messageText: Text(
+          "cart_is_empty".tr,
           style: TextStyle(color: Colors.white),
         ),
       );
