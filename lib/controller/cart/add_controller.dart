@@ -3,13 +3,14 @@ import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/datasource/remote/cart/cart_data.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
+import 'package:ecommerce/data/model/medication_model.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 abstract class CartController extends GetxController {
-  addMedicationToCart(int medicationId);
+  addMedicationToCart(Medication medication);
   deleteMedicationFromCart(int medicationId);
   getMedicationFromCart();
   goToCheckout();
@@ -111,9 +112,9 @@ class CartControllerImp extends CartController {
   }
 
   @override
-  addMedicationToCart(int productId) async {
+  addMedicationToCart(Medication medication) async {
     try {
-      final response = await cartData.postCartdata(productId);
+      final response = await cartData.postCartdata(medication.id);
       final status = handlingData(response);
 
       if (status == StatusRequest.success) {

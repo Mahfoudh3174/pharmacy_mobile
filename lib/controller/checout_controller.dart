@@ -1,3 +1,5 @@
+import 'package:ecommerce/controller/cart/add_controller.dart';
+import 'package:ecommerce/controller/medication/medication_controller.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
@@ -54,9 +56,6 @@ class CheckoutControllerImp extends ChecoutController {
 
       statusRequest = StatusRequest.loading;
       update();
-      debugPrint(
-        "==========start totalPrice $totaPrice shipping $shipping latitude ${position!.latitude} longitude ${position!.longitude}",
-      );
 
       final response = await checkoutData.postData(
         cardItems: cardItems,
@@ -67,8 +66,22 @@ class CheckoutControllerImp extends ChecoutController {
       );
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
-        Get.snackbar("success", "order passed successfully");
-        Get.until((route) => route.settings.name == Routes.medications);
+        if (response["error"] == null) {
+          Get.find<MedicationsControllerImp>().getMedications();
+          Get.snackbar("success".tr, "order_success".tr);
+          Get.until((route) => route.settings.name == Routes.medications);
+        } else {
+          Get.snackbar(
+            "error".tr,
+            "out_of_stock".tr,
+            messageText: Text(
+              "${response["error"].toString()} ${"out_of_stock".tr}",
+            ),
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            duration: const Duration(seconds: 3),
+          );
+        }
       }
       debugPrint("==========end");
       update();

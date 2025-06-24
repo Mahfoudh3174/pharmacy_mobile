@@ -10,7 +10,7 @@ abstract class MedicationsDetailsController extends GetxController {
   increment();
   decriment();
   goToCarte();
-  addMedicationToCart(int productId);
+  addMedicationToCart(Medication medication);
   deleteMedicationFromCart(int medicationId);
   getCountItems(int id);
 }
@@ -59,9 +59,9 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
   }
 
   @override
-  addMedicationToCart(int productId) async {
+  addMedicationToCart(Medication medication) async {
     try {
-      final response = await cartData.postCartdata(productId);
+      final response = await cartData.postCartdata(medication.id);
       final status = handlingData(response);
 
       if (status == StatusRequest.success) {
@@ -146,12 +146,14 @@ class MedicationsDetailsControllerImp extends MedicationsDetailsController {
 
   @override
   increment() {
-    // Optimistic update
-    medicationsCount++;
-    update();
-
-    // Perform the actual operation
-    addMedicationToCart(medication.id);
+    if (medicationsCount < medication.quantity! && medication.quantity! > 0) {
+      medicationsCount++;
+      update();
+      // Perform the actual operation
+      addMedicationToCart(medication);
+    } else {
+      Get.snackbar("error".tr, "out_of_stock".tr);
+    }
   }
 
   @override

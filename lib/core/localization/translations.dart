@@ -295,8 +295,11 @@ class AllTranslations extends Translations {
       "ValidOrDetails": "طلبات مؤكدة",
       "chargement": "تحميل...",
       "invalid_credentials": "المعلومات غير صحيحة",
+      "out_of_stock": "الدواء غير متوفر",
     },
     "fr": {
+      "out_of_stock": "Le médicament est en rupture de stock",
+      "order_success": "Commande réussie",
       "invalid_credentials": "Identifiants invalides",
       "cart_is_empty": "Votre panier est vide",
       "chargement": "Chargement...",
