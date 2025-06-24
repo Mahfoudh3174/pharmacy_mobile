@@ -294,8 +294,10 @@ class AllTranslations extends Translations {
       "RejOrDetails": "طلبات مرفوضة",
       "ValidOrDetails": "طلبات مؤكدة",
       "chargement": "تحميل...",
+      "invalid_credentials": "المعلومات غير صحيحة",
     },
     "fr": {
+      "invalid_credentials": "Identifiants invalides",
       "cart_is_empty": "Votre panier est vide",
       "chargement": "Chargement...",
       "ValidOrDetails": "Les commandes validées",
