@@ -43,11 +43,11 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
             child: Column(
               children: [
                 // Price Row
-                _buildPriceRow("price", "$price \$", false),
+                _buildPriceRow("price", "$price MRU", false),
                 const SizedBox(height: 12),
 
                 // Shipping Row
-                _buildPriceRow("shipping", "$shipping \$", false),
+                _buildPriceRow("shipping", "$shipping MRU", false),
 
                 const SizedBox(height: 16),
 
@@ -68,7 +68,7 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
                 const SizedBox(height: 16),
 
                 // Total Price Row
-                _buildPriceRow("total_price", "$totalprice \$", true),
+                _buildPriceRow("total_price", "$totalprice MRU", true),
               ],
             ),
           ),

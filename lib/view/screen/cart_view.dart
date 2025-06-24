@@ -182,7 +182,7 @@ class CartView extends StatelessWidget {
                               name:
                                   "${cartController.cardItems[index].medication.name}",
                               price:
-                                  "${cartController.cardItems[index].medication.price} \$",
+                                  "${cartController.cardItems[index].medication.price} MRU",
                               count:
                                   "${cartController.cardItems[index].quantity}",
                             ),
