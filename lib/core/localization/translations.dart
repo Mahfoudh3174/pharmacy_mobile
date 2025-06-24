@@ -274,16 +274,12 @@ class AllTranslations extends Translations {
       "total_validated_orders": "إجمالي الطلبات المؤكدة",
 
       // Order Details translations
-      "order_details": "تفاصيل الطلب",
+
       "view_order_information": "عرض معلومات الطلب",
-      "rejection_reason": "سبب الرفض",
-      "order_items": "عناصر الطلب",
+
       "item": "العنصر",
       "qty": "الكمية",
-      "price": "السعر",
-      "subtotal": "المجموع الفرعي",
-      "shipping": "الشحن",
-      "total": "المجموع الكلي",
+
 
       // Medication translations
       "find_your_medications": "ابحث عن أدويتك",
@@ -296,8 +292,10 @@ class AllTranslations extends Translations {
       "chargement": "تحميل...",
       "invalid_credentials": "المعلومات غير صحيحة",
       "out_of_stock": "الدواء غير متوفر",
+      "user_already_exists": "المستخدم موجود بالفعل",
     },
     "fr": {
+      "user_already_exists": "L'utilisateur existe déjà",
       "out_of_stock": "Le médicament est en rupture de stock",
       "order_success": "Commande réussie",
       "invalid_credentials": "Identifiants invalides",
