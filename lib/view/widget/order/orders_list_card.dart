@@ -1,5 +1,6 @@
 import 'package:ecommerce/controller/order/order_pending_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
+import 'package:ecommerce/core/functions/translate_db.dart';
 import 'package:ecommerce/data/model/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:jiffy/jiffy.dart';
 class CardOrdersList extends GetView<OrdersPendingController> {
   final Order listdata;
   const CardOrdersList({super.key, required this.listdata});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +58,15 @@ class CardOrdersList extends GetView<OrdersPendingController> {
               "${"delivery_price".tr} : ${listdata.shippingPrice} MRU",
             ), // Update once dynamic
             Text(
-              "${"status".tr} : ${listdata.status}",
+              "${"status".tr} : ${translateDb(listdata.arSatus, listdata.status)}",
               style: TextStyle(
                 color:
                     listdata.status == "ENCOURS"
                         ? AppColor.warningColor
                         : listdata.status == "VALIDEE"
                         ? AppColor.successColor
+                        : listdata.status == "LIVRÉ" ?
+                         AppColor.secondary
                         : AppColor.errorColor,
                 fontWeight: FontWeight.bold,
               ),

@@ -12,7 +12,7 @@ class Imageasset {
     static const String onBording2 = "$imagePath/screen_two.png";
     static const String onBording3 = "$imagePath/screen_three.png";
 
-    static const String logo = "$imagePath/logoapp.png";
+    static const String logo = "$imagePath/icon.png";
     static const String noData="$imagePath/nodata.gif";
 
     static const String server="$lottiePath/server.json";
@@ -21,7 +21,7 @@ class Imageasset {
     static const String nodata="$lottiePath/nodata.json";
 
     static const String deliveryImage2="$imagePath/006-delivery.png";
-    static const String drivethruImage="$imagePath/drivethru.png";
+    static const String drivethruImage="$imagePath/003-cash-on-delivery.png";
 
 
 

@@ -19,6 +19,10 @@ class Crud {
           headers: header,
           body: data,
         );
+        Map reponseBody1 = json.decode(response.body);
+          print("response==== $reponseBody1");
+        
+         
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map reponseBody = json.decode(response.body);
           print("response==== $reponseBody");

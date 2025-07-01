@@ -3,7 +3,7 @@ import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
 
 ThemeData themeEnglish = ThemeData(
-  fontFamily: "PlayfairDisplay", 
+  fontFamily: "Tajawal", 
   floatingActionButtonTheme:FloatingActionButtonThemeData(backgroundColor: AppColor.primary) ,
   // Text Theme
         textTheme: TextTheme(
@@ -84,14 +84,7 @@ ThemeData themeEnglish = ThemeData(
         ),
 
 
-        // Card Theme
-        cardTheme: CardTheme(
-          color: AppColor.surface,
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+       
 
 
 
@@ -202,14 +195,7 @@ primarySwatch: Colors.blue,
         
 
 
-        // Card Theme
-        cardTheme: CardTheme(
-          color: AppColor.surface,
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      
 
 
 

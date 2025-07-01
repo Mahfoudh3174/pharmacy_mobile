@@ -40,12 +40,14 @@ class CartControllerImp extends CartController {
 
   @override
   void onInit() {
-    getMedicationFromCart();
+    
     initialData();
     super.onInit();
   }
 
   Future<void> initialData() async {
+    statusRequest = StatusRequest.loading;
+    update();
     position = await getCurrentLocationApp();
     if (position == null) {
       Get.rawSnackbar(message: "please turn on location");
@@ -60,6 +62,7 @@ class CartControllerImp extends CartController {
     );
     shipping = int.tryParse(getShipingPrice().toString()) ?? 0;
     update();
+    getMedicationFromCart();
   }
 
   int getShipingPrice() {

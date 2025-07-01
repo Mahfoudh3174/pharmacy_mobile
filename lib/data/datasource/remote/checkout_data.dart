@@ -15,6 +15,7 @@ class CheckoutData {
 
   postData({required int totalPrice,required String deliveryType  ,required List<Cart> cardItems,required int shipping,required Position position}) async {
     String? token = storage.sharedPreferences.getString("token");
+    String? currentLang = storage.sharedPreferences.getString("lang");
         int? pharmacyId = storage.sharedPreferences.getInt(
       "current_pharmacy_id",
     );
@@ -27,7 +28,8 @@ class CheckoutData {
         'deliveryType': deliveryType,
         'latitude': position.latitude,
         'shipping_price': shipping,
-        'longitude': position.longitude
+        'longitude': position.longitude,
+        'lang': currentLang,
       },
         {
           "Authorization": "Bearer $token",

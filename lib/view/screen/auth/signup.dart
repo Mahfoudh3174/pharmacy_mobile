@@ -90,8 +90,9 @@ class SignUp extends StatelessWidget {
                                 CustonTextFormAuth(
                                   isNumber: false,
                                   valid: (val) {
-                                    if (val!.isEmpty)
+                                    if (val!.isEmpty) {
                                       return "invalid_username".tr;
+                                    }
                                     return null;
                                   },
                                   mycontroller: controller.username,
@@ -103,8 +104,9 @@ class SignUp extends StatelessWidget {
                                 CustonTextFormAuth(
                                   isNumber: false,
                                   valid: (val) {
-                                    if (val!.isEmpty)
+                                    if (val!.isEmpty) {
                                       return "please_enter_email".tr;
+                                    }
                                     return null;
                                   },
                                   mycontroller: controller.email,
@@ -141,8 +143,9 @@ class SignUp extends StatelessWidget {
                                         },
                                         isNumber: false,
                                         valid: (val) {
-                                          if (val!.isEmpty)
+                                          if (val!.isEmpty) {
                                             return "enter_password".tr;
+                                          }
                                           if (val.length < 8) {
                                             return "${"input_min_length".tr}8";
                                           } else if (val.length > 20) {

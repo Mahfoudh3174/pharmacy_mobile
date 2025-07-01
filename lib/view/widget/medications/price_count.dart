@@ -42,7 +42,7 @@ class PriceAndCountItems extends StatelessWidget {
           "$price MRU",
           style: const TextStyle(
             color: AppColor.primary,
-            fontSize: 30,
+            fontSize: 18,
             height: 1.1,
           ),
         ),

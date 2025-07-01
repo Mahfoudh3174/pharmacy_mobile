@@ -1,6 +1,7 @@
 import 'package:ecommerce/controller/order/order_pending_controller.dart';
 import 'package:ecommerce/controller/order/order_rejected_controller.dart';
 import 'package:ecommerce/controller/order/order_valid_controller.dart';
+import 'package:ecommerce/view/screen/order/order_delivred.dart';
 import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/order/order_rejected.dart';
 import 'package:ecommerce/view/screen/order/order_valid.dart';
@@ -18,16 +19,19 @@ class OrderViewControllerImp extends OrderViewController {
     const OrdersPending(),
     const OrderValidated(),
     const OrderRejected(),
+    const OrdersDelivred(),
   ];
   List<String> pageTitles = [
     "PendOrDetails".tr,
     "validated_orders".tr,
     "RejOrDetails".tr,
+    "delivered_orders".tr,
   ];
   List<Map<String, IconData>> bottomItems = [
     {"icon": Icons.pending_actions_outlined},
     {"icon": Icons.checklist_rtl_outlined},
     {"icon": Icons.cancel_outlined},
+    {"icon": Icons.delivery_dining_outlined},
   ];
   @override
   void onInit() {
