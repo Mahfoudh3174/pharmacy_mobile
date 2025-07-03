@@ -44,10 +44,11 @@ class PharmacyControllerImp extends PharmacyController {
         List pharmacyList = response["pharmacies"] ?? [];
         for (var pharmacy in pharmacyList) {
           pharmacies.add(Pharmacy.fromJsonBasic(pharmacy));
-          print("======${pharmacies.first}");
+          
         }
 
         if (pharmacies.isEmpty) {
+          debugPrint("N======o pharmacies found");
           statusRequest = StatusRequest.failure;
         }
       } else {
@@ -57,7 +58,10 @@ class PharmacyControllerImp extends PharmacyController {
       print(e);
       statusRequest = StatusRequest.serverException;
     }
-    print("statusRequest ${statusRequest == StatusRequest.serverException}");
+
+    print("statusRequest pharma serverException ${statusRequest == StatusRequest.serverException}");
+    print("statusRequest pharma serverFailure ${statusRequest == StatusRequest.serverFailure}");
+    print("statusRequest pharma success ${statusRequest == StatusRequest.success}");
 
     update();
   }

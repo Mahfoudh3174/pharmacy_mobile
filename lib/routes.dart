@@ -1,3 +1,4 @@
+import 'package:ecommerce/controller/pharmacy/pharmacy_controller.dart';
 import 'package:ecommerce/core/middleware/regitred_middleware.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/forgetpassword.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/success_reset_password.dart';
@@ -29,6 +30,7 @@ class Routes {
   static const String login = '/login';
   static const String language = '/';
   static const String signUp = '/signUp';
+ 
 
   static const String verifiercheckmail = '/verifiercheckmail';
   static const String successSignUp = '/successSignUp';
@@ -71,7 +73,9 @@ class Routes {
       page: () => const SuccessResetPassword(),
     ),
     GetPage(name: successSignUp, page: () => const SuccessSignUp()),
-    GetPage(name: home, page: () => const HomeScreen()),
+    GetPage(name: home, page: () => const HomeScreen(),binding:BindingsBuilder(() {
+      Get.lazyPut(() => PharmacyControllerImp());
+    })) ,
     GetPage(name: medications, page: () => const MedicationsView()),
     GetPage(name: medicationDetails, page: () => const MedicationDatailsView()),
     GetPage(name: pharmacies, page: () => const PharmacieView()),

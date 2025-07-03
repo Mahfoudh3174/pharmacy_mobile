@@ -14,6 +14,7 @@ abstract class LoginController extends GetxController {
   togglePassword();
   goToForgetPassword();
   goToHome();
+
 }
 
 class LoginControllerImp extends LoginController {
@@ -43,6 +44,10 @@ class LoginControllerImp extends LoginController {
       update();
       if (statusRequest == StatusRequest.success) {
         storage.sharedPreferences.setString("token", response['token']);
+        if(response['email'] != null) {
+          Get.offNamed(Routes.verifiercheckmail, arguments: {"email": response['email']});
+          return;
+        }
         goToHome();
       } else {
         Fluttertoast.showToast(
@@ -87,4 +92,6 @@ class LoginControllerImp extends LoginController {
   goToForgetPassword() {
     Get.toNamed(Routes.forgetPassword);
   }
+  
+ 
 }

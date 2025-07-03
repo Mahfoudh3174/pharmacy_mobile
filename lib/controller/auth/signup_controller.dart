@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 abstract class SignUpController extends GetxController {
   signUp();
   goToSignIn();
-  goToSuccess();
+  goToVerify();
   togglePassword() {}
 }
 
@@ -32,8 +32,9 @@ class SignUpControllerImp extends SignUpController {
   }
 
   @override
-  goToSuccess() {
-    Get.offNamed(Routes.successSignUp);
+  goToVerify() {
+    Get.offNamed(Routes.verifiercheckmail,
+        arguments: {"email": email.text});
   }
 
   @override
@@ -51,16 +52,9 @@ class SignUpControllerImp extends SignUpController {
       update();
 
       if (statusRequest == StatusRequest.success) {
-        Fluttertoast.showToast(
-          msg: "can_login_now".tr,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        goToSuccess();
+
+        
+        goToVerify();
       } else {
         Fluttertoast.showToast(
           msg: "user_already_exists".tr,
@@ -74,6 +68,8 @@ class SignUpControllerImp extends SignUpController {
       }
     } else {}
   }
+
+
 
   @override
   goToSignIn() {
@@ -89,12 +85,5 @@ class SignUpControllerImp extends SignUpController {
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    username.dispose();
-    email.dispose();
-    phone.dispose();
-    password.dispose();
-    super.dispose();
-  }
+
 }

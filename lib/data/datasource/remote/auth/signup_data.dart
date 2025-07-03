@@ -19,4 +19,25 @@ class SignupData {
     });
     return response.fold((l) => l, (r) => r);
   }
+
+  verifyOtp(String email, String otp) async {
+    var response = await crud.postJsonData("${AppLinks.baseUrl}/email/verify-otp", {
+      "email": email,
+      "otp": otp,
+    },{
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    });
+    return response.fold((l) => l, (r) => r);
+  }
+
+  sendOtp(String email) async {
+    var response = await crud.postJsonData("${AppLinks.baseUrl}/email/send-otp", {
+      "email": email,
+    },{
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    });
+    return response.fold((l) => l, (r) => r);
+  }
 }
