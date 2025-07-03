@@ -1,10 +1,8 @@
 import 'package:ecommerce/controller/auth/verify_controller.dart';
 import 'package:ecommerce/core/class/handeling_data_view.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/view/widget/auth/custombuttonauth.dart';
 import 'package:ecommerce/view/widget/auth/customtextbodyauth.dart';
 import 'package:ecommerce/view/widget/auth/customtexttitleauth.dart';
-import 'package:ecommerce/view/widget/auth/custom_otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';

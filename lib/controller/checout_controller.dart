@@ -1,4 +1,3 @@
-import 'package:ecommerce/controller/cart/add_controller.dart';
 import 'package:ecommerce/controller/medication/medication_controller.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce/data/datasource/remote/checkout_data.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 abstract class ChecoutController extends GetxController {
   String? chooseDeliveryType(String type);
@@ -53,6 +53,7 @@ class CheckoutControllerImp extends ChecoutController {
         Get.rawSnackbar(message: "please turn on location");
         return;
       }
+     await getNotificationsPermission();
 
       statusRequest = StatusRequest.loading;
       update();
@@ -86,7 +87,7 @@ class CheckoutControllerImp extends ChecoutController {
       debugPrint("==========end");
       update();
     } catch (e) {
-      print(e.toString());
+      
       statusRequest = StatusRequest.serverException;
       update();
     }
@@ -130,4 +131,20 @@ class CheckoutControllerImp extends ChecoutController {
     }
     return null;
   }
+
+ Future<Permission> getNotificationsPermission() async {
+  PermissionStatus status = await Permission.notification.status;
+  if (status.isGranted) {
+    return Permission.notification;
+  } else {
+    PermissionStatus newStatus = await Permission.notification.request();
+    if (newStatus.isGranted) {
+      return Permission.notification;
+    } else {
+      return Future.error(
+        "Notification permission denied",
+      );
+    }
+  }
+ }
 }

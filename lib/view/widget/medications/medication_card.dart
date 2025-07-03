@@ -2,7 +2,6 @@ import 'package:ecommerce/controller/medication/medication_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/linkapi.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

@@ -27,6 +27,7 @@ class CustomItemsCartList extends StatelessWidget {
             flex: 2,
             child: CachedNetworkImage(
               imageUrl: "${AppLinks.imagesLink}/$imagename",
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               height: 80,
             ),
           ),

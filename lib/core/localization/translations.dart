@@ -340,7 +340,7 @@ class AllTranslations extends Translations {
       "phone_or_email": "Téléphone ou email",
       "enter_email": "Entrez votre email",
       "email": "Email",
-      "choose_language":"اختر اللغة",
+     
       "password": "Mot de passe",
       "enter_password": "Entrez votre mot de passe",
       "forget_password": "Mot de passe oublié ?",
@@ -483,7 +483,7 @@ class AllTranslations extends Translations {
       "delivery_method": "Méthode de livraison",
       "order_summary": "Résumé de la commande",
       "order_confirmation": "Confirmation de commande",
-      "order_success": "Commande réussie",
+      
       "order_failed": "Échec de la commande",
       "order_processing": "Commande en cours de traitement",
       "order_shipped": "Commande expédiée",

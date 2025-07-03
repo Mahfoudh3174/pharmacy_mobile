@@ -5,6 +5,7 @@ import 'package:ecommerce/view/screen/order/order_delivred.dart';
 import 'package:ecommerce/view/screen/order/order_pending.dart';
 import 'package:ecommerce/view/screen/order/order_rejected.dart';
 import 'package:ecommerce/view/screen/order/order_valid.dart';
+import 'package:ecommerce/controller/order/order_delivred_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,10 @@ class OrderViewControllerImp extends OrderViewController {
       case 2:
         Get.delete<OrderRejectedController>();
         Get.put(OrderRejectedController());
+        break;
+      case 3:
+        Get.delete<OrdersDelivredController>();
+        Get.put(OrdersDelivredController());
         break;
     }
     update();
