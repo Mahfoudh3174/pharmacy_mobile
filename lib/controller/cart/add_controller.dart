@@ -6,7 +6,6 @@ import 'package:ecommerce/data/model/cart_model.dart';
 import 'package:ecommerce/data/model/medication_model.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 abstract class CartController extends GetxController {
@@ -21,26 +20,14 @@ abstract class CartController extends GetxController {
 class CartControllerImp extends CartController {
   StatusRequest statusRequest = StatusRequest.none;
   CartData cartData = CartData(Get.find());
-  Position? position;
 
   List<Cart> cardItems = [];
   int totalPrice = 0;
   int totalItems = 0;
-  int shipping = 0;
-  double distance = 0;
   final storage = Get.find<Myservice>();
-
-  // void clearCurrentPharmacy() {
-  //   Get.find<Myservice>().sharedPreferences.remove('current_pharmacy_id');
-  //   cardItems.clear();
-  //   totalPrice = 0;
-  //   totalItems = 0;
-  //   update();
-  // }
 
   @override
   void onInit() {
-    
     initialData();
     super.onInit();
   }
@@ -48,70 +35,9 @@ class CartControllerImp extends CartController {
   Future<void> initialData() async {
     statusRequest = StatusRequest.loading;
     update();
-    position = await getCurrentLocationApp();
-    if (position == null) {
-      Get.rawSnackbar(message: "please turn on location");
-      return;
-    }
-
-    distance = Geolocator.distanceBetween(
-      position!.latitude,
-      position!.longitude,
-      storage.sharedPreferences.getDouble("latitude")!,
-      storage.sharedPreferences.getDouble("longitude")!,
-    );
-    shipping = int.tryParse(getShipingPrice().toString()) ?? 0;
+    await getMedicationFromCart();
+    statusRequest = StatusRequest.success;
     update();
-    getMedicationFromCart();
-  }
-
-  int getShipingPrice() {
-    if (distance <= 5000) {
-      return 50;
-    } else if (distance <= 10000) {
-      return 100;
-    } else {
-      return 150;
-    }
-  }
-
-  Future<Position?> getCurrentLocationApp() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    try {
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-      if (!serviceEnabled) {
-        return null;
-      }
-
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          // Permissions are denied, handle accordingly
-          throw LocationServiceDisabledException();
-        }
-      }
-      if (permission == LocationPermission.whileInUse ||
-          permission == LocationPermission.always) {
-        Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high,
-        );
-
-        return position;
-      }
-      return null;
-    } catch (e) {
-      Get.snackbar(
-        "Erreur",
-        "Une erreur est survenue lors de la récupération de la localisation",
-
-        snackPosition: SnackPosition.TOP,
-      );
-    }
-    return null;
   }
 
   @override
@@ -121,7 +47,6 @@ class CartControllerImp extends CartController {
       final status = handlingData(response);
 
       if (status == StatusRequest.success) {
-        // Refresh cart data without showing loading
         await getMedicationFromCart();
 
         Get.rawSnackbar(
@@ -144,12 +69,10 @@ class CartControllerImp extends CartController {
   @override
   deleteMedicationFromCart(int medicationId) async {
     try {
-      // Don't show loading state for better UX
       final response = await cartData.deleteCartData(medicationId);
       final status = handlingData(response);
 
       if (status == StatusRequest.success) {
-        // Refresh cart data without showing loading
         await getMedicationFromCart();
 
         Get.rawSnackbar(
@@ -172,7 +95,6 @@ class CartControllerImp extends CartController {
   @override
   getMedicationFromCart() async {
     try {
-      // Only show loading on initial load, not on refresh
       if (cardItems.isEmpty) {
         statusRequest = StatusRequest.loading;
         update();
@@ -201,7 +123,7 @@ class CartControllerImp extends CartController {
         title: "error".tr,
         messageText: Text(
           "unexpected_error".tr,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       );
       statusRequest = StatusRequest.serverException;
@@ -212,14 +134,13 @@ class CartControllerImp extends CartController {
   @override
   refreshData() {
     resetVariables();
-    getMedicationFromCart();
+    initialData();
   }
 
   @override
   resetVariables() {
     totalItems = 0;
     totalPrice = 0;
-    shipping = 0;
     cardItems.clear();
   }
 
@@ -230,7 +151,7 @@ class CartControllerImp extends CartController {
         title: "notification".tr,
         messageText: Text(
           "cart_is_empty".tr,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       );
       return;
@@ -240,8 +161,8 @@ class CartControllerImp extends CartController {
       arguments: {
         'cardItems': cardItems,
         'totalPrice': totalPrice,
-        'shipping': shipping,
       },
     );
   }
 }
+

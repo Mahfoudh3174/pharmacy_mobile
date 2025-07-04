@@ -1,34 +1,38 @@
 import 'package:ecommerce/controller/medication/medication_controller.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/model/cart_model.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce/data/datasource/remote/checkout_data.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 abstract class ChecoutController extends GetxController {
   String? chooseDeliveryType(String type);
   passeOrder();
+  updateUserLocation(LatLng location);
 }
 
 class CheckoutControllerImp extends ChecoutController {
   StatusRequest statusRequest = StatusRequest.none;
   String? deliveryType;
   int? totaPrice;
-  int? shipping;
+  int shipping = 0;
   List<Cart> cardItems = [];
   CheckoutData checkoutData = CheckoutData(Get.find());
+  final storage = Get.find<Myservice>();
 
   Position? position;
+  LatLng? userLocation;
+
   @override
   void onInit() {
     cardItems = Get.arguments["cardItems"];
     totaPrice = Get.arguments["totalPrice"];
-    shipping = Get.arguments["shipping"];
-
     super.onInit();
   }
 
@@ -46,14 +50,34 @@ class CheckoutControllerImp extends ChecoutController {
       Get.rawSnackbar(message: "please choose delivery type");
       return;
     }
+    if (deliveryType == "LIVRAISON" && userLocation == null) {
+      Get.rawSnackbar(message: "please select your location");
+      return;
+    }
 
     try {
-      position = await getCurrentLocationApp();
+      if (deliveryType == "LIVRAISON") {
+        position = Position(
+          latitude: userLocation!.latitude,
+          longitude: userLocation!.longitude,
+          timestamp: DateTime.now(),
+          accuracy: 1.0,
+          altitude: 1.0,
+          altitudeAccuracy: 1.0,
+          heading: 1.0,
+          headingAccuracy: 1.0,
+          speed: 1.0,
+          speedAccuracy: 1.0,
+        );
+      } else {
+        position = await getCurrentLocationApp();
+      }
+
       if (position == null) {
         Get.rawSnackbar(message: "please turn on location");
         return;
       }
-     await getNotificationsPermission();
+      await getNotificationsPermission();
 
       statusRequest = StatusRequest.loading;
       update();
@@ -61,7 +85,7 @@ class CheckoutControllerImp extends ChecoutController {
       final response = await checkoutData.postData(
         cardItems: cardItems,
         deliveryType: deliveryType!,
-        shipping: shipping!,
+        shipping: shipping,
         totalPrice: totaPrice!,
         position: position!,
       );
@@ -87,7 +111,6 @@ class CheckoutControllerImp extends ChecoutController {
       debugPrint("==========end");
       update();
     } catch (e) {
-      
       statusRequest = StatusRequest.serverException;
       update();
     }
@@ -125,26 +148,48 @@ class CheckoutControllerImp extends ChecoutController {
       Get.snackbar(
         "Erreur",
         "Une erreur est survenue lors de la récupération de la localisation",
-
         snackPosition: SnackPosition.TOP,
       );
     }
     return null;
   }
 
- Future<Permission> getNotificationsPermission() async {
-  PermissionStatus status = await Permission.notification.status;
-  if (status.isGranted) {
-    return Permission.notification;
-  } else {
-    PermissionStatus newStatus = await Permission.notification.request();
-    if (newStatus.isGranted) {
+  Future<Permission> getNotificationsPermission() async {
+    PermissionStatus status = await Permission.notification.status;
+    if (status.isGranted) {
       return Permission.notification;
     } else {
-      return Future.error(
-        "Notification permission denied",
-      );
+      PermissionStatus newStatus = await Permission.notification.request();
+      if (newStatus.isGranted) {
+        return Permission.notification;
+      } else {
+        return Future.error(
+          "Notification permission denied",
+        );
+      }
     }
   }
- }
+
+  @override
+  updateUserLocation(LatLng location) {
+    userLocation = location;
+    shipping = getShipingPrice();
+    update();
+  }
+
+  int getShipingPrice() {
+    double distance = Geolocator.distanceBetween(
+      userLocation!.latitude,
+      userLocation!.longitude,
+      storage.sharedPreferences.getDouble("latitude")!,
+      storage.sharedPreferences.getDouble("longitude")!,
+    );
+    if (distance <= 5000) {
+      return 50;
+    } else if (distance <= 10000) {
+      return 100;
+    } else {
+      return 150;
+    }
+  }
 }

@@ -25,6 +25,8 @@ import 'package:ecommerce/view/screen/setting/setting_view.dart';
 
 import 'package:get/get.dart';
 
+import 'package:ecommerce/view/screen/map_screen.dart';
+
 class Routes {
   static const String onBoarding = '/onBoarding';
   static const String login = '/login';
@@ -49,6 +51,7 @@ class Routes {
 
   static const String cart = '/cart';
   static const String checkout = '/checkout';
+  static const String map = '/map';
 
   static const String orders = '/orders';
   static const String pending = '/pending';
@@ -81,6 +84,7 @@ class Routes {
     GetPage(name: pharmacies, page: () => const PharmacieView()),
     GetPage(name: cart, page: () => const CartView()),
     GetPage(name: checkout, page: () => const CheckoutView()),
+    GetPage(name: map, page: () => const MapScreen()),
 
     GetPage(name: settings, page: () => const SettingView()),
 

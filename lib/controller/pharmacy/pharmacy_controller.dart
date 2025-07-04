@@ -1,7 +1,6 @@
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
 import 'package:ecommerce/core/services/services.dart';
-
 import 'package:ecommerce/data/datasource/remote/pharmacy/pharmacy_data.dart';
 import 'package:ecommerce/data/model/pharmacy_model.dart';
 import 'package:ecommerce/routes.dart';

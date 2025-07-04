@@ -52,9 +52,8 @@ class CartView extends StatelessWidget {
               ),
               child: BottomNavgationBarCart(
                 price: "${cartController.totalPrice}",
-                shipping: "${cartController.shipping}",
                 totalprice:
-                    "${cartController.totalPrice + cartController.shipping}",
+                    "${cartController.totalPrice}",
               ),
             ),
       ),

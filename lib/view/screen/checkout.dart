@@ -2,6 +2,7 @@ import 'package:ecommerce/controller/checout_controller.dart';
 import 'package:ecommerce/core/class/handeling_data_view.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/imageasset.dart';
+import 'package:ecommerce/routes.dart';
 import 'package:ecommerce/view/widget/ckeckout/cart_delivery_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -218,6 +219,30 @@ class CheckoutView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(height: 20),
+                                // Add the map button here
+                                if (controller.deliveryType == "LIVRAISON")
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      // Navigate to the map screen
+                                      Get.toNamed(Routes.map);
+                                    },
+                                    icon: const Icon(Icons.map_outlined),
+                                    label: Text("select_location".tr),
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: AppColor.primary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
                               ],
                             ),
                           ),
@@ -305,6 +330,31 @@ class CheckoutView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  if (controller.deliveryType == "LIVRAISON" &&
+                                      controller.userLocation != null) ...[
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "shipping".tr,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${controller.shipping} MRU",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: AppColor.primary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ] else ...[
                                   Text(
                                     "please_select_delivery_method".tr,

@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 
 class BottomNavgationBarCart extends GetView<CartControllerImp> {
   final String price;
-  final String shipping;
+
   final String totalprice;
   const BottomNavgationBarCart({
     super.key,
     required this.price,
-    required this.shipping,
+   
     required this.totalprice,
   });
 
@@ -42,30 +42,10 @@ class BottomNavgationBarCart extends GetView<CartControllerImp> {
             ),
             child: Column(
               children: [
-                // Price Row
-                _buildPriceRow("price", "$price MRU", false),
-                const SizedBox(height: 12),
+                
+                
 
-                // Shipping Row
-                _buildPriceRow("shipping", "$shipping MRU", false),
-
-                const SizedBox(height: 16),
-
-                // Divider
-                Container(
-                  height: 1,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        AppColor.primary.withOpacity(0.2),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
+                
 
                 // Total Price Row
                 _buildPriceRow("total_price", "$totalprice MRU", true),
