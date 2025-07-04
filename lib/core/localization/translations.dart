@@ -296,8 +296,10 @@ class AllTranslations extends Translations {
       "can_login_now": "يمكنك تسجيل الدخول الآن",
       "delivered_orders": "الطلبات التي تم توصيلها",
       "delivered": "تم التوصيل",
+      "select_location": "اختر الموقع",
     },
     "fr": {
+      "select_location": "Sélectionner l'emplacement",
       "LIVRÉ": "LIVRÉ",
       "delivered_orders": "Commandes livrées",
       "can_login_now": "Vous pouvez vous connecter maintenant",

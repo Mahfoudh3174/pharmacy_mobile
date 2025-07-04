@@ -51,7 +51,7 @@ class CheckoutControllerImp extends ChecoutController {
       return;
     }
     if (deliveryType == "LIVRAISON" && userLocation == null) {
-      Get.rawSnackbar(message: "please select your location");
+      Get.toNamed(Routes.map);
       return;
     }
 

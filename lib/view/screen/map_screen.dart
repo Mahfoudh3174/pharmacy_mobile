@@ -25,6 +25,59 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the 
+      // App to enable the location services.
+      Get.snackbar(
+        "Location Error",
+        "Location services are disabled. Please enable them.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale 
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        Get.snackbar(
+          "Location Error",
+          "Location permissions are denied.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+    }
+    
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately. 
+      Get.snackbar(
+        "Location Error",
+        "Location permissions are permanently denied, we cannot request permissions.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    } 
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
     try {
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
@@ -32,14 +85,17 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _initialCenter = LatLng(position.latitude, position.longitude);
         _selectedLocation = _initialCenter;
-        _mapController.move(_initialCenter!, 15.0);
       });
     } catch (e) {
       // Handle location errors
       debugPrint("Error getting location: $e");
-      setState(() {
-        _initialCenter = LatLng(36.7753, 3.0602); // Default to Algiers
-      });
+      Get.snackbar(
+        "Location Error",
+        "Failed to retrieve your location. Error: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 
@@ -84,9 +140,25 @@ class _MapScreenState extends State<MapScreen> {
                       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                   subdomains: const ['a', 'b', 'c'],
                 ),
-                if (_selectedLocation != null)
-                  MarkerLayer(
-                    markers: [
+                MarkerLayer(
+                  markers: [
+                    if (_initialCenter != null)
+                      Marker(
+                        point: _initialCenter!,
+                        width: 24,
+                        height: 24,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 3,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (_selectedLocation != null)
                       Marker(
                         width: 80.0,
                         height: 80.0,
@@ -97,8 +169,8 @@ class _MapScreenState extends State<MapScreen> {
                           size: 40.0,
                         ),
                       ),
-                    ],
-                  ),
+                  ],
+                ),
               ],
             ),
     );
