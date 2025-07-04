@@ -137,7 +137,7 @@ class _MapScreenState extends State<MapScreen> {
               children: [
                 TileLayer(
                   urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
                   subdomains: const ['a', 'b', 'c'],
                 ),
                 MarkerLayer(
