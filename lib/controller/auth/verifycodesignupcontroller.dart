@@ -108,6 +108,28 @@ class VerifyCodeSignUpControllerImp extends VerifyCodeSignUpController {
 
     if (StatusRequest.success == statusRequest) {
       if (response['fr_message'] != null) {
+        if(response['fr_message']== "OTP invalide"){
+Get.snackbar(
+          "error".tr,
+          translateDb(response['ar_message'], response['fr_message']),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Get.theme.colorScheme.primary,
+          colorText: Get.theme.colorScheme.onPrimary,
+        );
+        update();
+        return;
+        }
+        if(response['fr_message'] == "OTP expiré") {
+          Get.snackbar(
+            "error".tr,
+            translateDb(response['ar_message'], response['fr_message']),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Get.theme.colorScheme.primary,
+            colorText: Get.theme.colorScheme.onPrimary,
+          );
+          update();
+          return;
+        }
         Get.snackbar(
           "success".tr,
           translateDb(response['ar_message'], response['fr_message']),

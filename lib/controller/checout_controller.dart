@@ -111,6 +111,7 @@ class CheckoutControllerImp extends ChecoutController {
       debugPrint("==========end");
       update();
     } catch (e) {
+      
       statusRequest = StatusRequest.serverException;
       update();
     }
