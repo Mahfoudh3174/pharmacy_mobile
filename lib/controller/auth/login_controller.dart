@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/core/functions/translate_db.dart';
 import 'package:ecommerce/data/datasource/remote/auth/login_data.dart';
 import 'package:ecommerce/routes.dart';
 
@@ -43,15 +44,32 @@ class LoginControllerImp extends LoginController {
       statusRequest = handlingData(response);
       update();
       if (statusRequest == StatusRequest.success) {
-        storage.sharedPreferences.setString("token", response['token']);
+        if(response['token'] != null) {
+          storage.sharedPreferences.setString("token", response['token']);
+        }
         if(response['email'] != null) {
+          
           Get.offNamed(Routes.verifiercheckmail, arguments: {"email": response['email']});
           return;
+        }
+        if( response['user']==null && response['fr_message'] != null ) {
+        
+          Fluttertoast.showToast(
+            msg: translateDb(response['ar_message'] ?? "", response['fr_message'] ?? ""),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          return;
+        
         }
         goToHome();
       } else {
         Fluttertoast.showToast(
-          msg: "invalid_credentials".tr,
+          msg: "retry".tr,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           timeInSecForIosWeb: 1,

@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/class/crud.dart';
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/core/functions/translate_db.dart';
 import 'package:ecommerce/data/datasource/remote/auth/password_reset_data.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,10 +44,32 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
     statusRequest = handlingData(response);
 
     if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success' || response['message'] != null) {
+      if (response['message'] != null) {
+         if(response['fr_message'] == "OTP expiré") {
+          Get.snackbar(
+            "error".tr,
+            translateDb(response['ar_message'], response['fr_message']),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Get.theme.colorScheme.primary,
+            colorText: Get.theme.colorScheme.onPrimary,
+          );
+          update();
+          return;
+        }
+        if(response['fr_message'] == "OTP invalide") {
+          Get.snackbar(
+            "error".tr,
+            translateDb(response['ar_message'], response['fr_message']),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Get.theme.colorScheme.primary,
+            colorText: Get.theme.colorScheme.onPrimary,
+          );
+          update();
+          return;
+        }
         Get.snackbar(
           "success".tr,
-          response['message'] ?? "otp_sent_successfully".tr,
+                      translateDb(response['ar_message'], response['fr_message']),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Get.theme.colorScheme.primary,
           colorText: Get.theme.colorScheme.onPrimary,

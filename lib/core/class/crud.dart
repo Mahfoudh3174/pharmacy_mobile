@@ -19,6 +19,7 @@ class Crud {
           headers: header,
           body: data,
         );
+        print("statusCode==== ${response.statusCode}");
         Map reponseBody1 = json.decode(response.body);
           print("response==== $reponseBody1");
         

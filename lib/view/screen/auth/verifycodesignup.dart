@@ -46,15 +46,17 @@ class VerfiyCodeSignUp extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Container(
+              width: double.infinity,
               alignment: Alignment.center,
               child: Directionality(
+
                 textDirection: TextDirection.ltr,
                 child: OtpTextField(
                   numberOfFields: 6,
                   borderColor: AppColor.primary,
                   focusedBorderColor: AppColor.primary,
                   showFieldAsBox: true,
-                  fieldWidth: 45,
+                  fieldWidth: 40,
                   fieldHeight: 50,
                   borderRadius: BorderRadius.circular(10),
                   textStyle: const TextStyle(

@@ -53,7 +53,7 @@ class VerfiyCode extends StatelessWidget {
                   borderColor: AppColor.primary,
                   focusedBorderColor: AppColor.primary,
                   showFieldAsBox: true,
-                  fieldWidth: 45,
+                  fieldWidth: 40,
                   fieldHeight: 50,
                   borderRadius: BorderRadius.circular(10),
                   textStyle: const TextStyle(

@@ -297,8 +297,11 @@ class AllTranslations extends Translations {
       "delivered_orders": "الطلبات التي تم توصيلها",
       "delivered": "تم التوصيل",
       "select_location": "اختر الموقع",
+      "retry": "خطأ في الاتصال، حاول مرة أخرى لاحقًا",
+      
     },
     "fr": {
+      "retry": "Erreur au serveur, Réessayer plus tard",
       "select_location": "Sélectionner l'emplacement",
       "LIVRÉ": "LIVRÉ",
       "delivered_orders": "Commandes livrées",
