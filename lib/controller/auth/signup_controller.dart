@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/class/status_request.dart';
 import 'package:ecommerce/core/functions/handeling_data.dart';
+import 'package:ecommerce/core/functions/translate_db.dart';
 import 'package:ecommerce/data/datasource/remote/auth/signup_data.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +53,23 @@ class SignUpControllerImp extends SignUpController {
       update();
 
       if (statusRequest == StatusRequest.success) {
-
+        if(response['fr_message'] != null) {
+          Fluttertoast.showToast(
+            msg:translateDb(response['ar_message'],response['fr_message']),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          return;
+        }
         
         goToVerify();
       } else {
         Fluttertoast.showToast(
-          msg: "user_already_exists".tr,
+          msg: "retry".tr,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
