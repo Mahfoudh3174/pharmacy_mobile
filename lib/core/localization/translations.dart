@@ -136,7 +136,8 @@ class AllTranslations extends Translations {
       "orders_validated": "الطلبات المؤكدة",
       "orders_rejected": "الطلبات المرفوضة",
       "pending_orders": "الطلبات في الانتظار",
-      "validated_orders": "الطلبات المستلمة",
+      
+      "validated_orders": "الطلبات المؤكدة",
       "rejected_orders": "الطلبات المرفوضة",
       "order_deleted": "تم حذف الطلب",
       "medication_removed": "تم إزالة الدواء من السلة",
@@ -298,9 +299,12 @@ class AllTranslations extends Translations {
       "delivered": "تم التوصيل",
       "select_location": "اختر الموقع",
       "retry": "خطأ في الاتصال، حاول مرة أخرى لاحقًا",
+      "orders_delivred_text": "الطلبات التي تم توصيلها",
+      
       
     },
     "fr": {
+      "orders_delivred_text": "Commandes qui ont été livrées",
       "retry": "Erreur au serveur, Réessayer plus tard",
       "select_location": "Sélectionner l'emplacement",
       "LIVRÉ": "LIVRÉ",

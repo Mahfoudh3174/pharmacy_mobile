@@ -68,14 +68,14 @@ class OrdersDelivred extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: const Icon(
-                                      Icons.pending_actions_rounded,
+                                      Icons.delivery_dining_rounded,
                                       color: Colors.white,
                                       size: 28,
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    "pending_orders".tr,
+                                    "delivered_orders".tr,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -84,7 +84,7 @@ class OrdersDelivred extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    "orders_waiting_approval".tr,
+                                    "orders_delivred_text".tr,
                                     style: TextStyle(
                                       color: Colors.white.withOpacity(0.8),
                                       fontSize: 12,
