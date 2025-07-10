@@ -5,13 +5,39 @@ import 'package:ecommerce/view/widget/pharmacy/pharmacy_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PharmacieView extends StatelessWidget {
+class PharmacieView extends StatefulWidget {
   const PharmacieView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Get.put(PharmacyControllerImp());
+  State<PharmacieView> createState() => _PharmacieViewState();
+}
 
+class _PharmacieViewState extends State<PharmacieView> {
+  final ScrollController _scrollController = ScrollController();
+  final PharmacyControllerImp controller = Get.put(PharmacyControllerImp());
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      controller.loadMorePharmacies();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GetBuilder<PharmacyControllerImp>(
       builder: (controller) {
         return Scaffold(
@@ -153,9 +179,15 @@ class PharmacieView extends StatelessWidget {
                       child: HandlingDataView(
                         statusRequest: controller.statusRequest,
                         widget: ListView.builder(
+                          controller: _scrollController,
                           padding: const EdgeInsets.only(bottom: 20),
-                          itemCount: controller.pharmacies.length,
+                          itemCount: controller.pharmacies.length + (controller.isLoadingMore ? 1 : 0),
                           itemBuilder: (context, index) {
+                            if (index == controller.pharmacies.length) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
                             final pharmacy = controller.pharmacies[index];
                             return PharmacyCard(
                               pharmacy: pharmacy,

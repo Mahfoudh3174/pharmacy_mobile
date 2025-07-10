@@ -6,11 +6,13 @@ import 'package:ecommerce/data/model/pharmacy_model.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ecommerce/data/model/medication_model.dart';
 
 abstract class PharmacyController extends GetxController {
   void getPharmacies({String? query});
   void goToMedications(Pharmacy pharmacy);
   void searchPharmacies(String query);
+  void loadMorePharmacies();
 }
 
 class PharmacyControllerImp extends PharmacyController {
@@ -19,8 +21,10 @@ class PharmacyControllerImp extends PharmacyController {
   StatusRequest statusRequest = StatusRequest.none;
   TextEditingController searchController = TextEditingController();
   Myservice storage = Get.find();
- 
-
+  int currentPage = 1;
+  int lastPage = 1;
+  bool isLoadingMore = false;
+  bool hasMoreData = true;
 
   @override
   onInit() {
@@ -35,16 +39,18 @@ class PharmacyControllerImp extends PharmacyController {
       update();
 
       pharmacies.clear();
+      currentPage = 1;
+      hasMoreData = true;
 
-      var response = await pharmacyData.getData(query: query);
+      var response = await pharmacyData.getData(query: query, page: currentPage);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
-        List pharmacyList = response["pharmacies"] ?? [];
-        for (var pharmacy in pharmacyList) {
-          pharmacies.add(Pharmacy.fromJsonBasic(pharmacy));
-          
-        }
+        final pharmacyResponse = PharmacyResponse.fromJson(response);
+        pharmacies.addAll(pharmacyResponse.pharmacies);
+        currentPage = pharmacyResponse.meta.currentPage;
+        lastPage = pharmacyResponse.meta.lastPage;
+        hasMoreData = currentPage < lastPage;
 
         if (pharmacies.isEmpty) {
           debugPrint("N======o pharmacies found");
@@ -80,6 +86,34 @@ class PharmacyControllerImp extends PharmacyController {
     } else {
       getPharmacies(query: query);
     }
+  }
+
+  @override
+  Future<void> loadMorePharmacies() async {
+    if (isLoadingMore || !hasMoreData) return;
+
+    isLoadingMore = true;
+    update();
+
+    try {
+      final response = await pharmacyData.getData(
+        page: currentPage + 1,
+      );
+
+      if (response is Map<String, dynamic> &&
+          response.containsKey('pharmacies')) {
+        final pharmacyResponse = PharmacyResponse.fromJson(response);
+        pharmacies.addAll(pharmacyResponse.pharmacies);
+        currentPage = pharmacyResponse.meta.currentPage;
+        lastPage = pharmacyResponse.meta.lastPage;
+        hasMoreData = currentPage < lastPage;
+      }
+    } catch (e) {
+      debugPrint("Error loading more pharmacies: ${e.toString()}");
+    }
+
+    isLoadingMore = false;
+    update();
   }
 
   // @override

@@ -1,5 +1,21 @@
 import 'package:ecommerce/data/model/medication_model.dart';
 
+class PharmacyResponse {
+  final List<Pharmacy> pharmacies;
+  final PaginationMeta meta;
+
+  PharmacyResponse({required this.pharmacies, required this.meta});
+
+  factory PharmacyResponse.fromJson(Map<String, dynamic> json) {
+    return PharmacyResponse(
+      pharmacies: (json['pharmacies'] as List)
+          .map((pharmacy) => Pharmacy.fromJsonBasic(pharmacy))
+          .toList(),
+      meta: PaginationMeta.fromJson(json['meta'] ?? {}),
+    );
+  }
+}
+
 class Pharmacy {
   final int id;
   final String? name;
