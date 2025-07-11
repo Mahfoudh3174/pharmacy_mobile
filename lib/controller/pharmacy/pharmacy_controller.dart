@@ -6,7 +6,6 @@ import 'package:ecommerce/data/model/pharmacy_model.dart';
 import 'package:ecommerce/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ecommerce/data/model/medication_model.dart';
 
 abstract class PharmacyController extends GetxController {
   void getPharmacies({String? query});

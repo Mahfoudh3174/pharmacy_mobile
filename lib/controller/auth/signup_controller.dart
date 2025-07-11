@@ -55,7 +55,11 @@ class SignUpControllerImp extends SignUpController {
       if (statusRequest == StatusRequest.success) {
         if(response['fr_message'] != null) {
           Fluttertoast.showToast(
-            msg:translateDb(response['ar_message'],response['fr_message']),
+            msg:translateDb(
+              columnar: response['ar_message'], 
+              columnfr: response['fr_message'], 
+              columnen: response['en_message']
+            ),
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,

@@ -32,6 +32,13 @@ class Language extends GetView<Localcontroller> {
                 controller.changeLang('ar');
               },
             ),
+            SizedBox(height: 10),
+            CustomLangButton(
+              title: "English",
+              onTap: () {
+                controller.changeLang('en');
+              },
+            ),
           ],
         ),
       ),

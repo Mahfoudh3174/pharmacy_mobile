@@ -89,7 +89,11 @@ class VerifyCodeControllerImp extends VerifyCodeController {
          if(response['fr_message'] == "OTP invalide") {
           Get.snackbar(
             "error".tr,
-            translateDb(response['ar_message'], response['fr_message']),
+            translateDb(
+              columnar: response['ar_message'], 
+              columnfr: response['fr_message'], 
+              columnen: response['en_message']
+            ),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Get.theme.colorScheme.primary,
             colorText: Get.theme.colorScheme.onPrimary,
@@ -100,7 +104,11 @@ class VerifyCodeControllerImp extends VerifyCodeController {
          if(response['fr_message'] == "OTP expiré") {
           Get.snackbar(
             "error".tr,
-            translateDb(response['ar_message'], response['fr_message']),
+            translateDb(
+              columnar: response['ar_message'], 
+              columnfr: response['fr_message'], 
+              columnen: response['en_message']
+            ),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Get.theme.colorScheme.primary,
             colorText: Get.theme.colorScheme.onPrimary,

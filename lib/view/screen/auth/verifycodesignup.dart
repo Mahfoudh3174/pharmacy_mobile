@@ -1,4 +1,3 @@
-import 'package:ecommerce/controller/auth/verify_controller.dart';
 import 'package:ecommerce/controller/auth/verifycodesignupcontroller.dart';
 import 'package:ecommerce/core/class/handeling_data_view.dart';
 import 'package:ecommerce/core/constant/color.dart';

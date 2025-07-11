@@ -58,7 +58,7 @@ class CardOrdersList extends GetView<OrdersPendingController> {
               "${"delivery_price".tr} : ${listdata.shippingPrice} MRU",
             ), // Update once dynamic
             Text(
-              "${"status".tr} : ${translateDb(listdata.arSatus, listdata.status)}",
+              "${"status".tr} : ${translateDb(columnar: listdata.arSatus, columnfr: listdata.status, columnen: listdata.enStatus)}",
               style: TextStyle(
                 color:
                     listdata.status == "ENCOURS"

@@ -55,7 +55,11 @@ class LoginControllerImp extends LoginController {
         if( response['user']==null && response['fr_message'] != null ) {
         
           Fluttertoast.showToast(
-            msg: translateDb(response['ar_message'] ?? "", response['fr_message'] ?? ""),
+            msg: translateDb(
+              columnar: response['ar_message'], 
+              columnfr: response['fr_message'], 
+              columnen: response['en_message']
+            ),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.TOP,
             timeInSecForIosWeb: 1,

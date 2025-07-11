@@ -44,6 +44,7 @@ class Order {
   final int id;
   final String status;
   final String arSatus;
+  final String enStatus;
   final String? reference;
   final int? shippingPrice;
   final String? rejectReason;
@@ -58,6 +59,7 @@ class Order {
     required this.id,
     required this.status,
     required this.arSatus,
+    required this.enStatus,
     required this.reference,
     this.shippingPrice,
     this.rejectReason,
@@ -74,6 +76,7 @@ class Order {
       id: json['id'],
       status: json['status'],
       arSatus: json['ar_status'] ?? '',
+      enStatus: json['en_status'] ?? '',
       reference: json['reference'] ?? '',
       shippingPrice: int.tryParse(json['shipping_price'].toString()) ?? 0,
       rejectReason: json['reject_reason'],
