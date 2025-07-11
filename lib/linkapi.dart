@@ -1,7 +1,7 @@
 class AppLinks {
-  static const String baseUrl = "http://172.20.10.2:8000/api";
-  static const String imagesLink = "http://172.20.10.2:8000/storage";
-  static const String svgsLink = "http://172.20.10.2:8000/storage/categories";
+  static const String baseUrl = "http://192.168.100.24:8000/api";
+  static const String imagesLink = "http://192.168.100.24:8000/storage";
+  static const String svgsLink = "http://192.168.100.24:8000/storage/categories";
 
   // ==========auth================
   static const String login = "$baseUrl/login";
